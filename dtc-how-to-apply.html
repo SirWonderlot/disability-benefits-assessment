@@ -3,21 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Disability Tax Credit Certificate (DTC)</title>
+    <title>How to Apply for the Disability Tax Credit (DTC)</title>
     <link rel="icon" type="image/png" href="https://cdn.prod.website-files.com/5e7d62bc968f474458fd7c90/5e7d62bc968f476be6fd7ce2_flag-canada-circle-big.png">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         body {
             margin: 0;
             font-family: Montserrat, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
         .dbp-widget {
             font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro Display', sans-serif !important;
             max-width: 900px !important;
+            width: 100% !important;
             margin: 0 auto !important;
             padding: 50px 20px 70px !important;
             box-sizing: border-box !important;
+            flex: 1 0 auto;
         }
 
         .dbp-widget *,
@@ -226,6 +231,43 @@
             background-color: #024a87;
         }
 
+        /* Apply buttons */
+        .dbp-widget .apply-choices {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 14px;
+            margin-top: 32px;
+        }
+
+        .dbp-widget .apply-btn {
+            width: 360px;
+            max-width: 100%;
+            text-align: center;
+            padding: 14px 24px;
+            font-size: 1em;
+            font-weight: 600;
+            color: #fff !important;
+            background-color: #0264b4;
+            border: 1px solid #0264b4;
+            border-radius: 8px;
+            text-decoration: none !important;
+            transition: background-color 0.2s;
+        }
+
+        .dbp-widget .apply-btn:hover {
+            background-color: #024a87;
+        }
+
+        .dbp-widget .apply-btn-secondary {
+            color: #0264b4 !important;
+            background-color: #fff;
+        }
+
+        .dbp-widget .apply-btn-secondary:hover {
+            background-color: #eaf4fb;
+        }
+
         /* Video embed */
         .dbp-widget .video-wrap {
             position: relative;
@@ -310,6 +352,22 @@
 
         .dbp-widget .quiz-submit:hover {
             background-color: #024a87;
+        }
+
+        .dbp-widget .start-select {
+            width: 100%;
+            padding: 11px 14px;
+            font-size: 1em;
+            color: #333;
+            border: 1px solid #b8d4ea;
+            border-radius: 8px;
+            background: #f0f6fb;
+            cursor: pointer;
+        }
+
+        .dbp-widget .start-select:focus {
+            outline: none;
+            border-color: #0264b4;
         }
 
         .dbp-widget .quiz-hint {
@@ -666,168 +724,61 @@
 
 <div class="dbp-widget">
 
-    <!-- Progress Bar -->
-    <div class="progress-bar">
-        <div class="progress-step">
-            <a href="cdb.html">
-                <div class="step-tracker">&nbsp;</div>
-                <div class="step-bar"></div>
-                <span class="step-label">CDB</span>
-            </a>
-        </div>
-        <div class="progress-step">
-            <a href="cdcp.html">
-                <div class="step-tracker">&nbsp;</div>
-                <div class="step-bar"></div>
-                <span class="step-label">CDCP</span>
-            </a>
-        </div>
-        <div class="progress-step">
-            <a href="cpp-d.html">
-                <div class="step-tracker">&nbsp;</div>
-                <div class="step-bar"></div>
-                <span class="step-label">CPP-D</span>
-            </a>
-        </div>
-        <div class="progress-step">
-            <a href="gap.html">
-                <div class="step-tracker">&nbsp;</div>
-                <div class="step-bar"></div>
-                <span class="step-label">GAP</span>
-            </a>
-        </div>
-        <div class="progress-step">
-            <a href="rdsp.html">
-                <div class="step-tracker">&nbsp;</div>
-                <div class="step-bar"></div>
-                <span class="step-label">RDSP</span>
-            </a>
-        </div>
-        <div class="progress-step active">
-            <div class="step-tracker">6 of 7</div>
-            <div class="step-bar"></div>
-            <span class="step-label">DTC</span>
-        </div>
-        <div class="progress-step">
-            <a href="next-steps.html">
-                <div class="step-tracker">&nbsp;</div>
-                <div class="step-bar"></div>
-                <span class="step-label">Next Steps</span>
-            </a>
-        </div>
-    </div>
-
-    <h2>Disability Tax Credit Certificate (DTC)</h2>
+    <h2>How to Apply for the Disability Tax Credit (DTC)</h2>
     <section>
-        <h3>What is the Disability Tax Credit?</h3>
-        <p>The <strong>Disability Tax Credit (DTC)</strong> is a non-refundable tax credit that helps people with disabilities, or their supporting family members, reduce the income tax they may have to pay. Being non-refundable, it can lower the tax you owe, but it won't provide money back on its own. Being approved also opens the door to other programs.</p>
-
-        <div class="callout">
-            <p>The DTC is often the <strong>first step</strong>. Being approved is required for the Canada Disability Benefit and the Registered Disability Savings Plan, among others.</p>
+        <div id="dtc-gate">
+            <div class="quiz-box">
+                <div class="quiz-q">
+                    <p>Is your Adjusted Family Net Income over $20,000?</p>
+                    <div class="quiz-options">
+                        <button type="button" class="quiz-opt" id="dtc-gate-yes">Yes</button>
+                        <button type="button" class="quiz-opt" id="dtc-gate-no">No</button>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div class="key-info-box">
-            <h4>Key Information</h4>
-            <ul>
-                <li><strong>Who it's for:</strong> People with a severe and prolonged impairment in physical or mental functions, certified by a medical practitioner.</li>
-                <li><strong>Based on effects:</strong> Eligibility depends on how the impairment affects your daily life, not on the diagnosis itself.</li>
-                <li><strong>How you apply:</strong> A medical practitioner completes Form T2201 (the Disability Tax Credit Certificate), which the CRA reviews.</li>
-                <li><strong>Opens other doors:</strong> Approval can give you access to the RDSP, the Canada Disability Benefit, the Child Disability Benefit, and more.</li>
-                <li><strong>Retroactive:</strong> Once approved, the credit can be applied to past tax years, up to 10 years back.</li>
-            </ul>
-        </div>
-
-        <h3>Programs the DTC Unlocks</h3>
-        <p>Being approved for the DTC can open the door to many other federal, provincial, and territorial benefits, including:</p>
+        <div id="dtc-content" style="display:none;">
+        <h3>Application Process</h3>
+        <p>To apply for the DTC, you must complete Form T2201 (Disability Tax Credit Certificate), which has two parts:</p>
         <ul>
-            <li><strong>Canada Disability Benefit (CDB):</strong> A monthly payment of up to $204.20 for eligible individuals with disabilities.</li>
-            <li><strong>Registered Disability Savings Plan (RDSP):</strong> A long-term savings plan with government grants and bonds.</li>
-            <li><strong>Child Disability Benefit:</strong> A monthly tax-free payment of up to $284.25 per child for families caring for a child under 18 who is eligible for the DTC.</li>
-            <li><strong>Canada Workers Benefit (CWB) Disability Supplement:</strong> An additional amount of up to $843 for persons with disabilities approved for the DTC.</li>
-            <li><strong>Home Accessibility Tax Credit:</strong> A tax credit for eligible home renovations.</li>
-            <li><strong>Canada Caregiver Credit:</strong> A tax credit for people supporting a family member with a disability.</li>
-            <li><strong>Canadian Dental Care Plan:</strong> Access to dental coverage.</li>
-            <li><strong>Medical Expense Tax Deduction:</strong> A greater ability to claim medical expenses.</li>
-            <li><strong>Home Buyers' Amount:</strong> A tax credit available without being a first-time home buyer if you're DTC-eligible.</li>
+            <li><strong>Part A:</strong> Completed by you (the applicant).</li>
+            <li><strong>Part B:</strong> Completed and certified by a qualified medical practitioner (doctor, nurse practitioner, or specialist).</li>
+        </ul>
+        <p>The CRA evaluates your application based on functional limitations (how your condition affects daily activities), not the diagnosis itself.</p>
+
+        <h3>A. Apply With Assistance</h3>
+        <p>Strongly consider assistance if you have:</p>
+        <ul>
+            <li>Complex, fluctuating, or poorly understood conditions</li>
+            <li>Mental health conditions, chronic pain, neurological conditions, autoimmune disorders, or multiple diagnoses</li>
+            <li>Conditions requiring application under "cumulative effect of significant limitations"</li>
+            <li>Non-obvious impairments that impact daily life in subtle but serious ways</li>
+        </ul>
+        <p><strong>Benefits of assistance:</strong></p>
+        <ul>
+            <li>Expert understanding of CRA language and requirements</li>
+            <li>Guidance for both you and your medical professional</li>
+            <li>Proper framing of functional limitations</li>
+            <li>Significantly increased approval chances</li>
+            <li>Reduced stress and time</li>
+            <li>Help ensuring past years are claimed correctly</li>
         </ul>
 
-        <h3>Quick Facts</h3>
-        <div class="stats-grid">
-            <div class="stat-card">
-                <span class="stat-number">$10,138</span>
-                <span class="stat-label">Disability amount you can claim (2025, age 18+)</span>
-            </div>
-            <div class="stat-card">
-                <span class="stat-number">$5,914</span>
-                <span class="stat-label">Extra amount for those under 18</span>
-            </div>
-            <div class="stat-card">
-                <span class="stat-number">Retroactive</span>
-                <span class="stat-label">Can be claimed for up to 10 past tax years</span>
-            </div>
-            <div class="stat-card">
-                <span class="stat-number">Form T2201</span>
-                <span class="stat-label">Assistance is available</span>
-            </div>
-            <div class="stat-card">
-                <span class="stat-number">Requisite</span>
-                <span class="stat-label">Required for other federal benefits programs</span>
-            </div>
-            <div class="stat-card">
-                <span class="stat-number">Any income</span>
-                <span class="stat-label">All levels of income should apply</span>
-            </div>
-        </div>
-
-        <p>On top of the federal amounts above, an additional provincial tax credit is available. It varies by province, but is typically 5 to 10% of the disability amount.</p>
-
-        <h3>Eligibility Requirements</h3>
-        <p>A medical practitioner must certify that you have a severe and prolonged impairment: one that markedly restricts you in a single category, significantly limits you in two or more categories, or requires therapy to support a vital function. To qualify, the restriction must meet all of the following:</p>
+        <h3>B. Apply on Your Own</h3>
+        <p><strong>Best for:</strong></p>
         <ul>
-            <li>You're unable to do the activity, or it takes at least three times longer than it would for someone of a similar age without the impairment, even with appropriate therapy, medication, and devices.</li>
-            <li>The restriction is present all or almost all of the time (generally at least 90%).</li>
-            <li>The restriction has lasted, or is expected to last, for a continuous period of at least 12 months.</li>
+            <li>Straightforward cases with permanent physical impairments</li>
+            <li>Obvious and well-documented limitations</li>
+            <li>Clear-cut disabilities</li>
         </ul>
+        <p>Due to the importance of qualifying for the DTC, receiving assistance is typically recommended.</p>
 
-        <h3>Income and When to Apply</h3>
-        <p>The DTC is available at any income level. You should apply whether you're receiving disability assistance, working full time, or have no income at all. It's worth applying even with no income, because being approved is a prerequisite for many other programs.</p>
-
-        <h3 style="margin-top:64px;margin-bottom:0;">Do You Qualify?</h3>
-
-        <div class="quiz-box" id="dtc-quiz">
-            <div class="quiz-q" data-key="duration">
-                <p>I have a prolonged medical condition(s) that has lasted, or is expected to last, for a continuous period of at least 12 months.</p>
-                <div class="quiz-options">
-                    <button type="button" class="quiz-opt" data-value="yes">Yes</button>
-                    <button type="button" class="quiz-opt" data-value="no">No</button>
-                </div>
-            </div>
-            <div class="quiz-q" data-key="frequency">
-                <p>This condition/restriction is present all or almost all of the time (generally at least 90%).</p>
-                <div class="quiz-options">
-                    <button type="button" class="quiz-opt" data-value="yes">Yes</button>
-                    <button type="button" class="quiz-opt" data-value="no">No</button>
-                </div>
-            </div>
-            <div class="quiz-q" data-key="severity">
-                <p>You are unable to do the activity, or it takes 3 times longer than someone of similar age without the impairment, even with the use of appropriate therapy, medication, and devices (or it takes 14+ hours in a week to manage your condition, for example, insulin for diabetes).</p>
-                <div class="quiz-options">
-                    <button type="button" class="quiz-opt" data-value="yes">Yes</button>
-                    <button type="button" class="quiz-opt" data-value="no">No</button>
-                </div>
-            </div>
-            <div class="quiz-q" data-key="filed2025">
-                <p>Have you filed your 2025 taxes?</p>
-                <div class="quiz-options">
-                    <button type="button" class="quiz-opt" data-value="yes">Yes</button>
-                    <button type="button" class="quiz-opt" data-value="no">No</button>
-                </div>
-            </div>
-
-            <div class="quiz-result" id="dtc-result"></div>
+        <div class="apply-choices">
+            <a href="dtc-assistance.html" target="_blank" rel="noopener" class="apply-btn">Apply with Assistance (recommended)</a>
+            <a href="https://www.canada.ca/en/revenue-agency/services/tax/individuals/segments/tax-credits-deductions-persons-disabilities/disability-tax-credit/how-apply-dtc.html" target="_blank" rel="noopener" class="apply-btn apply-btn-secondary">Apply without Assistance</a>
         </div>
-
-        <a href="next-steps.html" class="continue-btn">Continue &rarr;</a>
+        </div>
     </section>
 
 </div>
@@ -853,140 +804,22 @@
 </script>
 
 <script>
-    // ===== GAP visibility — only for British Columbia and Ontario residents =====
+    // Income qualifier: Yes reveals the page; No sends them to the CRA how-to-apply page.
     (function() {
-        var STORAGE_KEY = 'dbpAssessment';
-        var data = {};
-        try { data = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch (e) {}
-        var prov = data.profile && data.profile.province;
-        if (!prov) return;                            // no province recorded — keep full flow
-        if (prov === 'BC' || prov === 'ON') return;   // GAP applies
-
-        // Not BC/Ontario: remove GAP from the progress bar.
-        document.querySelectorAll('.progress-step').forEach(function(step) {
-            var label = step.querySelector('.step-label');
-            if (label && label.textContent.trim() === 'GAP') { step.style.display = 'none'; }
+        var gate = document.getElementById('dtc-gate');
+        var content = document.getElementById('dtc-content');
+        var yes = document.getElementById('dtc-gate-yes');
+        var no = document.getElementById('dtc-gate-no');
+        if (yes) yes.addEventListener('click', function() {
+            if (gate) gate.style.display = 'none';
+            if (content) content.style.display = 'block';
         });
-        // Skip GAP in any Continue link that points to it.
-        document.querySelectorAll('a.continue-btn[href="gap.html"]').forEach(function(a) {
-            a.setAttribute('href', 'rdsp.html');
+        if (no) no.addEventListener('click', function() {
+            window.location.href = 'https://www.canada.ca/en/revenue-agency/services/tax/individuals/segments/tax-credits-deductions-persons-disabilities/disability-tax-credit/how-apply-dtc.html';
         });
-        // If somehow on the GAP page, send them past it.
-        if (/(^|\/)gap\.html$/i.test(location.pathname)) {
-            location.replace('rdsp.html');
-        }
     })();
 </script>
 
-<script>
-    // ===== DTC visibility — only for those who indicated they do NOT have the DTC =====
-    window.applyDtcVisibility = function() {
-        var data = {};
-        try { data = JSON.parse(localStorage.getItem('dbpAssessment')) || {}; } catch (e) {}
-        var showDtc = (data.cdb && data.cdb.hasDTC === 'no') || (data.rdsp && data.rdsp.hasDTC === 'no');
-
-        document.querySelectorAll('.progress-step').forEach(function(step) {
-            var label = step.querySelector('.step-label');
-            if (label && label.textContent.trim() === 'DTC') { step.style.display = showDtc ? '' : 'none'; }
-        });
-
-        if (showDtc) return;
-
-        document.querySelectorAll('a.continue-btn[href="dtc.html"]').forEach(function(a) {
-            a.setAttribute('href', 'next-steps.html');
-        });
-        if (/(^|\/)dtc\.html$/i.test(location.pathname)) {
-            location.replace('next-steps.html');
-        }
-    };
-    applyDtcVisibility();
-</script>
-
-<script>
-    // ===== Disability Tax Credit — qualifier questionnaire =====
-    (function() {
-        var STORAGE_KEY = 'dbpAssessment';
-        var PROGRAM_ID = 'dtc';
-        var PROGRAM_NAME = 'Disability Tax Credit Certificate (DTC)';
-        var PROGRAM_SHORT = 'DTC';
-
-        // Guidance shown when an answer is "No".
-        var GUIDANCE = {
-            duration: "Your condition must have lasted, or be expected to last, for a continuous period of at least 12 months.",
-            frequency: "The restriction must be present all or almost all of the time (generally at least 90%).",
-            severity: "You must be unable to do the activity, or it must take 3 times longer than for someone of similar age (even with therapy, medication, and devices), or take 14+ hours a week to manage. A medical practitioner confirms this on Form T2201."
-        };
-
-        var quiz = document.getElementById('dtc-quiz');
-        if (!quiz) return;
-
-        var answers = {};
-
-        // Handle Yes/No button taps.
-        quiz.querySelectorAll('.quiz-q').forEach(function(q) {
-            var key = q.getAttribute('data-key');
-            q.querySelectorAll('.quiz-opt').forEach(function(btn) {
-                btn.addEventListener('click', function() {
-                    q.querySelectorAll('.quiz-opt').forEach(function(b) { b.classList.remove('selected'); });
-                    btn.classList.add('selected');
-                    answers[key] = btn.getAttribute('data-value');
-                    showResult();
-                });
-            });
-        });
-
-        function loadAssessment() {
-            try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; }
-            catch (e) { return {}; }
-        }
-
-        function saveResult(data) {
-            var all = loadAssessment();
-            all[PROGRAM_ID] = data;
-            try { localStorage.setItem(STORAGE_KEY, JSON.stringify(all)); }
-            catch (e) { /* storage unavailable — result still shows on screen */ }
-        }
-
-        var keys = ['duration', 'frequency', 'severity'];             // determine eligibility
-        var allKeys = ['duration', 'frequency', 'severity', 'filed2025']; // must all be answered first
-        var resultBox = document.getElementById('dtc-result');
-
-        function showResult() {
-            // Wait until every question has been answered.
-            var unanswered = allKeys.filter(function(k) { return !answers[k]; });
-            if (unanswered.length) return;
-
-            var unmet = keys.filter(function(k) { return answers[k] === 'no'; });
-            var qualifies = unmet.length === 0;
-
-            saveResult({
-                program: PROGRAM_NAME,
-                short: PROGRAM_SHORT,
-                page: 'dtc.html',
-                qualifies: qualifies,
-                unmet: unmet,
-                reasons: unmet.map(function(k) { return GUIDANCE[k]; }),
-                filed2025: answers.filed2025 || null,
-                completed: true
-            });
-
-            var html;
-            if (qualifies) {
-                html = '<h4>You may be eligible for the Disability Tax Credit</h4>' +
-                    '<p>You may meet the basic requirements. Final eligibility is decided by the Canada Revenue Agency, based on your medical practitioner\'s certification on Form T2201.</p>' +
-                    '<p>We\'ll show you how to apply for the DTC upon completion of this assessment form.</p>';
-            } else {
-                html = '<h4>You may not be eligible at this time</h4>' +
-                    '<p>Based on the information you provided, you do not appear to meet all of the eligibility requirements. The following ' + (unmet.length === 1 ? 'requirement will' : 'requirements will') + ' need to be met:</p><ul>';
-                unmet.forEach(function(k) { html += '<li>' + GUIDANCE[k] + '</li>'; });
-                html += '</ul>';
-            }
-
-            resultBox.className = 'quiz-result show ' + (qualifies ? 'pass' : 'fail');
-            resultBox.innerHTML = html;
-        }
-    })();
-</script>
 
 <div class="section footer rebuild profile"><div class="footer-container w-container"><div class="footer-div"><img src="https://cdn.prod.website-files.com/5e7d62bc968f474458fd7c90/5e7d62bc968f476be6fd7ce2_flag-canada-circle-big.png" width="45" height="45" alt="" class="image-2 logo-footer"></div></div><div class="footer-container w-container"><div class="footer-row w-row"><div class="footer-left column-footer footer-col footer-left-col w-col"><p class="paragraph-12 footer-left paragraph-footer"><a href="https://benefits.rdspcanada.ca/programs.html" class="link-3 w--current">Benefits Programs</a><a href="/cdsb-eligibility" class="link-5">Disability Bond</a><a href="https://resources.rdspcanada.ca/" target="_blank" class="link-6">Resources</a><a href="https://www.rdspcanada.ca/programs/additional-programs" target="_blank" class="link-7">Additional Programs</a><a href="https://www.canada.ca/en/revenue-agency.html" target="_blank" class="link-8">Canada Revenue Agency (CRA)</a><a href="https://www.canada.ca/en/services/benefits/finder.html" target="_blank" class="link-9">Benefits Finder</a></p></div><div class="footer-col footer-right-col w-col"><p class="paragraph-11 footer-right"><a href="/terms-of-use" target="_blank" class="link-11">Terms of Use</a><a href="/privacy-policy" target="_blank" class="link-12">Privacy</a><a href="/contact" target="_blank" class="link-13">Contact</a></p></div></div></div><div class="footer-bottom footer-container w-container"><div class="div-block-3"><a href="https://webflow.com/" target="_blank" class="webflow-link w-inline-block"><div class="paragraph-tiny footer-tiny">© RDSP&nbsp;Canada ~ 2026</div></a></div></div></div>
 
