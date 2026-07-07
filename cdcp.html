@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canadian Dental Care Plan (CDCP)</title>
+    <link rel="icon" type="image/png" href="https://cdn.prod.website-files.com/5e7d62bc968f474458fd7c90/5e7d62bc968f476be6fd7ce2_flag-canada-circle-big.png">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: Montserrat, sans-serif;
+        }
+
+        .dbp-widget {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro Display', sans-serif !important;
+            max-width: 900px !important;
+            margin: 0 auto !important;
+            padding: 50px 20px 70px !important;
+            box-sizing: border-box !important;
+        }
+
+        .dbp-widget *,
+        .dbp-widget *::before,
+        .dbp-widget *::after {
+            box-sizing: border-box !important;
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro Display', sans-serif !important;
+        }
+
+        .dbp-widget h1,
+        .dbp-widget h2 {
+            color: #0264b4 !important;
+            font-weight: 600 !important;
+            text-align: left !important;
+            margin-top: 0 !important;
+        }
+
+        .dbp-widget h3,
+        .dbp-widget h4 {
+            color: #059ce2 !important;
+            font-weight: 600 !important;
+            text-align: left !important;
+            margin-top: 32px !important;
+        }
+
+        .dbp-widget p,
+        .dbp-widget ul,
+        .dbp-widget label {
+            text-align: left !important;
+        }
+
+        .dbp-widget p,
+        .dbp-widget li {
+            line-height: 1.5 !important;
+            color: inherit !important;
+        }
+
+        .dbp-widget strong {
+            font-weight: 500 !important;
+        }
+
+        .dbp-widget a {
+            color: #0264b4 !important;
+        }
+
+        .dbp-widget section {
+            margin-bottom: 50px !important;
+        }
+
+        /* Back link */
+        .dbp-widget .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            font-size: 14px;
+            text-decoration: none;
+            color: #0264b4 !important;
+        }
+
+        .dbp-widget .back-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Progress bar */
+        .dbp-widget .progress-bar {
+            display: flex;
+            margin-bottom: 40px;
+        }
+
+        .dbp-widget .progress-step {
+            flex: 1;
+            text-align: center;
+            position: relative;
+        }
+
+        .dbp-widget .progress-step .step-tracker {
+            font-size: 12px;
+            font-weight: 600;
+            color: #0264b4;
+            margin-bottom: 6px;
+            visibility: hidden;
+        }
+
+        .dbp-widget .progress-step.active .step-tracker {
+            visibility: visible;
+        }
+
+        .dbp-widget .progress-step .step-bar {
+            height: 8px;
+            background: #c7dff0;
+            border-radius: 4px;
+            margin: 0 2px;
+        }
+
+        .dbp-widget .progress-step.active .step-bar {
+            background: #0264b4;
+        }
+
+        .dbp-widget .progress-step a {
+            text-decoration: none !important;
+            display: block;
+        }
+
+        .dbp-widget .progress-step .step-label {
+            display: block;
+            margin-top: 8px;
+            font-size: 11px;
+            font-weight: 500;
+            color: #999 !important;
+        }
+
+        .dbp-widget .progress-step a:hover .step-label {
+            color: #0264b4 !important;
+        }
+
+        .dbp-widget .progress-step.active .step-label {
+            color: #0264b4 !important;
+            font-weight: 600;
+        }
+
+        /* Key info box */
+        .dbp-widget .key-info-box {
+            background: #f0f6fb;
+            border: 1px solid #b8d4ea;
+            border-radius: 12px;
+            padding: 24px 28px;
+            margin: 24px 0;
+        }
+
+        .dbp-widget .key-info-box h4 {
+            color: #0264b4 !important;
+            margin-top: 0 !important;
+            margin-bottom: 14px !important;
+            font-size: 1.05em !important;
+        }
+
+        .dbp-widget .key-info-box ul {
+            margin: 0 !important;
+            padding-left: 20px !important;
+        }
+
+        .dbp-widget .key-info-box li {
+            margin-bottom: 8px !important;
+        }
+
+        /* Callout highlight */
+        .dbp-widget .callout {
+            border: 1px solid #b8d4ea;
+            background: #eaf4fb;
+            padding: 16px 20px;
+            border-radius: 12px;
+            margin: 28px 0;
+            font-size: 1.05em;
+        }
+
+        .dbp-widget .callout p {
+            margin: 0 !important;
+        }
+
+        /* Stats grid */
+        .dbp-widget .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+            margin: 28px 0;
+        }
+
+        .dbp-widget .stat-card {
+            background: #fff;
+            border: 1px solid #d6e4f0;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .dbp-widget .stat-card .stat-number {
+            display: block;
+            font-size: 1.6em;
+            font-weight: 700;
+            color: #0264b4;
+            margin-bottom: 6px;
+        }
+
+        .dbp-widget .stat-card .stat-label {
+            font-size: 0.9em;
+            color: #555;
+            line-height: 1.4;
+        }
+
+        /* Continue button */
+        .dbp-widget .continue-btn {
+            display: inline-block;
+            margin-top: 28px;
+            padding: 12px 32px;
+            font-size: 1em;
+            font-weight: 600;
+            color: #fff !important;
+            background-color: #0264b4;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            text-decoration: none !important;
+        }
+
+        .dbp-widget .continue-btn:hover {
+            background-color: #024a87;
+        }
+
+        /* Video embed */
+        .dbp-widget .video-wrap {
+            position: relative;
+            width: 100%;
+            padding-top: 56.25%; /* 16:9 */
+            margin: 28px 0;
+            border: 1px solid #d6e4f0;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #000;
+        }
+
+        .dbp-widget .video-wrap iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* Qualifier questionnaire */
+        .dbp-widget .quiz-box {
+            background: #fff;
+            border: 1px solid #d6e4f0;
+            border-radius: 12px;
+            padding: 8px 28px 24px;
+            margin: 24px 0;
+        }
+
+        .dbp-widget .quiz-q {
+            padding: 18px 0;
+            border-bottom: 1px solid #eef4f9;
+        }
+
+        .dbp-widget .quiz-q:last-of-type {
+            border-bottom: none;
+        }
+
+        .dbp-widget .quiz-q p {
+            margin: 0 0 12px !important;
+            font-weight: 500;
+        }
+
+        .dbp-widget .quiz-options {
+            display: flex;
+            gap: 10px;
+        }
+
+        .dbp-widget .quiz-opt {
+            padding: 8px 26px;
+            border: 1px solid #b8d4ea;
+            border-radius: 8px;
+            background: #f0f6fb;
+            color: #0264b4;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.15s, color 0.15s, border-color 0.15s;
+        }
+
+        .dbp-widget .quiz-opt:hover {
+            background: #e0eef8;
+        }
+
+        .dbp-widget .quiz-opt.selected {
+            background: #0264b4;
+            color: #fff !important;
+            border-color: #0264b4;
+        }
+
+        .dbp-widget .quiz-submit {
+            display: inline-block;
+            margin-top: 8px;
+            padding: 11px 28px;
+            font-size: 15px;
+            font-weight: 600;
+            color: #fff;
+            background-color: #0264b4;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .dbp-widget .quiz-submit:hover {
+            background-color: #024a87;
+        }
+
+        .dbp-widget .quiz-hint {
+            font-size: 13px;
+            color: #b03a2e;
+            margin: 10px 0 0;
+            display: none;
+        }
+
+        .dbp-widget .quiz-hint.show {
+            display: block;
+        }
+
+        .dbp-widget .quiz-result {
+            margin-top: 22px;
+            padding: 20px 22px;
+            border-radius: 10px;
+            display: none;
+        }
+
+        .dbp-widget .quiz-result.show {
+            display: block;
+        }
+
+        .dbp-widget .quiz-result.pass {
+            background: #e8f6ec;
+            border: 1px solid #b7e0c2;
+        }
+
+        .dbp-widget .quiz-result.fail {
+            background: #fbf2e8;
+            border: 1px solid #e6cfa8;
+        }
+
+        .dbp-widget .quiz-result h4 {
+            margin-top: 0 !important;
+            margin-bottom: 8px !important;
+        }
+
+        .dbp-widget .quiz-result ul {
+            margin: 12px 0 0 !important;
+            padding-left: 20px !important;
+        }
+
+        .dbp-widget .quiz-result li {
+            margin-bottom: 8px !important;
+        }
+
+        .dbp-widget .quiz-disclaimer {
+            font-size: 12px;
+            color: #777;
+            margin: 14px 0 0 !important;
+        }
+
+        /* ===== Navigation ===== */
+        .navigation.programs.w-nav {
+            position: relative;
+            z-index: 1000;
+            background-color: white;
+        }
+
+        .navigation.programs.w-nav::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 900px;
+            max-width: 100%;
+            height: 1px;
+            background: #ccc;
+        }
+
+        .navigation.programs {
+            display: flex;
+            align-items: center;
+            padding: 30px 50px;
+        }
+
+        .navigation-wrap {
+            flex: 1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+
+        .logo-link.w-nav-brand {
+            z-index: 1;
+            text-decoration: none;
+            color: #1a1b1f;
+            display: none;
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .logo-link:hover { opacity: 0.8; }
+        .logo-link:active { opacity: 0.7; }
+
+        .navigation .columns-5.w-row {
+            display: flex;
+            align-items: center;
+        }
+
+        .navigation .w-col {
+            float: none;
+            width: auto;
+            padding: 0;
+        }
+
+        .navigation .image.logo {
+            display: block;
+            width: 42px;
+            height: auto;
+        }
+
+        .navigation .text-block {
+            padding-left: 10px;
+            font-family: Montserrat, sans-serif;
+            font-size: 15px;
+            font-weight: 600;
+            color: #1a1b1f;
+            white-space: nowrap;
+        }
+
+        .navigation .menu {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .navigation-items.w-nav-menu {
+            display: flex;
+            align-items: center;
+            pointer-events: auto;
+        }
+
+        .navigation-item.w-nav-link {
+            opacity: 0.6;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 9px 10px;
+            font-size: 12px;
+            font-weight: 500;
+            line-height: 20px;
+            text-decoration: none;
+            color: #1a1b1f;
+            display: inline-block;
+            font-family: Montserrat, sans-serif;
+            transition: opacity 0.2s;
+        }
+
+        .navigation-item:hover { opacity: 0.9; }
+        .navigation-item.w--current { opacity: 1; font-weight: 600; }
+
+        .navigation .image-4 {
+            display: block;
+            width: 38px;
+            height: auto;
+            margin: 0 6px;
+        }
+
+        .menu-button.w-nav-button {
+            display: none;
+            cursor: pointer;
+            padding: 10px;
+            background: none;
+            border: none;
+            z-index: 1;
+            position: relative;
+            pointer-events: auto;
+        }
+
+        .menu-icon.menu-flag {
+            display: block;
+            height: 28px;
+            width: auto;
+        }
+
+        @media screen and (max-width: 991px) {
+            .navigation.programs { padding: 20px 20px 28px; }
+            .navigation.programs.w-nav::after { display: block; left: 20px; right: 20px; width: auto; transform: none; }
+            .logo-link.w-nav-brand { display: inline-block; }
+            .navigation .menu { justify-content: flex-end; }
+            .navigation-items.w-nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 10px 0;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+                z-index: 999;
+            }
+            .navigation-items.w-nav-menu.nav-open { display: flex; }
+            .navigation-item.w-nav-link {
+                display: block;
+                width: 100%;
+                text-align: center;
+                padding: 10px 20px;
+            }
+            .navigation .image-4 { display: none; }
+            .menu-button.w-nav-button { display: block; }
+        }
+
+        @media screen and (max-width: 479px) {
+            .navigation.programs { padding: 16px 15px; }
+            .navigation.programs.w-nav::after { left: 15px; right: 15px; }
+
+            .dbp-widget .progress-step .step-label {
+                font-size: 9px;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .dbp-widget {
+                font-size: 16px !important;
+            }
+        }
+
+        /* ===== Footer ===== */
+        .section.footer.rebuild.profile {
+            background-color: #757474;
+            width: auto;
+            margin-left: 0;
+            margin-right: 0;
+            padding-top: 20px;
+            padding-bottom: 0;
+        }
+
+        .footer-container.w-container {
+            max-width: 940px;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+
+        .footer-div {
+            display: flex;
+            justify-content: center;
+            padding: 15px 10px 10px;
+        }
+
+        .image-2.logo-footer { display: block; }
+
+        .footer-row.w-row {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 15px 0 20px;
+        }
+
+        .footer-col.w-col.footer-left-col {
+            width: 240px;
+            flex-shrink: 0;
+            text-align: right;
+            padding-right: 30px;
+            border-right: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .footer-col.w-col.footer-right-col {
+            width: 240px;
+            flex-shrink: 0;
+            text-align: left;
+            padding-left: 30px;
+        }
+
+        .paragraph-12.footer-left.paragraph-footer,
+        .paragraph-11.footer-right {
+            color: white;
+            font-size: 13px;
+            line-height: 26px;
+            margin: 0;
+        }
+
+        .link-3, .link-5, .link-6, .link-7, .link-8, .link-9,
+        .link-11, .link-12, .link-13 {
+            color: white !important;
+            text-decoration: none;
+            display: block;
+            font-family: Montserrat, sans-serif;
+            font-size: 13px;
+            line-height: 26px;
+        }
+
+        .link-3:hover, .link-5:hover, .link-6:hover, .link-7:hover,
+        .link-8:hover, .link-9:hover, .link-11:hover, .link-12:hover, .link-13:hover {
+            opacity: 0.75;
+        }
+
+        .footer-full-divider {
+            width: 100%;
+            height: 1px;
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .footer-bottom.footer-container {
+            padding-top: 12px;
+            padding-bottom: 14px;
+            text-align: center;
+        }
+
+        .div-block-3 { display: inline-block; }
+
+        .webflow-link.w-inline-block {
+            opacity: 0.75;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .webflow-link.w-inline-block:hover { opacity: 1; }
+
+        .paragraph-tiny {
+            color: white;
+            font-size: 12px;
+            line-height: 20px;
+        }
+
+        .paragraph-tiny.footer-tiny {
+            margin: 0;
+            padding: 0;
+        }
+
+        @media screen and (max-width: 600px) {
+            .footer-row.w-row {
+                flex-direction: column;
+                align-items: center;
+            }
+            .footer-col.w-col.footer-left-col {
+                text-align: center;
+                border-right: none;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+                padding-right: 0;
+                padding-bottom: 15px;
+                margin-bottom: 15px;
+            }
+            .footer-col.w-col.footer-right-col {
+                text-align: center;
+                padding-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div data-collapse="medium" data-animation="default" data-duration="400" data-easing="ease" data-easing2="ease" role="banner" class="navigation programs w-nav"><div class="navigation-wrap"><a href="cdb.html" class="logo-link w-nav-brand"><div class="columns-5 w-row"><img src="https://cdn.prod.website-files.com/5e7d62bc968f474458fd7c90/5e7d62bc968f476be6fd7ce2_flag-canada-circle-big.png" loading="lazy" width="42" alt="" class="image logo"><span class="text-block">RDSP Canada</span></div></a><div class="menu"><nav role="navigation" class="navigation-items w-nav-menu"><a href="assessment.html" class="navigation-item w-nav-link">Assessment Tool</a><a href="https://resources.rdspcanada.ca/" target="_blank" rel="noopener" class="navigation-item w-nav-link">Provincial Programs</a><img src="https://cdn.prod.website-files.com/5e7d62bc968f474458fd7c90/5e7d62bc968f476be6fd7ce2_flag-canada-circle-big.png" loading="lazy" width="50" alt="" class="image-4"><a href="https://www.rdspcanada.ca/cdsb-eligibility" target="_blank" rel="noopener" class="navigation-item w-nav-link">Disability Bond</a><a href="https://www.rdspcanada.ca/programs/additional-programs" target="_blank" rel="noopener" class="navigation-item w-nav-link">Additional Programs</a></nav><div class="menu-button w-nav-button" aria-label="menu" role="button" tabindex="0" aria-expanded="false"><img src="https://cdn.prod.website-files.com/5e7d62bc968f474458fd7c90/5f66ba195f18246d973acac7_menu-mobile.png" height="30" alt="" class="menu-icon menu-flag"></div></div></div></div>
+
+<div class="dbp-widget">
+
+    <!-- Progress Bar -->
+    <div class="progress-bar">
+        <div class="progress-step">
+            <a href="cdb.html">
+                <div class="step-tracker">&nbsp;</div>
+                <div class="step-bar"></div>
+                <span class="step-label">CDB</span>
+            </a>
+        </div>
+        <div class="progress-step active">
+            <div class="step-tracker">2 of 7</div>
+            <div class="step-bar"></div>
+            <span class="step-label">CDCP</span>
+        </div>
+        <div class="progress-step">
+            <a href="cpp-d.html">
+                <div class="step-tracker">&nbsp;</div>
+                <div class="step-bar"></div>
+                <span class="step-label">CPP-D</span>
+            </a>
+        </div>
+        <div class="progress-step">
+            <a href="gap.html">
+                <div class="step-tracker">&nbsp;</div>
+                <div class="step-bar"></div>
+                <span class="step-label">GAP</span>
+            </a>
+        </div>
+        <div class="progress-step">
+            <a href="rdsp.html">
+                <div class="step-tracker">&nbsp;</div>
+                <div class="step-bar"></div>
+                <span class="step-label">RDSP</span>
+            </a>
+        </div>
+        <div class="progress-step">
+            <a href="dtc.html">
+                <div class="step-tracker">&nbsp;</div>
+                <div class="step-bar"></div>
+                <span class="step-label">DTC</span>
+            </a>
+        </div>
+        <div class="progress-step">
+            <a href="next-steps.html">
+                <div class="step-tracker">&nbsp;</div>
+                <div class="step-bar"></div>
+                <span class="step-label">Next Steps</span>
+            </a>
+        </div>
+    </div>
+
+    <h2>Canadian Dental Care Plan (CDCP)</h2>
+    <section>
+        <h3>What is the Canadian Dental Care Plan?</h3>
+        <p>The <strong>Canadian Dental Care Plan (CDCP)</strong> helps make the cost of dental care more affordable for eligible Canadian residents who do not have access to dental insurance.</p>
+
+        <div class="key-info-box">
+            <h4>Key Information</h4>
+            <ul>
+                <li><strong>Who it's for:</strong> Eligible Canadian residents of all ages who don't have access to dental insurance.</li>
+                <li><strong>Income limit:</strong> Your adjusted family net income must be less than $90,000.</li>
+                <li><strong>What it covers:</strong> A wide range of oral health services, including exams, cleanings, fillings, root canals, gum treatment, and dentures.</li>
+                <li><strong>Co-payment:</strong> If your income is under $70,000, there's no co-payment. Higher incomes pay a share of the cost.</li>
+                <li><strong>Free to apply:</strong> The CDCP will never ask you to pay to apply or renew your coverage.</li>
+            </ul>
+        </div>
+
+        <p>You need to be eligible and apply to receive coverage under the Canadian Dental Care Plan.</p>
+
+        <h3>Quick Facts</h3>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <span class="stat-number">Under $90,000</span>
+                <span class="stat-label">Adjusted family net income to qualify</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">$0</span>
+                <span class="stat-label">Co-payment when your income is under $70,000</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">All ages</span>
+                <span class="stat-label">Now open to eligible Canadians of any age</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">No insurance</span>
+                <span class="stat-label">You can't have access to other dental coverage</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">Free</span>
+                <span class="stat-label">No cost to apply or renew</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">June 30</span>
+                <span class="stat-label">Coverage renews each benefit year</span>
+            </div>
+        </div>
+
+        <div class="video-wrap">
+            <iframe src="https://player.vimeo.com/video/1150423746?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" allowfullscreen title="Canadian Dental Care Plan video"></iframe>
+        </div>
+
+        <h3>What You Pay</h3>
+        <p>The CDCP covers a set amount for each service. Depending on your income, you may pay a share of that amount, called a co-payment:</p>
+        <ul>
+            <li>Adjusted family net income <strong>under $70,000</strong>: no co-payment.</li>
+            <li><strong>$70,000 to $79,999</strong>: you pay 40% of the CDCP's fees.</li>
+            <li><strong>$80,000 to $89,999</strong>: you pay 60% of the CDCP's fees.</li>
+        </ul>
+        <p>Your dentist may also charge more than the CDCP's set fees, so it's a good idea to ask about any extra costs before treatment.</p>
+
+        <h3>Do You Qualify?</h3>
+
+        <div class="quiz-box" id="cdcp-quiz">
+            <div class="quiz-q" data-key="income">
+                <p>Is your adjusted family net income less than $90,000?</p>
+                <div class="quiz-options">
+                    <button type="button" class="quiz-opt" data-value="yes">Yes</button>
+                    <button type="button" class="quiz-opt" data-value="no">No</button>
+                </div>
+            </div>
+            <div class="quiz-q" data-key="insurance">
+                <p>Are you without access to dental insurance (through work, a pension, or a private plan)?</p>
+                <div class="quiz-options">
+                    <button type="button" class="quiz-opt" data-value="yes">Yes</button>
+                    <button type="button" class="quiz-opt" data-value="no">No</button>
+                </div>
+            </div>
+            <div class="quiz-q" data-key="resident">
+                <p>Are you a Canadian resident for tax purposes?</p>
+                <div class="quiz-options">
+                    <button type="button" class="quiz-opt" data-value="yes">Yes</button>
+                    <button type="button" class="quiz-opt" data-value="no">No</button>
+                </div>
+            </div>
+            <div class="quiz-q" data-key="taxes">
+                <p>Have you filed last year's income tax return? (And your spouse or common-law partner, if you have one.)</p>
+                <div class="quiz-options">
+                    <button type="button" class="quiz-opt" data-value="yes">Yes</button>
+                    <button type="button" class="quiz-opt" data-value="no">No</button>
+                </div>
+            </div>
+
+            <div class="quiz-result" id="cdcp-result"></div>
+        </div>
+
+        <a href="cpp-d.html" class="continue-btn">Continue &rarr;</a>
+    </section>
+
+</div>
+
+<script>
+    (function() {
+        var menuBtn = document.querySelector('.menu-button.w-nav-button');
+        var navMenu = document.querySelector('.navigation-items.w-nav-menu');
+        if (menuBtn && navMenu) {
+            menuBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                var isOpen = navMenu.classList.toggle('nav-open');
+                menuBtn.setAttribute('aria-expanded', isOpen);
+            });
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.navigation.programs.w-nav')) {
+                    navMenu.classList.remove('nav-open');
+                    menuBtn.setAttribute('aria-expanded', false);
+                }
+            });
+        }
+    })();
+</script>
+
+<script>
+    // ===== GAP visibility — only for British Columbia and Ontario residents =====
+    (function() {
+        var STORAGE_KEY = 'dbpAssessment';
+        var data = {};
+        try { data = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch (e) {}
+        var prov = data.profile && data.profile.province;
+        if (!prov) return;                            // no province recorded — keep full flow
+        if (prov === 'BC' || prov === 'ON') return;   // GAP applies
+
+        // Not BC/Ontario: remove GAP from the progress bar.
+        document.querySelectorAll('.progress-step').forEach(function(step) {
+            var label = step.querySelector('.step-label');
+            if (label && label.textContent.trim() === 'GAP') { step.style.display = 'none'; }
+        });
+        // Skip GAP in any Continue link that points to it.
+        document.querySelectorAll('a.continue-btn[href="gap.html"]').forEach(function(a) {
+            a.setAttribute('href', 'rdsp.html');
+        });
+        // If somehow on the GAP page, send them past it.
+        if (/(^|\/)gap\.html$/i.test(location.pathname)) {
+            location.replace('rdsp.html');
+        }
+    })();
+</script>
+
+<script>
+    // ===== DTC visibility — only for those who indicated they do NOT have the DTC =====
+    window.applyDtcVisibility = function() {
+        var data = {};
+        try { data = JSON.parse(localStorage.getItem('dbpAssessment')) || {}; } catch (e) {}
+        var showDtc = (data.cdb && data.cdb.hasDTC === 'no') || (data.rdsp && data.rdsp.hasDTC === 'no');
+
+        document.querySelectorAll('.progress-step').forEach(function(step) {
+            var label = step.querySelector('.step-label');
+            if (label && label.textContent.trim() === 'DTC') { step.style.display = showDtc ? '' : 'none'; }
+        });
+
+        if (showDtc) return;
+
+        document.querySelectorAll('a.continue-btn[href="dtc.html"]').forEach(function(a) {
+            a.setAttribute('href', 'next-steps.html');
+        });
+        if (/(^|\/)dtc\.html$/i.test(location.pathname)) {
+            location.replace('next-steps.html');
+        }
+    };
+    applyDtcVisibility();
+</script>
+
+<script>
+    // ===== Canadian Dental Care Plan — qualifier questionnaire =====
+    (function() {
+        var STORAGE_KEY = 'dbpAssessment';
+        var PROGRAM_ID = 'cdcp';
+        var PROGRAM_NAME = 'Canadian Dental Care Plan (CDCP)';
+        var PROGRAM_SHORT = 'CDCP';
+
+        // Guidance shown when an answer is "No".
+        var GUIDANCE = {
+            income: "Your adjusted family net income must be less than $90,000.",
+            insurance: "To qualify, you must not have access to dental insurance through an employer, a pension, or a private plan.",
+            resident: "You must be a Canadian resident for tax purposes.",
+            taxes: "You, and your spouse or common-law partner if applicable, must have filed a tax return for the previous year."
+        };
+
+        var quiz = document.getElementById('cdcp-quiz');
+        if (!quiz) return;
+
+        var answers = {};
+
+        // Handle Yes/No button taps.
+        quiz.querySelectorAll('.quiz-q').forEach(function(q) {
+            var key = q.getAttribute('data-key');
+            q.querySelectorAll('.quiz-opt').forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    q.querySelectorAll('.quiz-opt').forEach(function(b) { b.classList.remove('selected'); });
+                    btn.classList.add('selected');
+                    answers[key] = btn.getAttribute('data-value');
+                    showResult();
+                });
+            });
+        });
+
+        function loadAssessment() {
+            try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; }
+            catch (e) { return {}; }
+        }
+
+        function saveResult(data) {
+            var all = loadAssessment();
+            all[PROGRAM_ID] = data;
+            try { localStorage.setItem(STORAGE_KEY, JSON.stringify(all)); }
+            catch (e) { /* storage unavailable — result still shows on screen */ }
+        }
+
+        var keys = ['income', 'insurance', 'resident', 'taxes'];
+        var resultBox = document.getElementById('cdcp-result');
+
+        function showResult() {
+            // Wait until every question has been answered.
+            var unanswered = keys.filter(function(k) { return !answers[k]; });
+            if (unanswered.length) return;
+
+            var unmet = keys.filter(function(k) { return answers[k] === 'no'; });
+            var qualifies = unmet.length === 0;
+
+            saveResult({
+                program: PROGRAM_NAME,
+                short: PROGRAM_SHORT,
+                page: 'cdcp.html',
+                qualifies: qualifies,
+                unmet: unmet,
+                reasons: unmet.map(function(k) { return GUIDANCE[k]; }),
+                completed: true
+            });
+
+            var html;
+            if (qualifies) {
+                html = '<h4>You may be eligible for the Canadian Dental Care Plan</h4>' +
+                    '<p>You meet the basic requirements. Any co-payment you have depends on your income.</p>' +
+                    '<p>Links to apply for the CDCP are provided upon completion of this assessment form.</p>';
+            } else {
+                html = '<h4>You may not be eligible at this time</h4>' +
+                    '<p>Based on the information you provided, you do not appear to meet all of the eligibility requirements. The following ' + (unmet.length === 1 ? 'requirement will' : 'requirements will') + ' need to be met:</p><ul>';
+                unmet.forEach(function(k) { html += '<li>' + GUIDANCE[k] + '</li>'; });
+                html += '</ul>';
+            }
+
+            resultBox.className = 'quiz-result show ' + (qualifies ? 'pass' : 'fail');
+            resultBox.innerHTML = html;
+        }
+    })();
+</script>
+
+<div class="section footer rebuild profile"><div class="footer-container w-container"><div class="footer-div"><img src="https://cdn.prod.website-files.com/5e7d62bc968f474458fd7c90/5e7d62bc968f476be6fd7ce2_flag-canada-circle-big.png" width="45" height="45" alt="" class="image-2 logo-footer"></div></div><div class="footer-container w-container"><div class="footer-row w-row"><div class="footer-left column-footer footer-col footer-left-col w-col"><p class="paragraph-12 footer-left paragraph-footer"><a href="https://benefits.rdspcanada.ca/programs.html" class="link-3 w--current">Benefits Programs</a><a href="/cdsb-eligibility" class="link-5">Disability Bond</a><a href="https://resources.rdspcanada.ca/" target="_blank" class="link-6">Resources</a><a href="https://www.rdspcanada.ca/programs/additional-programs" target="_blank" class="link-7">Additional Programs</a><a href="https://www.canada.ca/en/revenue-agency.html" target="_blank" class="link-8">Canada Revenue Agency (CRA)</a><a href="https://www.canada.ca/en/services/benefits/finder.html" target="_blank" class="link-9">Benefits Finder</a></p></div><div class="footer-col footer-right-col w-col"><p class="paragraph-11 footer-right"><a href="/terms-of-use" target="_blank" class="link-11">Terms of Use</a><a href="/privacy-policy" target="_blank" class="link-12">Privacy</a><a href="/contact" target="_blank" class="link-13">Contact</a></p></div></div></div><div class="footer-bottom footer-container w-container"><div class="div-block-3"><a href="https://webflow.com/" target="_blank" class="webflow-link w-inline-block"><div class="paragraph-tiny footer-tiny">© RDSP&nbsp;Canada ~ 2026</div></a></div></div></div>
+
+</body>
+</html>

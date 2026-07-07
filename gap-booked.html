@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking confirmed</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            color: #0264b4;
+            background: #fff;
+        }
+        p { font-size: 16px; font-weight: 600; }
+    </style>
+</head>
+<body>
+    <p>Your session is booked.</p>
+
+    <script>
+        // Calendly redirects its iframe here after a successful booking.
+        // This page is on the same domain as the GAP page, so it can update the
+        // shared localStorage and notify the parent window directly.
+        (function () {
+            try {
+                var all = JSON.parse(localStorage.getItem('dbpAssessment')) || {};
+                all.gapBooked = true;
+                localStorage.setItem('dbpAssessment', JSON.stringify(all));
+            } catch (e) { /* storage unavailable */ }
+
+            try {
+                if (window.parent && window.parent !== window) {
+                    window.parent.postMessage({ type: 'gapBooked' }, '*');
+                }
+            } catch (e) { /* cross-origin (shouldn't happen on same domain) */ }
+        })();
+    </script>
+</body>
+</html>

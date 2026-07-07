@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Next Steps</title>
+    <link rel="icon" type="image/png" href="https://cdn.prod.website-files.com/5e7d62bc968f474458fd7c90/5e7d62bc968f476be6fd7ce2_flag-canada-circle-big.png">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: Montserrat, sans-serif;
+        }
+
+        .dbp-widget {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro Display', sans-serif !important;
+            max-width: 900px !important;
+            margin: 0 auto !important;
+            padding: 50px 20px 70px !important;
+            box-sizing: border-box !important;
+        }
+
+        .dbp-widget *,
+        .dbp-widget *::before,
+        .dbp-widget *::after {
+            box-sizing: border-box !important;
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro Display', sans-serif !important;
+        }
+
+        .dbp-widget h1,
+        .dbp-widget h2 {
+            color: #0264b4 !important;
+            font-weight: 600 !important;
+            text-align: left !important;
+            margin-top: 0 !important;
+        }
+
+        .dbp-widget h3,
+        .dbp-widget h4 {
+            color: #059ce2 !important;
+            font-weight: 600 !important;
+            text-align: left !important;
+            margin-top: 32px !important;
+        }
+
+        .dbp-widget p,
+        .dbp-widget ul,
+        .dbp-widget label {
+            text-align: left !important;
+        }
+
+        .dbp-widget p,
+        .dbp-widget li {
+            line-height: 1.5 !important;
+            color: inherit !important;
+        }
+
+        .dbp-widget strong {
+            font-weight: 500 !important;
+        }
+
+        .dbp-widget a {
+            color: #0264b4 !important;
+        }
+
+        .dbp-widget section {
+            margin-bottom: 50px !important;
+        }
+
+        /* Progress bar */
+        .dbp-widget .progress-bar {
+            display: flex;
+            margin-bottom: 40px;
+        }
+
+        .dbp-widget .progress-step {
+            flex: 1;
+            text-align: center;
+            position: relative;
+        }
+
+        .dbp-widget .progress-step .step-tracker {
+            font-size: 12px;
+            font-weight: 600;
+            color: #0264b4;
+            margin-bottom: 6px;
+            visibility: hidden;
+        }
+
+        .dbp-widget .progress-step.active .step-tracker {
+            visibility: visible;
+        }
+
+        .dbp-widget .progress-step .step-bar {
+            height: 8px;
+            background: #c7dff0;
+            border-radius: 4px;
+            margin: 0 2px;
+        }
+
+        .dbp-widget .progress-step.active .step-bar {
+            background: #0264b4;
+        }
+
+        .dbp-widget .progress-step a {
+            text-decoration: none !important;
+            display: block;
+        }
+
+        .dbp-widget .progress-step .step-label {
+            display: block;
+            margin-top: 8px;
+            font-size: 11px;
+            font-weight: 500;
+            color: #999 !important;
+        }
+
+        .dbp-widget .progress-step a:hover .step-label {
+            color: #0264b4 !important;
+        }
+
+        .dbp-widget .progress-step.active .step-label {
+            color: #0264b4 !important;
+            font-weight: 600;
+        }
+
+        /* Callout highlight */
+        .dbp-widget .callout {
+            border: 1px solid #b8d4ea;
+            background: #eaf4fb;
+            padding: 16px 20px;
+            border-radius: 12px;
+            margin: 28px 0;
+            font-size: 1.05em;
+        }
+
+        .dbp-widget .callout p {
+            margin: 0 !important;
+        }
+
+        /* Result cards */
+        .dbp-widget .ns-card {
+            border: 1px solid #d6e4f0;
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin: 16px 0;
+            background: #fff;
+        }
+
+        .dbp-widget .ns-card.pass {
+            background: #e8f6ec;
+            border-color: #b7e0c2;
+        }
+
+        .dbp-widget .ns-card.fail {
+            background: #fdecea;
+            border-color: #f1a9a0;
+        }
+
+        .dbp-widget .ns-card.todo {
+            background: #f7f9fb;
+            border-color: #dde6ee;
+        }
+
+        .dbp-widget .ns-card-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .dbp-widget .ns-card-head h4 {
+            margin: 0 !important;
+            color: #0264b4 !important;
+            font-size: 1.05em !important;
+        }
+
+        .dbp-widget .ns-badge {
+            font-size: 12px;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 20px;
+            white-space: nowrap;
+        }
+
+        .dbp-widget .ns-badge.pass { background: #cdebd6; color: #1c6b38; }
+        .dbp-widget .ns-badge.fail { background: #f7c6c0; color: #9a2318; }
+        .dbp-widget .ns-badge.todo { background: #e5ecf3; color: #5a6b7b; }
+
+        .dbp-widget .ns-card p {
+            margin: 10px 0 0 !important;
+        }
+
+        .dbp-widget .ns-card ul {
+            margin: 10px 0 0 !important;
+            padding-left: 20px !important;
+        }
+
+        .dbp-widget .ns-card li {
+            margin-bottom: 6px !important;
+        }
+
+        .dbp-widget .ns-card .ns-apply-btn {
+            display: inline-block;
+            margin-top: 14px;
+            margin-right: 16px;
+            padding: 10px 24px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #fff !important;
+            background-color: #0264b4;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: background-color 0.2s;
+        }
+
+        .dbp-widget .ns-card .ns-apply-btn:hover {
+            background-color: #024a87;
+        }
+
+        .dbp-widget .ns-card .ns-link {
+            display: inline-block;
+            margin-top: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .dbp-widget .ns-summary {
+            background: #f0f6fb;
+            border: 1px solid #b8d4ea;
+            border-radius: 12px;
+            padding: 24px 28px;
+            margin: 24px 0;
+        }
+
+        .dbp-widget .ns-summary h4 {
+            color: #0264b4 !important;
+            margin-top: 0 !important;
+            margin-bottom: 12px !important;
+        }
+
+        .dbp-widget .ns-summary ul {
+            margin: 0 !important;
+            padding-left: 20px !important;
+        }
+
+        .dbp-widget .ns-reset {
+            display: inline-block;
+            margin-top: 10px;
+            font-size: 13px;
+            color: #777 !important;
+            background: none;
+            border: none;
+            cursor: pointer;
+            text-decoration: underline;
+            padding: 0;
+        }
+
+        /* ===== Navigation ===== */
+        .navigation.programs.w-nav {
+            position: relative;
+            z-index: 1000;
+            background-color: white;
+        }
+
+        .navigation.programs.w-nav::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 900px;
+            max-width: 100%;
+            height: 1px;
+            background: #ccc;
+        }
+
+        .navigation.programs {
+            display: flex;
+            align-items: center;
+            padding: 30px 50px;
+        }
+
+        .navigation-wrap {
+            flex: 1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+
+        .logo-link.w-nav-brand {
+            z-index: 1;
+            text-decoration: none;
+            color: #1a1b1f;
+            display: none;
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .logo-link:hover { opacity: 0.8; }
+        .logo-link:active { opacity: 0.7; }
+
+        .navigation .columns-5.w-row {
+            display: flex;
+            align-items: center;
+        }
+
+        .navigation .w-col {
+            float: none;
+            width: auto;
+            padding: 0;
+        }
+
+        .navigation .image.logo {
+            display: block;
+            width: 42px;
+            height: auto;
+        }
+
+        .navigation .text-block {
+            padding-left: 10px;
+            font-family: Montserrat, sans-serif;
+            font-size: 15px;
+            font-weight: 600;
+            color: #1a1b1f;
+            white-space: nowrap;
+        }
+
+        .navigation .menu {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .navigation-items.w-nav-menu {
+            display: flex;
+            align-items: center;
+            pointer-events: auto;
+        }
+
+        .navigation-item.w-nav-link {
+            opacity: 0.6;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 9px 10px;
+            font-size: 12px;
+            font-weight: 500;
+            line-height: 20px;
+            text-decoration: none;
+            color: #1a1b1f;
+            display: inline-block;
+            font-family: Montserrat, sans-serif;
+            transition: opacity 0.2s;
+        }
+
+        .navigation-item:hover { opacity: 0.9; }
+        .navigation-item.w--current { opacity: 1; font-weight: 600; }
+
+        .navigation .image-4 {
+            display: block;
+            width: 38px;
+            height: auto;
+            margin: 0 6px;
+        }
+
+        .menu-button.w-nav-button {
+            display: none;
+            cursor: pointer;
+            padding: 10px;
+            background: none;
+            border: none;
+            z-index: 1;
+            position: relative;
+            pointer-events: auto;
+        }
+
+        .menu-icon.menu-flag {
+            display: block;
+            height: 28px;
+            width: auto;
+        }
+
+        @media screen and (max-width: 991px) {
+            .navigation.programs { padding: 20px 20px 28px; }
+            .navigation.programs.w-nav::after { display: block; left: 20px; right: 20px; width: auto; transform: none; }
+            .logo-link.w-nav-brand { display: inline-block; }
+            .navigation .menu { justify-content: flex-end; }
+            .navigation-items.w-nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 10px 0;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+                z-index: 999;
+            }
+            .navigation-items.w-nav-menu.nav-open { display: flex; }
+            .navigation-item.w-nav-link {
+                display: block;
+                width: 100%;
+                text-align: center;
+                padding: 10px 20px;
+            }
+            .navigation .image-4 { display: none; }
+            .menu-button.w-nav-button { display: block; }
+        }
+
+        @media screen and (max-width: 479px) {
+            .navigation.programs { padding: 16px 15px; }
+            .navigation.programs.w-nav::after { left: 15px; right: 15px; }
+
+            .dbp-widget .progress-step .step-label {
+                font-size: 9px;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .dbp-widget {
+                font-size: 16px !important;
+            }
+        }
+
+        /* ===== Footer ===== */
+        .section.footer.rebuild.profile {
+            background-color: #757474;
+            width: auto;
+            margin-left: 0;
+            margin-right: 0;
+            padding-top: 20px;
+            padding-bottom: 0;
+        }
+
+        .footer-container.w-container {
+            max-width: 940px;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+
+        .footer-div {
+            display: flex;
+            justify-content: center;
+            padding: 15px 10px 10px;
+        }
+
+        .image-2.logo-footer { display: block; }
+
+        .footer-row.w-row {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 15px 0 20px;
+        }
+
+        .footer-col.w-col.footer-left-col {
+            width: 240px;
+            flex-shrink: 0;
+            text-align: right;
+            padding-right: 30px;
+            border-right: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .footer-col.w-col.footer-right-col {
+            width: 240px;
+            flex-shrink: 0;
+            text-align: left;
+            padding-left: 30px;
+        }
+
+        .paragraph-12.footer-left.paragraph-footer,
+        .paragraph-11.footer-right {
+            color: white;
+            font-size: 13px;
+            line-height: 26px;
+            margin: 0;
+        }
+
+        .link-3, .link-5, .link-6, .link-7, .link-8, .link-9,
+        .link-11, .link-12, .link-13 {
+            color: white !important;
+            text-decoration: none;
+            display: block;
+            font-family: Montserrat, sans-serif;
+            font-size: 13px;
+            line-height: 26px;
+        }
+
+        .link-3:hover, .link-5:hover, .link-6:hover, .link-7:hover,
+        .link-8:hover, .link-9:hover, .link-11:hover, .link-12:hover, .link-13:hover {
+            opacity: 0.75;
+        }
+
+        .footer-full-divider {
+            width: 100%;
+            height: 1px;
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .footer-bottom.footer-container {
+            padding-top: 12px;
+            padding-bottom: 14px;
+            text-align: center;
+        }
+
+        .div-block-3 { display: inline-block; }
+
+        .webflow-link.w-inline-block {
+            opacity: 0.75;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .webflow-link.w-inline-block:hover { opacity: 1; }
+
+        .paragraph-tiny {
+            color: white;
+            font-size: 12px;
+            line-height: 20px;
+        }
+
+        .paragraph-tiny.footer-tiny {
+            margin: 0;
+            padding: 0;
+        }
+
+        @media screen and (max-width: 600px) {
+            .footer-row.w-row {
+                flex-direction: column;
+                align-items: center;
+            }
+            .footer-col.w-col.footer-left-col {
+                text-align: center;
+                border-right: none;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+                padding-right: 0;
+                padding-bottom: 15px;
+                margin-bottom: 15px;
+            }
+            .footer-col.w-col.footer-right-col {
+                text-align: center;
+                padding-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div data-collapse="medium" data-animation="default" data-duration="400" data-easing="ease" data-easing2="ease" role="banner" class="navigation programs w-nav"><div class="navigation-wrap"><a href="cdb.html" class="logo-link w-nav-brand"><div class="columns-5 w-row"><img src="https://cdn.prod.website-files.com/5e7d62bc968f474458fd7c90/5e7d62bc968f476be6fd7ce2_flag-canada-circle-big.png" loading="lazy" width="42" alt="" class="image logo"><span class="text-block">RDSP Canada</span></div></a><div class="menu"><nav role="navigation" class="navigation-items w-nav-menu"><a href="assessment.html" class="navigation-item w-nav-link">Assessment Tool</a><a href="https://resources.rdspcanada.ca/" target="_blank" rel="noopener" class="navigation-item w-nav-link">Provincial Programs</a><img src="https://cdn.prod.website-files.com/5e7d62bc968f474458fd7c90/5e7d62bc968f476be6fd7ce2_flag-canada-circle-big.png" loading="lazy" width="50" alt="" class="image-4"><a href="https://www.rdspcanada.ca/cdsb-eligibility" target="_blank" rel="noopener" class="navigation-item w-nav-link">Disability Bond</a><a href="https://www.rdspcanada.ca/programs/additional-programs" target="_blank" rel="noopener" class="navigation-item w-nav-link">Additional Programs</a></nav><div class="menu-button w-nav-button" aria-label="menu" role="button" tabindex="0" aria-expanded="false"><img src="https://cdn.prod.website-files.com/5e7d62bc968f474458fd7c90/5f66ba195f18246d973acac7_menu-mobile.png" height="30" alt="" class="menu-icon menu-flag"></div></div></div></div>
+
+<div class="dbp-widget">
+
+    <!-- Progress Bar -->
+    <div class="progress-bar">
+        <div class="progress-step">
+            <a href="cdb.html">
+                <div class="step-tracker">&nbsp;</div>
+                <div class="step-bar"></div>
+                <span class="step-label">CDB</span>
+            </a>
+        </div>
+        <div class="progress-step">
+            <a href="cdcp.html">
+                <div class="step-tracker">&nbsp;</div>
+                <div class="step-bar"></div>
+                <span class="step-label">CDCP</span>
+            </a>
+        </div>
+        <div class="progress-step">
+            <a href="cpp-d.html">
+                <div class="step-tracker">&nbsp;</div>
+                <div class="step-bar"></div>
+                <span class="step-label">CPP-D</span>
+            </a>
+        </div>
+        <div class="progress-step">
+            <a href="gap.html">
+                <div class="step-tracker">&nbsp;</div>
+                <div class="step-bar"></div>
+                <span class="step-label">GAP</span>
+            </a>
+        </div>
+        <div class="progress-step">
+            <a href="rdsp.html">
+                <div class="step-tracker">&nbsp;</div>
+                <div class="step-bar"></div>
+                <span class="step-label">RDSP</span>
+            </a>
+        </div>
+        <div class="progress-step">
+            <a href="dtc.html">
+                <div class="step-tracker">&nbsp;</div>
+                <div class="step-bar"></div>
+                <span class="step-label">DTC</span>
+            </a>
+        </div>
+        <div class="progress-step active">
+            <div class="step-tracker">7 of 7</div>
+            <div class="step-bar"></div>
+            <span class="step-label">Next Steps</span>
+        </div>
+    </div>
+
+    <h2>Your Next Steps</h2>
+    <section>
+        <p>Here's a personalized summary based on the quick checks you completed along the way.</p>
+
+        <h3>Program by Program</h3>
+        <div id="ns-cards"></div>
+    </section>
+
+</div>
+
+<script>
+    (function() {
+        var menuBtn = document.querySelector('.menu-button.w-nav-button');
+        var navMenu = document.querySelector('.navigation-items.w-nav-menu');
+        if (menuBtn && navMenu) {
+            menuBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                var isOpen = navMenu.classList.toggle('nav-open');
+                menuBtn.setAttribute('aria-expanded', isOpen);
+            });
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.navigation.programs.w-nav')) {
+                    navMenu.classList.remove('nav-open');
+                    menuBtn.setAttribute('aria-expanded', false);
+                }
+            });
+        }
+    })();
+</script>
+
+<script>
+    // ===== Next Steps — read saved answers and tailor the page =====
+    (function() {
+        var STORAGE_KEY = 'dbpAssessment';
+
+        // The six programs in this guide, in order. Each program's quick check
+        // writes its result into localStorage under its own id.
+        var PROGRAMS = [
+            { id: 'cdb',   name: 'Canada Disability Benefit (CDB)',        page: 'cdb.html' },
+            { id: 'cdcp',  name: 'Canadian Dental Care Plan (CDCP)',       page: 'cdcp.html' },
+            { id: 'cpp-d', name: 'Canada Pension Plan Disability (CPP-D)', page: 'cpp-d.html' },
+            { id: 'gap',   name: 'Guaranteed Access Program (GAP)',        page: 'gap.html' },
+            { id: 'rdsp',  name: 'Registered Disability Savings Plan (RDSP)', page: 'rdsp.html' },
+            { id: 'dtc',   name: 'Disability Tax Credit Certificate (DTC)', page: 'dtc.html' }
+        ];
+
+        // Where to apply for each program once eligible. Government links open in a new tab.
+        var APPLY = {
+            'cdb':   { url: 'https://www.canada.ca/en/services/benefits/disability/canada-disability-benefit/apply.html', label: 'Apply with the Government of Canada' },
+            'cdcp':  { url: 'https://www.canada.ca/en/services/benefits/dental/dental-care-plan/apply.html', label: 'Apply with the Government of Canada' },
+            'cpp-d': { url: 'https://www.canada.ca/en/services/benefits/publicpensions/cpp-disability-benefit/apply.html', label: 'Apply with the Government of Canada' },
+            'gap':   { url: 'gap.html', label: 'Book a session with a Benefits Specialist', internal: true },
+            'rdsp':  { url: 'https://www.canada.ca/en/employment-social-development/programs/disability/savings.html', label: 'Learn how to open an RDSP' },
+            'dtc':   { url: 'https://www.canada.ca/en/revenue-agency/services/tax/individuals/segments/tax-credits-deductions-persons-disabilities/disability-tax-credit/how-apply-dtc.html', label: 'How to apply for the DTC' }
+        };
+
+        function loadAssessment() {
+            try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; }
+            catch (e) { return {}; }
+        }
+
+        function esc(s) {
+            return String(s).replace(/[&<>"]/g, function(c) {
+                return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
+            });
+        }
+
+        var data = loadAssessment();
+        var cardsEl = document.getElementById('ns-cards');
+
+        // GAP only applies to BC and Ontario residents.
+        var prov = data.profile && data.profile.province;
+        var hideGap = (prov && prov !== 'BC' && prov !== 'ON');
+        if (hideGap) {
+            PROGRAMS = PROGRAMS.filter(function(p) { return p.id !== 'gap'; });
+            document.querySelectorAll('.progress-step').forEach(function(step) {
+                var label = step.querySelector('.step-label');
+                if (label && label.textContent.trim() === 'GAP') { step.style.display = 'none'; }
+            });
+        }
+
+        // DTC only appears for those who indicated they do NOT already have the DTC.
+        var showDtc = (data.cdb && data.cdb.hasDTC === 'no') || (data.rdsp && data.rdsp.hasDTC === 'no');
+        if (!showDtc) {
+            PROGRAMS = PROGRAMS.filter(function(p) { return p.id !== 'dtc'; });
+            document.querySelectorAll('.progress-step').forEach(function(step) {
+                var label = step.querySelector('.step-label');
+                if (label && label.textContent.trim() === 'DTC') { step.style.display = 'none'; }
+            });
+        }
+
+        var qualifyList = [];
+        var notYetList = [];
+        var completedCount = 0;
+
+        PROGRAMS.forEach(function(prog) {
+            var r = data[prog.id];
+            var card = document.createElement('div');
+
+            // GAP: if a session has been booked, show it as booked.
+            if (prog.id === 'gap' && data.gapBooked) {
+                card.className = 'ns-card pass';
+                card.innerHTML =
+                    '<div class="ns-card-head"><h4>' + esc(prog.name) + '</h4>' +
+                    '<span class="ns-badge pass">Session booked</span></div>' +
+                    '<p>You have booked your Disability Benefits Review session with a Benefits Specialist.</p>' +
+                    '<a class="ns-link" href="' + prog.page + '">Review ' + esc(prog.name) + ' &rarr;</a>';
+                cardsEl.appendChild(card);
+                return;
+            }
+
+            if (r && r.completed) {
+                completedCount++;
+                if (r.qualifies) {
+                    qualifyList.push(prog);
+                    var apply = APPLY[prog.id];
+                    var applyHtml = '';
+                    if (apply) {
+                        applyHtml = '<a class="ns-apply-btn" href="' + apply.url + '"' +
+                            (apply.internal ? '' : ' target="_blank" rel="noopener"') + '>' +
+                            esc(apply.label) + ' &rarr;</a>';
+                    }
+                    card.className = 'ns-card pass';
+                    card.innerHTML =
+                        '<div class="ns-card-head"><h4>' + esc(prog.name) + '</h4>' +
+                        '<span class="ns-badge pass">You appear to be eligible</span></div>' +
+                        '<p>Based on the information you provided, you appear to meet the eligibility requirements.</p>' +
+                        applyHtml +
+                        '<a class="ns-link" href="' + prog.page + '">Review ' + esc(prog.name) + ' &rarr;</a>';
+                } else {
+                    notYetList.push(prog);
+                    var reasons = (r.reasons && r.reasons.length) ? r.reasons : [];
+                    var listHtml = reasons.length
+                        ? '<ul>' + reasons.map(function(x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul>'
+                        : '';
+                    card.className = 'ns-card fail';
+                    card.innerHTML =
+                        '<div class="ns-card-head"><h4>' + esc(prog.name) + '</h4>' +
+                        '<span class="ns-badge fail">Requirements not yet met</span></div>' +
+                        '<p>Based on the information you provided, the following will need to be met:</p>' +
+                        listHtml +
+                        '<a class="ns-link" href="' + prog.page + '">Review ' + esc(prog.name) + ' &rarr;</a>';
+                }
+            } else {
+                card.className = 'ns-card todo';
+                card.innerHTML =
+                    '<div class="ns-card-head"><h4>' + esc(prog.name) + '</h4>' +
+                    '<span class="ns-badge todo">Not yet checked</span></div>' +
+                    '<p>You have not completed the quick check for this program yet.</p>' +
+                    '<a class="ns-link" href="' + prog.page + '">Take the quick check &rarr;</a>';
+            }
+
+            cardsEl.appendChild(card);
+        });
+    })();
+</script>
+
+<div class="section footer rebuild profile"><div class="footer-container w-container"><div class="footer-div"><img src="https://cdn.prod.website-files.com/5e7d62bc968f474458fd7c90/5e7d62bc968f476be6fd7ce2_flag-canada-circle-big.png" width="45" height="45" alt="" class="image-2 logo-footer"></div></div><div class="footer-container w-container"><div class="footer-row w-row"><div class="footer-left column-footer footer-col footer-left-col w-col"><p class="paragraph-12 footer-left paragraph-footer"><a href="https://benefits.rdspcanada.ca/programs.html" class="link-3 w--current">Benefits Programs</a><a href="/cdsb-eligibility" class="link-5">Disability Bond</a><a href="https://resources.rdspcanada.ca/" target="_blank" class="link-6">Resources</a><a href="https://www.rdspcanada.ca/programs/additional-programs" target="_blank" class="link-7">Additional Programs</a><a href="https://www.canada.ca/en/revenue-agency.html" target="_blank" class="link-8">Canada Revenue Agency (CRA)</a><a href="https://www.canada.ca/en/services/benefits/finder.html" target="_blank" class="link-9">Benefits Finder</a></p></div><div class="footer-col footer-right-col w-col"><p class="paragraph-11 footer-right"><a href="/terms-of-use" target="_blank" class="link-11">Terms of Use</a><a href="/privacy-policy" target="_blank" class="link-12">Privacy</a><a href="/contact" target="_blank" class="link-13">Contact</a></p></div></div></div><div class="footer-bottom footer-container w-container"><div class="div-block-3"><a href="https://webflow.com/" target="_blank" class="webflow-link w-inline-block"><div class="paragraph-tiny footer-tiny">© RDSP&nbsp;Canada ~ 2026</div></a></div></div></div>
+
+</body>
+</html>
