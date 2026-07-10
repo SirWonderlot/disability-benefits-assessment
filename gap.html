@@ -277,7 +277,7 @@
 
         .dbp-widget .quiz-q p {
             margin: 0 0 12px !important;
-            font-weight: 500;
+            font-weight: 400;
         }
 
         .dbp-widget .quiz-options {
@@ -872,21 +872,21 @@
 
         <div class="quiz-box" id="gap-quiz">
             <div class="quiz-q" data-key="age">
-                <p>Are you under 80 years of age?</p>
+                <p>Are you <strong>under 80 years of age</strong>?</p>
                 <div class="quiz-options">
                     <button type="button" class="quiz-opt" data-value="yes">Yes</button>
                     <button type="button" class="quiz-opt" data-value="no">No</button>
                 </div>
             </div>
             <div class="quiz-q" data-key="condition">
-                <p>Are you living with a long-term medical condition?</p>
+                <p>Are you living with a <strong>long-term medical condition</strong>?</p>
                 <div class="quiz-options">
                     <button type="button" class="quiz-opt" data-value="yes">Yes</button>
                     <button type="button" class="quiz-opt" data-value="no">No</button>
                 </div>
             </div>
             <div class="quiz-q" data-key="finalexpense">
-                <p>Do you currently have a final expense program in place?</p>
+                <p>Do you currently have a <strong>final expense program</strong> in place?</p>
                 <div class="quiz-options">
                     <button type="button" class="quiz-opt" data-value="yes">Yes</button>
                     <button type="button" class="quiz-opt" data-value="no">No</button>
@@ -983,10 +983,18 @@
             if (label && label.textContent.trim() === 'DTC') { step.style.display = showDtc ? '' : 'none'; }
         });
 
-        if (showDtc) return;
+        if (showDtc) {
+            // A "No" answer brings the DTC page back: restore links previously pointed past it.
+            document.querySelectorAll('a[data-dtc-bypassed]').forEach(function(a) {
+                a.setAttribute('href', 'dtc.html');
+                a.removeAttribute('data-dtc-bypassed');
+            });
+            return;
+        }
 
-        document.querySelectorAll('a.continue-btn[href="dtc.html"]').forEach(function(a) {
+        document.querySelectorAll('a.continue-btn[href="dtc.html"], a.skip-btn[href="dtc.html"]').forEach(function(a) {
             a.setAttribute('href', 'next-steps.html');
+            a.setAttribute('data-dtc-bypassed', '1');
         });
         if (/(^|\/)dtc\.html$/i.test(location.pathname)) {
             location.replace('next-steps.html');

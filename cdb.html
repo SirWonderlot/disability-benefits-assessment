@@ -226,6 +226,26 @@
             background-color: #024a87;
         }
 
+        /* Skip button */
+        .dbp-widget .skip-btn {
+            display: inline-block;
+            margin-top: 28px;
+            padding: 8px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            text-align: center;
+            color: #555 !important;
+            background-color: #eef1f4;
+            border: 1px solid #cdd5dd;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none !important;
+        }
+
+        .dbp-widget .skip-btn:hover {
+            background-color: #e2e7ec;
+        }
+
         /* Video embed */
         .dbp-widget .video-wrap {
             position: relative;
@@ -264,7 +284,7 @@
 
         .dbp-widget .quiz-q p {
             margin: 0 0 12px !important;
-            font-weight: 500;
+            font-weight: 400;
         }
 
         .dbp-widget .quiz-options {
@@ -772,35 +792,35 @@
 
         <div class="quiz-box" id="cdb-quiz">
             <div class="quiz-q" data-key="age">
-                <p>Are you between 18 and 64 years old?</p>
+                <p>Are you between <strong>18 and 64 years old</strong>?</p>
                 <div class="quiz-options">
                     <button type="button" class="quiz-opt" data-value="yes">Yes</button>
                     <button type="button" class="quiz-opt" data-value="no">No</button>
                 </div>
             </div>
             <div class="quiz-q" data-key="dtc">
-                <p>Are you approved for the Disability Tax Credit (DTC)?</p>
+                <p>Are you approved for the <strong>Disability Tax Credit (DTC)</strong>?</p>
                 <div class="quiz-options">
                     <button type="button" class="quiz-opt" data-value="yes">Yes</button>
                     <button type="button" class="quiz-opt" data-value="no">No</button>
                 </div>
             </div>
             <div class="quiz-q" data-key="resident">
-                <p>Are you a resident of Canada for income tax purposes?</p>
+                <p>Are you a <strong>resident of Canada</strong> for income tax purposes?</p>
                 <div class="quiz-options">
                     <button type="button" class="quiz-opt" data-value="yes">Yes</button>
                     <button type="button" class="quiz-opt" data-value="no">No</button>
                 </div>
             </div>
             <div class="quiz-q" data-key="sin">
-                <p>Do you have a valid Social Insurance Number (SIN)?</p>
+                <p>Do you have a valid <strong>Social Insurance Number (SIN)</strong>?</p>
                 <div class="quiz-options">
                     <button type="button" class="quiz-opt" data-value="yes">Yes</button>
                     <button type="button" class="quiz-opt" data-value="no">No</button>
                 </div>
             </div>
             <div class="quiz-q" data-key="taxes">
-                <p>Have you filed last year's income tax return? (And your spouse or common-law partner, if you have one.)</p>
+                <p>Have you <strong>filed last year's income tax return</strong>? (And your spouse or common-law partner, if you have one.)</p>
                 <div class="quiz-options">
                     <button type="button" class="quiz-opt" data-value="yes">Yes</button>
                     <button type="button" class="quiz-opt" data-value="no">No</button>
@@ -810,7 +830,8 @@
             <div class="quiz-result" id="cdb-result"></div>
         </div>
 
-        <a href="cdcp.html" class="continue-btn">Continue &rarr;</a>
+        <a href="cdcp.html" class="skip-btn" id="cdb-skip">Skip this program</a>
+        <a href="cdcp.html" class="continue-btn" id="cdb-continue" style="display:none;">Continue &rarr;</a>
     </section>
 
 </div>
@@ -851,7 +872,7 @@
             if (label && label.textContent.trim() === 'GAP') { step.style.display = 'none'; }
         });
         // Skip GAP in any Continue link that points to it.
-        document.querySelectorAll('a.continue-btn[href="gap.html"]').forEach(function(a) {
+        document.querySelectorAll('a.continue-btn[href="gap.html"], a.skip-btn[href="gap.html"]').forEach(function(a) {
             a.setAttribute('href', 'rdsp.html');
         });
         // If somehow on the GAP page, send them past it.
@@ -873,10 +894,18 @@
             if (label && label.textContent.trim() === 'DTC') { step.style.display = showDtc ? '' : 'none'; }
         });
 
-        if (showDtc) return;
+        if (showDtc) {
+            // A "No" answer brings the DTC page back: restore links previously pointed past it.
+            document.querySelectorAll('a[data-dtc-bypassed]').forEach(function(a) {
+                a.setAttribute('href', 'dtc.html');
+                a.removeAttribute('data-dtc-bypassed');
+            });
+            return;
+        }
 
-        document.querySelectorAll('a.continue-btn[href="dtc.html"]').forEach(function(a) {
+        document.querySelectorAll('a.continue-btn[href="dtc.html"], a.skip-btn[href="dtc.html"]').forEach(function(a) {
             a.setAttribute('href', 'next-steps.html');
+            a.setAttribute('data-dtc-bypassed', '1');
         });
         if (/(^|\/)dtc\.html$/i.test(location.pathname)) {
             location.replace('next-steps.html');
@@ -905,6 +934,8 @@
         var quiz = document.getElementById('cdb-quiz');
         if (!quiz) return;
 
+        var skipBtn = document.getElementById('cdb-skip');
+        var continueBtn = document.getElementById('cdb-continue');
         var answers = {};
 
         // Handle Yes/No button taps.
@@ -915,6 +946,7 @@
                     q.querySelectorAll('.quiz-opt').forEach(function(b) { b.classList.remove('selected'); });
                     btn.classList.add('selected');
                     answers[key] = btn.getAttribute('data-value');
+                    if (skipBtn) skipBtn.style.display = 'none';
                     showResult();
                 });
             });
@@ -969,6 +1001,7 @@
 
             resultBox.className = 'quiz-result show ' + (qualifies ? 'pass' : 'fail');
             resultBox.innerHTML = html;
+            if (continueBtn) continueBtn.style.display = 'inline-block';
         }
     })();
 </script>

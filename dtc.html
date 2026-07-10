@@ -264,7 +264,7 @@
 
         .dbp-widget .quiz-q p {
             margin: 0 0 12px !important;
-            font-weight: 500;
+            font-weight: 400;
         }
 
         .dbp-widget .quiz-options {
@@ -796,28 +796,28 @@
 
         <div class="quiz-box" id="dtc-quiz">
             <div class="quiz-q" data-key="duration">
-                <p>I have a prolonged medical condition(s) that has lasted, or is expected to last, for a continuous period of at least 12 months.</p>
+                <p>I have a <strong>prolonged medical condition(s)</strong> that has lasted, or is expected to last, for a continuous period of <strong>at least 12 months</strong>.</p>
                 <div class="quiz-options">
                     <button type="button" class="quiz-opt" data-value="yes">Yes</button>
                     <button type="button" class="quiz-opt" data-value="no">No</button>
                 </div>
             </div>
             <div class="quiz-q" data-key="frequency">
-                <p>This condition/restriction is present all or almost all of the time (generally at least 90%).</p>
+                <p>This condition/restriction is present <strong>all or almost all of the time</strong> (generally at least 90%).</p>
                 <div class="quiz-options">
                     <button type="button" class="quiz-opt" data-value="yes">Yes</button>
                     <button type="button" class="quiz-opt" data-value="no">No</button>
                 </div>
             </div>
             <div class="quiz-q" data-key="severity">
-                <p>You are unable to do the activity, or it takes 3 times longer than someone of similar age without the impairment, even with the use of appropriate therapy, medication, and devices (or it takes 14+ hours in a week to manage your condition, for example, insulin for diabetes).</p>
+                <p>You are <strong>unable to do the activity</strong>, or it takes <strong>3 times longer</strong> than someone of similar age without the impairment, even with the use of appropriate therapy, medication, and devices (or it takes <strong>14+ hours in a week</strong> to manage your condition, for example, insulin for diabetes).</p>
                 <div class="quiz-options">
                     <button type="button" class="quiz-opt" data-value="yes">Yes</button>
                     <button type="button" class="quiz-opt" data-value="no">No</button>
                 </div>
             </div>
             <div class="quiz-q" data-key="filed2025">
-                <p>Have you filed your 2025 taxes?</p>
+                <p>Have you <strong>filed your 2025 taxes</strong>?</p>
                 <div class="quiz-options">
                     <button type="button" class="quiz-opt" data-value="yes">Yes</button>
                     <button type="button" class="quiz-opt" data-value="no">No</button>
@@ -890,10 +890,18 @@
             if (label && label.textContent.trim() === 'DTC') { step.style.display = showDtc ? '' : 'none'; }
         });
 
-        if (showDtc) return;
+        if (showDtc) {
+            // A "No" answer brings the DTC page back: restore links previously pointed past it.
+            document.querySelectorAll('a[data-dtc-bypassed]').forEach(function(a) {
+                a.setAttribute('href', 'dtc.html');
+                a.removeAttribute('data-dtc-bypassed');
+            });
+            return;
+        }
 
-        document.querySelectorAll('a.continue-btn[href="dtc.html"]').forEach(function(a) {
+        document.querySelectorAll('a.continue-btn[href="dtc.html"], a.skip-btn[href="dtc.html"]').forEach(function(a) {
             a.setAttribute('href', 'next-steps.html');
+            a.setAttribute('data-dtc-bypassed', '1');
         });
         if (/(^|\/)dtc\.html$/i.test(location.pathname)) {
             location.replace('next-steps.html');
