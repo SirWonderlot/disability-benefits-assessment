@@ -458,6 +458,49 @@
             background-color: #a93226;
         }
 
+        /* GAP: neutral interest choices (filled only when selected) */
+        .dbp-widget .interest-choices .interest-btn.interest-opt {
+            background-color: #fff;
+            color: #0264b4 !important;
+            border: 2px solid #0264b4;
+        }
+        .dbp-widget .interest-choices .interest-btn.interest-opt:hover { background-color: #f0f6fb; }
+        .dbp-widget .interest-choices .interest-btn.interest-opt.selected {
+            background-color: #0264b4;
+            color: #fff !important;
+        }
+
+        /* GAP: next step and actions */
+        .dbp-widget .quiz-intro { color: #555; margin: 6px 0 0 !important; }
+        .dbp-widget .next-step-box {
+            background: #f0f6fb;
+            border: 2px solid #0264b4;
+            border-radius: 12px;
+            padding: 20px 22px;
+            margin-top: 22px;
+        }
+        .dbp-widget .next-step-box h3 { margin-top: 0 !important; }
+        .dbp-widget .next-step-box ol { padding-left: 20px; margin-bottom: 0; }
+        .dbp-widget .next-step-box li { margin-bottom: 10px; }
+        .dbp-widget .gap-actions {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 12px;
+            margin-top: 24px;
+        }
+        .dbp-widget .gap-actions .continue-btn { margin-top: 0; white-space: normal; }
+        .dbp-widget .start-q-btn .ext { display: block; font-weight: 400; font-size: 0.85em; opacity: 0.85; }
+        .dbp-widget .continue-btn.secondary {
+            background-color: #fff;
+            color: #0264b4 !important;
+            border: 1px solid #0264b4;
+        }
+        .dbp-widget .continue-btn.secondary:hover { background-color: #f0f6fb; }
+        @media screen and (max-width: 600px) {
+            .dbp-widget .gap-actions { align-items: stretch; }
+        }
+
         .dbp-widget .quiz-disclaimer {
             font-size: 12px;
             color: #777;
@@ -819,35 +862,15 @@
 
     <h2>Guaranteed Access Program (GAP)</h2>
     <section>
-        <h3>What is the Guaranteed Access Program?</h3>
         <p>The <strong>Guaranteed Access Program (GAP)</strong> provides a one-time, <strong>tax-free payment</strong> to a person's loved ones at the time of their passing. It is intended to help cover final expenses during a very difficult time for a person's loved ones.</p>
 
-        <div class="key-info-box">
-            <h4>Key Information</h4>
-            <ul>
-                <li><strong>Eligibility:</strong> Available to individuals under the age of 80 who are living with a long-term medical condition.</li>
-                <li><strong>Guaranteed access:</strong> No medical tests or medical records are required to qualify.</li>
-                <li><strong>Benefit payment:</strong> A tax-free lump sum (minimum $10,000) is paid to a person of your choosing at the time of your passing.</li>
-                <li><strong>Maturity benefit:</strong> If you live to the end of the term, the funds are paid directly to you instead. Minimum payout is $10,000.</li>
-                <li><strong>Guaranteed payout:</strong> The funds are always paid out — either to a loved one upon passing, or to you if you outlive the term.</li>
-                <li><strong>Monthly contribution:</strong> The program is designed to be financially accessible for people at all income levels. Cost is typically $1 to $2 a day and is guaranteed to never increase.</li>
-            </ul>
-        </div>
-
-        <p>Watch this short video to better understand how the program works.</p>
-
-        <div class="video-wrap">
-            <iframe src="https://player.vimeo.com/video/1150236750?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" allowfullscreen title="Guaranteed Access Program video"></iframe>
-        </div>
-
-        <h3>Quick Facts</h3>
         <div class="stats-grid">
             <div class="stat-card">
                 <span class="stat-number">$10,000</span>
                 <span class="stat-label">Minimum tax-free payment</span>
             </div>
             <div class="stat-card">
-                <span class="stat-number">Under 80</span>
+                <span class="stat-number">6 months to 80</span>
                 <span class="stat-label">Age to qualify</span>
             </div>
             <div class="stat-card">
@@ -868,25 +891,45 @@
             </div>
         </div>
 
-        <h3 style="margin-top:64px;margin-bottom:0;">Do You Qualify?</h3>
+        <h3 style="margin-top:40px;">Learn More About GAP</h3>
+        <p>Watch this short video to better understand how the program works.</p>
+
+        <div class="video-wrap">
+            <iframe src="https://player.vimeo.com/video/1150236750?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" allowfullscreen title="Guaranteed Access Program video"></iframe>
+        </div>
+
+        <div class="key-info-box">
+            <h4>Key Information</h4>
+            <ul>
+                <li><strong>Eligibility:</strong> Available to individuals aged 6 months to 80 years who are living with a long-term medical condition.</li>
+                <li><strong>Guaranteed access:</strong> No medical tests or medical records are required to qualify.</li>
+                <li><strong>Benefit payment:</strong> A tax-free lump sum (minimum $10,000) is paid to a person of your choosing at the time of your passing.</li>
+                <li><strong>Maturity benefit:</strong> If you live to the end of the term, the funds are paid directly to you instead. Minimum payout is $10,000.</li>
+                <li><strong>Guaranteed payout:</strong> The funds are always paid out — either to a loved one upon passing, or to you if you outlive the term.</li>
+                <li><strong>Monthly contribution:</strong> The program is designed to be financially accessible for people at all income levels. Cost is typically $1 to $2 a day and is guaranteed to never increase.</li>
+            </ul>
+        </div>
+
+        <h3 style="margin-top:48px;margin-bottom:0;">Do You Qualify?</h3>
+        <p class="quiz-intro">Answer for the person the coverage is for.</p>
 
         <div class="quiz-box" id="gap-quiz">
             <div class="quiz-q" data-key="age">
-                <p>Are you <strong>under 80 years of age</strong>?</p>
+                <p>Is the person between <strong>6 months and 80 years of age</strong>?</p>
                 <div class="quiz-options">
                     <button type="button" class="quiz-opt" data-value="yes">Yes</button>
                     <button type="button" class="quiz-opt" data-value="no">No</button>
                 </div>
             </div>
             <div class="quiz-q" data-key="condition">
-                <p>Are you living with a <strong>long-term medical condition</strong>?</p>
+                <p>Are they living with a <strong>long-term medical condition</strong>?</p>
                 <div class="quiz-options">
                     <button type="button" class="quiz-opt" data-value="yes">Yes</button>
                     <button type="button" class="quiz-opt" data-value="no">No</button>
                 </div>
             </div>
             <div class="quiz-q" data-key="finalexpense">
-                <p>Do you currently have a <strong>final expense program</strong> in place?</p>
+                <p>Do they currently have a <strong>final expense program</strong> in place?</p>
                 <div class="quiz-options">
                     <button type="button" class="quiz-opt" data-value="yes">Yes</button>
                     <button type="button" class="quiz-opt" data-value="no">No</button>
@@ -896,31 +939,21 @@
             <div class="quiz-result" id="gap-result"></div>
         </div>
 
-        <div id="gap-specialist" style="display:none;">
-            <h3>Speak with a Benefits Specialist</h3>
-            <p>To learn more about the Guaranteed Access Program and apply, you'll speak with a Benefits Specialist. They'll explain how the program works and the benefits it includes, answer your questions, and <strong>assist you with applying for additional disability benefits</strong> programs.</p>
-            <p>The Benefits Specialist will also assist you with (if applicable):</p>
-            <ul>
-                <li>Canada Disability Benefit</li>
-                <li>Canadian Dental Care Plan</li>
-                <li>Canada Pension Plan Disability</li>
-                <li>Registered Disability Savings Plan</li>
-                <li>Disability Tax Credit Certificate</li>
-            </ul>
-            <div class="note-highlight"><p><strong>Note:</strong> Schedule a Benefits Review session with a Benefits Specialist <strong>only</strong> if you intend on attending.</p></div>
-
-            <!-- Calendly inline widget begin -->
-            <div class="calendly-inline-widget" id="gap-calendar" data-url="https://calendly.com/benefits-rdspcanada/benefits-review-session-clone" style="min-width:320px;height:1150px;"></div>
-            <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
-            <!-- Calendly inline widget end -->
-
-            <hr class="booking-divider">
-            <div class="interest-choices" id="gap-confirm">
-                <button type="button" class="skip-btn" id="gap-skip">Skip this program</button>
-            </div>
+        <div id="gap-specialist" class="next-step-box" style="display:none;">
+            <h3>Your next step: the health questionnaire</h3>
+            <p>The Guaranteed Access Program starts with a short <strong>health questionnaire</strong>. Your answers determine the benefit amount you qualify for.</p>
+            <ol>
+                <li><strong>Complete the health questionnaire.</strong> Start it now using the button below, or later from your Next Steps page at the end of this assessment.</li>
+                <li><strong>Book your review.</strong> When you finish, choose a time to meet with a Disability Benefits Specialist.</li>
+                <li><strong>Review with your specialist.</strong> Because this is an important program, your specialist reviews your questionnaire with you to make sure everything is accurate, confirms your benefit amount and its cost, and assists you with additional disability benefits programs (if applicable): the Disability Tax Credit Certificate, Canada Disability Benefit, Registered Disability Savings Plan, Canadian Dental Care Plan, and Canada Pension Plan Disability.</li>
+            </ol>
         </div>
 
-        <a href="rdsp.html" class="continue-btn" id="gap-continue" style="display:none;">Continue to the next program &rarr;</a>
+        <div class="gap-actions">
+            <a href="https://access.rdspcanada.ca/" target="_blank" rel="noopener" class="continue-btn start-q-btn" id="gap-start-q" style="display:none;">Complete the health questionnaire now <span class="ext">(opens in a new tab)</span></a>
+            <a href="rdsp.html" class="continue-btn" id="gap-continue" style="display:none;">Continue to the next program &rarr;</a>
+        </div>
+
     </section>
 
 </div>
@@ -1013,7 +1046,7 @@
 
         // Guidance shown when an answer is "No".
         var GUIDANCE = {
-            age: "This program is available to individuals under the age of 80.",
+            age: "This program is available to individuals aged 6 months to 80 years.",
             condition: "This program is for individuals living with a long-term medical condition."
         };
 
@@ -1097,8 +1130,8 @@
                 html = '<h4>You may be eligible for the Guaranteed Access Program</h4>' +
                     '<p>You meet the basic requirements for this program.</p>' +
                     '<div class="interest-choices">' +
-                        '<button type="button" class="interest-btn" id="gap-interest">I am interested in this program</button>' +
-                        '<button type="button" class="interest-btn interest-btn-secondary" id="gap-not-interested">I am not interested in this program</button>' +
+                        '<button type="button" class="interest-btn interest-opt" id="gap-interest">I am interested in this program</button>' +
+                        '<button type="button" class="interest-btn interest-opt" id="gap-not-interested">I am not interested in this program</button>' +
                     '</div>';
             } else {
                 html = '<h4>You may not be eligible at this time</h4>' +
@@ -1111,6 +1144,13 @@
             resultBox.innerHTML = html;
 
             var continueBtn = document.getElementById('gap-continue');
+            var startQBtn = document.getElementById('gap-start-q');
+            // Interested: offer the questionnaire first; Continue becomes the secondary choice.
+            function showInterested(on) {
+                if (startQBtn) startQBtn.style.display = on ? 'inline-block' : 'none';
+                if (continueBtn) continueBtn.classList.toggle('secondary', on);
+            }
+            showInterested(false);
 
             if (qualifies) {
                 // Continue stays hidden until they choose interested or not interested.
@@ -1126,18 +1166,24 @@
                 if (gapConfirm) gapConfirm.style.display = 'flex';
                 if (gapSkip) gapSkip.style.display = 'block';
 
+                function pick(btn) {
+                    [interestBtn, notInterestBtn].forEach(function(b) { if (b) b.classList.toggle('selected', b === btn); });
+                }
                 if (interestBtn) {
                     interestBtn.addEventListener('click', function() {
+                        pick(interestBtn);
                         if (specialist) specialist.style.display = 'block';
-                        if (choices) choices.style.display = 'none';
+                        if (continueBtn) continueBtn.style.display = 'inline-block';
+                        showInterested(true);
                         if (specialist) specialist.scrollIntoView({ behavior: 'smooth', block: 'start' });
                     });
                 }
                 if (notInterestBtn) {
                     notInterestBtn.addEventListener('click', function() {
+                        pick(notInterestBtn);
                         if (specialist) specialist.style.display = 'none';
-                        if (choices) choices.style.display = 'none';
                         if (continueBtn) continueBtn.style.display = 'inline-block';
+                        showInterested(false);
                     });
                 }
             } else {

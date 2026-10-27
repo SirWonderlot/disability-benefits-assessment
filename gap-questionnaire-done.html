@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="robots" content="noindex">
+    <title>Questionnaire complete</title>
+</head>
+<body>
+    <script>
+        // Loaded invisibly by the GAP health questionnaire (access.rdspcanada.ca)
+        // after a successful submission. This page is on the assessment tool's
+        // domain, so it can record completion in the shared assessment data.
+        // Any open assessment tab (e.g. Next Steps) picks up the change.
+        (function () {
+            try {
+                var all = JSON.parse(localStorage.getItem('dbpAssessment')) || {};
+                all.gapQuestionnaire = true;
+                localStorage.setItem('dbpAssessment', JSON.stringify(all));
+            } catch (e) { /* storage unavailable */ }
+        })();
+    </script>
+</body>
+</html>

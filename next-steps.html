@@ -662,7 +662,7 @@
             'cdb':   { url: 'https://www.canada.ca/en/services/benefits/disability/canada-disability-benefit/apply.html', label: 'Apply with the Government of Canada' },
             'cdcp':  { url: 'https://www.canada.ca/en/services/benefits/dental/dental-care-plan/apply.html', label: 'Apply with the Government of Canada' },
             'cpp-d': { url: 'https://www.canada.ca/en/services/benefits/publicpensions/cpp-disability-benefit/apply.html', label: 'Apply with the Government of Canada' },
-            'gap':   { url: 'gap.html', label: 'Book a session with a Benefits Specialist', internal: true },
+            'gap':   { url: 'https://access.rdspcanada.ca/', label: 'Complete your health questionnaire' },
             'rdsp':  { url: 'https://www.canada.ca/en/employment-social-development/programs/disability/savings.html', label: 'Learn how to open an RDSP' },
             'dtc':   { url: 'dtc-how-to-apply.html', label: 'How to apply for the DTC' }
         };
@@ -680,6 +680,19 @@
 
         var data = loadAssessment();
         var cardsEl = document.getElementById('ns-cards');
+
+        // Returning from the GAP health questionnaire (access.rdspcanada.ca links back with ?gap=questionnaire).
+        if (/[?&]gap=questionnaire\b/.test(location.search) && !data.gapQuestionnaire) {
+            data.gapQuestionnaire = true;
+            try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch (e) { /* storage unavailable */ }
+        }
+        var REVIEW_BOOKING_URL = 'https://calendly.com/benefits-rdspcanada/benefits-review-session-clone';
+
+        // The questionnaire opens in its own tab. When it finishes (or a review is booked),
+        // the shared assessment data changes; refresh this tab so GAP shows the new status.
+        window.addEventListener('storage', function (e) {
+            if (e.key === STORAGE_KEY) location.reload();
+        });
 
         // GAP only applies to BC and Ontario residents.
         var prov = data.profile && data.profile.province;
@@ -715,8 +728,21 @@
                 card.className = 'ns-card pass';
                 card.innerHTML =
                     '<div class="ns-card-head"><h4>' + esc(prog.name) + '</h4>' +
-                    '<span class="ns-badge pass">Session booked</span></div>' +
-                    '<p>You have booked your Disability Benefits Review session with a Benefits Specialist.</p>' +
+                    '<span class="ns-badge pass">Review booked</span></div>' +
+                    '<p>You have booked your questionnaire review with a Disability Benefits Specialist.</p>' +
+                    '<a class="ns-link" href="' + prog.page + '">Review ' + esc(prog.name) + ' &rarr;</a>';
+                cardsEl.appendChild(card);
+                return;
+            }
+
+            // GAP: questionnaire done but no review booked yet.
+            if (prog.id === 'gap' && data.gapQuestionnaire) {
+                card.className = 'ns-card pass';
+                card.innerHTML =
+                    '<div class="ns-card-head"><h4>' + esc(prog.name) + '</h4>' +
+                    '<span class="ns-badge pass">Questionnaire complete</span></div>' +
+                    '<p>Your health questionnaire is complete. Book your review with a Disability Benefits Specialist to confirm your benefit amount and its cost.</p>' +
+                    '<a class="ns-apply-btn" href="' + REVIEW_BOOKING_URL + '" target="_blank" rel="noopener">Book your questionnaire review &rarr;</a>' +
                     '<a class="ns-link" href="' + prog.page + '">Review ' + esc(prog.name) + ' &rarr;</a>';
                 cardsEl.appendChild(card);
                 return;
@@ -737,7 +763,8 @@
                     card.innerHTML =
                         '<div class="ns-card-head"><h4>' + esc(prog.name) + '</h4>' +
                         '<span class="ns-badge pass">You appear to be eligible</span></div>' +
-                        '<p>Based on the information you provided, you appear to meet the eligibility requirements.</p>' +
+                        '<p>Based on the information you provided, you appear to meet the eligibility requirements.' +
+                        (prog.id === 'gap' ? ' The next step is a health questionnaire, which determines the benefit amount you qualify for.' : '') + '</p>' +
                         applyHtml +
                         '<a class="ns-link" href="' + prog.page + '">Review ' + esc(prog.name) + ' &rarr;</a>';
                 } else {
