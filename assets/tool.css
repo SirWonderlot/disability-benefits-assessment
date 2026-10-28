@@ -1,0 +1,125 @@
+/* Assessment tool: maps the tool's building blocks onto the main site's look.
+   Loaded after https://www.rdspcanada.ca/assets/style.css, which supplies the
+   colours, fonts, header, footer, buttons and layout. */
+
+/* ---------- Page heading band ---------- */
+.tool .page-intro h1 { margin-bottom: .35rem; }
+.tool .page-intro .lede { margin-top: .5rem; }
+
+/* ---------- Progress bar ---------- */
+.progress-bar { display: flex; gap: .35rem; margin: 0 0 1.5rem; padding: 0; }
+.progress-step { flex: 1 1 0; min-width: 0; text-align: center; font-size: .82rem; color: var(--muted); }
+.progress-step a { display: block; color: inherit; text-decoration: none; }
+.progress-step a:hover { color: var(--link); }
+.progress-step a:hover .step-label { text-decoration: underline; }
+.step-tracker { display: none; }
+.step-bar { height: 6px; border-radius: 999px; background: var(--note-line); margin-bottom: .4rem; }
+.progress-step.active { color: var(--ink); font-weight: 600; }
+.progress-step.active .step-bar { background: var(--link); }
+.progress-step.active ~ .progress-step .step-bar { background: var(--surface-2); }
+.step-label { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+@media (max-width: 640px) {
+  .progress-step .step-label { display: none; }
+  .progress-step.active .step-tracker { display: block; position: absolute; }
+  .progress-bar { position: relative; padding-top: 1.6rem; margin-bottom: 1rem; }
+  .progress-step.active .step-tracker { top: 0; left: 0; font-size: .95rem; color: var(--muted); font-weight: 400; white-space: nowrap; }
+}
+
+/* ---------- Content ---------- */
+.dbp-widget > section { max-width: var(--prose); }
+.dbp-widget section > p, .dbp-widget section > ul, .dbp-widget section > ol { max-width: var(--prose); }
+.dbp-widget h3 { margin-top: 2.25rem; }
+.dbp-widget section > h3:first-child { margin-top: 0; }
+.dbp-widget h4 { margin: 0 0 .5rem; }
+
+/* Key information box, styled like the main site's key-info list */
+.key-info-box { margin: 1.5rem 0; }
+.key-info-box h4 { font-size: 1.25rem; margin-bottom: .5rem; }
+.key-info-box ul { list-style: none; padding: 0; margin: 0; border-top: 1px solid var(--line); }
+.key-info-box li { margin: 0; padding: .85rem 0; border-bottom: 1px solid var(--line); }
+.key-info-box strong { color: var(--ink); }
+
+/* Quick facts */
+.stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: .75rem; margin: 1rem 0 1.5rem; }
+.stat-card { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: .9rem 1rem; }
+.stat-number { display: block; color: var(--ink); font-weight: 700; font-size: 1.15rem; line-height: 1.25; }
+.stat-label { display: block; color: var(--muted); font-size: .95rem; margin-top: .15rem; }
+@media (max-width: 640px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } }
+
+/* Video */
+.video-wrap { position: relative; padding-top: 56.25%; border-radius: var(--radius); overflow: hidden; background: #000; margin: 1rem 0 1.5rem; }
+.video-wrap iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+
+/* Notes */
+.note-highlight { background: var(--note-bg); border: 1px solid var(--note-line); border-radius: var(--radius); padding: .8rem 1rem; margin: 0 0 1.25rem; }
+.note-highlight p { margin: 0; }
+.callout { background: var(--note-bg); border: 1px solid var(--note-line); border-radius: var(--radius); padding: 1rem 1.2rem; margin: 1.25rem 0; }
+.callout p:last-child { margin-bottom: 0; }
+
+/* ---------- Questions ---------- */
+.quiz-intro { color: var(--muted); }
+.quiz-box { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: .25rem 1.4rem 1.4rem; margin: 1rem 0 1.5rem; }
+.quiz-q { padding: 1rem 0; border-bottom: 1px solid var(--line); }
+.quiz-q p { margin: 0 0 .7rem; color: var(--ink); }
+.quiz-q strong { font-weight: 600; }
+.quiz-options { display: flex; gap: .6rem; }
+.quiz-opt { font: inherit; font-weight: 400; min-width: 96px; min-height: 46px; padding: .5rem 1.2rem; border-radius: 10px; border: 2px solid var(--link); background: #fff; color: var(--link); cursor: pointer; }
+.quiz-opt:hover { background: var(--note-bg); }
+.quiz-opt.selected { background: var(--link); color: #fff; }
+.start-select { font: inherit; font-size: 1.05rem; padding: .6rem .75rem; border: 1px solid #b8c3ce; border-radius: 8px; background: #fff; color: var(--ink); width: 100%; max-width: 360px; }
+.start-select:focus { outline: 3px solid var(--note-line); outline-offset: 1px; border-color: var(--link); }
+
+.quiz-result { display: none; margin-top: 1.1rem; border-radius: var(--radius); padding: 1rem 1.2rem; }
+.quiz-result.show { display: block; }
+.quiz-result h4 { font-size: 1.15rem; margin-bottom: .35rem; }
+.quiz-result p:last-child, .quiz-result ul:last-child { margin-bottom: 0; }
+.quiz-result.pass { background: #f1f8f4; border: 1px solid #b9dcc6; }
+.quiz-result.fail { background: #fdf3f2; border: 1px solid #f0c7c2; }
+
+/* ---------- Buttons ---------- */
+.continue-btn, .interest-btn, .ns-apply-btn {
+  display: inline-block; background: var(--link); color: #fff; font: inherit; font-weight: 600; font-size: 1rem;
+  text-decoration: none; padding: .65rem 1.1rem; border-radius: 8px; border: 1px solid var(--link); cursor: pointer;
+}
+.continue-btn:hover, .interest-btn:hover, .ns-apply-btn:hover { background: var(--link-hover); color: #fff; }
+.continue-btn { margin-top: 1rem; }
+.continue-btn.secondary { background: #fff; color: var(--link); }
+.continue-btn.secondary:hover { background: var(--note-bg); color: var(--link); }
+.skip-btn { display: inline-block; margin-top: 1rem; color: var(--link); font-weight: 600; }
+
+/* GAP */
+.interest-choices { display: flex; flex-direction: column; align-items: flex-start; gap: .6rem; margin-top: 1rem; }
+.interest-choices .interest-btn.interest-opt { width: 340px; max-width: 100%; text-align: left; background: #fff; color: var(--link); border: 2px solid var(--link); font-weight: 400; }
+.interest-choices .interest-btn.interest-opt:hover { background: var(--note-bg); }
+.interest-choices .interest-btn.interest-opt.selected { background: var(--link); color: #fff; }
+.next-step-box { background: var(--note-bg); border: 2px solid var(--link); border-radius: var(--radius); padding: 1.25rem 1.4rem; margin-top: 1.5rem; }
+.next-step-box h3 { margin-top: 0 !important; }
+.next-step-box ol { padding-left: 1.2rem; margin-bottom: 0; }
+.next-step-box li { margin-bottom: .6rem; }
+.gap-actions { display: flex; flex-direction: column; align-items: flex-start; gap: .75rem; margin-top: 1.5rem; }
+.gap-actions .continue-btn { margin-top: 0; white-space: normal; }
+.start-q-btn .ext { display: block; font-weight: 400; font-size: .85em; opacity: .9; }
+
+/* ---------- Next Steps cards ---------- */
+#ns-cards { display: grid; gap: 1rem; margin-top: 1rem; }
+.ns-card { background: #fff; border: 1px solid var(--line); border-left: 4px solid var(--line); border-radius: var(--radius); padding: 1.1rem 1.25rem; }
+.ns-card.pass { border-left-color: #2f7d4f; }
+.ns-card.fail { border-left-color: #c0392b; }
+.ns-card.todo { border-left-color: var(--note-line); }
+.ns-card-head { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem .75rem; margin-bottom: .4rem; }
+.ns-card-head h4 { margin: 0; font-size: 1.1rem; }
+.ns-badge { font-size: .78rem; font-weight: 600; letter-spacing: .03em; border-radius: 999px; padding: .1rem .55rem; white-space: nowrap; }
+.ns-badge.pass { color: #1f5e3a; background: #e3f2e8; border: 1px solid #b7dcc4; }
+.ns-badge.fail { color: #8a1c12; background: #fdf3f2; border: 1px solid #f0c7c2; }
+.ns-badge.todo { color: var(--link); background: var(--note-bg); border: 1px solid var(--note-line); }
+.ns-card p { margin: 0 0 .6rem; }
+.ns-card ul { margin: 0 0 .75rem; }
+.ns-apply-btn { margin: .25rem 1rem .5rem 0; }
+.ns-link { display: inline-block; margin-top: .25rem; font-weight: 600; }
+
+/* ---------- DTC step ---------- */
+.tool .dtc-apply { max-width: var(--prose); }
+.tool .dtc-benefits { max-width: 900px; }
+@media (max-width: 640px) { .progress-step.active .step-tracker::before { content: "Step "; } }
+.quiz-options.stack { flex-direction: column; align-items: stretch; max-width: 240px; }
+.quiz-options.stack .quiz-opt { text-align: left; }
