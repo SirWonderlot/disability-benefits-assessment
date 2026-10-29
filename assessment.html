@@ -9,6 +9,24 @@
     <link rel="stylesheet" href="https://www.rdspcanada.ca/assets/style.css?v=11">
     <link rel="stylesheet" href="assets/tool.css?v=2">
     <script>document.documentElement.classList.add('js')</script>
+  <!-- Privacy-friendly analytics by Plausible -->
+  <script async src="https://plausible.io/js/pa-eq3lLSt92POxpNUJ3IeP6.js"></script>
+  <script>
+    window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
+    plausible.init()
+    // Count clicks on the main next-step links (no personal information is sent).
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest && e.target.closest('a[href]'); if (!a || a.closest('footer')) return;
+      var h = a.href, n = /dtcc\.ca/.test(h) ? 'Apply for DTC'
+        : /access\.rdspcanada\.ca/.test(h) ? 'Open Health Questionnaire'
+        : /calendly\.com/.test(h) ? 'Book Review'
+        : /canada-disability-benefit\/apply/.test(h) ? 'Apply CDB'
+        : /dental-care-plan\/apply/.test(h) ? 'Apply CDCP'
+        : /cpp-disability-benefit\/apply/.test(h) ? 'Apply CPP-D'
+        : /registered-disability-savings-plan-rdsp\.html|disability\/savings\.html/.test(h) ? 'Open RDSP' : null;
+      if (n) plausible(n);
+    });
+  </script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to main content</a>
