@@ -18,6 +18,7 @@
     document.addEventListener('click', function (e) {
       var a = e.target.closest && e.target.closest('a[href]'); if (!a || a.closest('footer')) return;
       var h = a.href, n = /dtcc\.ca/.test(h) ? 'Apply for DTC'
+        : /disability-tax-credit\/about-dtc\.html/.test(h) ? 'Apply DTC Independently'
         : /access\.rdspcanada\.ca/.test(h) ? 'Open Health Questionnaire'
         : /calendly\.com/.test(h) ? 'Book Review'
         : /canada-disability-benefit\/apply/.test(h) ? 'Apply CDB'
@@ -152,7 +153,7 @@
           <div class="dtc-apply">
             <h4>Apply for the Disability Tax Credit</h4>
             <p>The DTC Application Assistance Program helps you prepare a complete application from plain-language questions, including guidance for your medical practitioner, to give you the best opportunity for approval.</p>
-            <a class="btn" href="https://dtcc.ca/" target="_blank" rel="noopener">Apply for the DTC</a>
+            <a class="btn" href="https://www.rdspcanada.ca/apply-for-the-dtc/" target="_blank" rel="noopener">Apply for the DTC</a>
           </div>
           <a href="next-steps.html" class="continue-btn">Continue to Next Steps &rarr;</a>
         </section>
@@ -239,7 +240,7 @@
             <li><a href="https://www.rdspcanada.ca/cdsb-eligibility/">Disability Bond</a></li>
             <li><a href="https://resources.rdspcanada.ca/">Disability Resources</a></li>
             <li><a href="https://www.rdspcanada.ca/programs/additional-programs/">Additional Programs</a></li>
-            <li><a href="https://dtcc.ca/" target="_blank" rel="noopener">Disability Tax Credit</a></li>
+            <li><a href="https://www.rdspcanada.ca/apply-for-the-dtc/" target="_blank" rel="noopener">Disability Tax Credit</a></li>
           </ul>
         </div>
         <div>

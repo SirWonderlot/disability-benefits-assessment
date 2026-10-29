@@ -18,6 +18,7 @@
     document.addEventListener('click', function (e) {
       var a = e.target.closest && e.target.closest('a[href]'); if (!a || a.closest('footer')) return;
       var h = a.href, n = /dtcc\.ca/.test(h) ? 'Apply for DTC'
+        : /disability-tax-credit\/about-dtc\.html/.test(h) ? 'Apply DTC Independently'
         : /access\.rdspcanada\.ca/.test(h) ? 'Open Health Questionnaire'
         : /calendly\.com/.test(h) ? 'Book Review'
         : /canada-disability-benefit\/apply/.test(h) ? 'Apply CDB'
@@ -374,7 +375,7 @@
             <li><a href="https://www.rdspcanada.ca/cdsb-eligibility/">Disability Bond</a></li>
             <li><a href="https://resources.rdspcanada.ca/">Disability Resources</a></li>
             <li><a href="https://www.rdspcanada.ca/programs/additional-programs/">Additional Programs</a></li>
-            <li><a href="https://dtcc.ca/" target="_blank" rel="noopener">Disability Tax Credit</a></li>
+            <li><a href="https://www.rdspcanada.ca/apply-for-the-dtc/" target="_blank" rel="noopener">Disability Tax Credit</a></li>
           </ul>
         </div>
         <div>

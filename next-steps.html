@@ -18,6 +18,7 @@
     document.addEventListener('click', function (e) {
       var a = e.target.closest && e.target.closest('a[href]'); if (!a || a.closest('footer')) return;
       var h = a.href, n = /dtcc\.ca/.test(h) ? 'Apply for DTC'
+        : /disability-tax-credit\/about-dtc\.html/.test(h) ? 'Apply DTC Independently'
         : /access\.rdspcanada\.ca/.test(h) ? 'Open Health Questionnaire'
         : /calendly\.com/.test(h) ? 'Book Review'
         : /canada-disability-benefit\/apply/.test(h) ? 'Apply CDB'
@@ -148,7 +149,7 @@
             'cpp-d': { url: 'https://www.canada.ca/en/services/benefits/publicpensions/cpp-disability-benefit/apply.html', label: 'Apply with the Government of Canada' },
             'gap':   { url: 'https://access.rdspcanada.ca/', label: 'Complete your health questionnaire' },
             'rdsp':  { url: 'https://www.canada.ca/en/employment-social-development/programs/disability/savings.html', label: 'Learn how to open an RDSP' },
-            'dtc':   { url: 'https://dtcc.ca/', label: 'Apply for the DTC' }
+            'dtc':   { url: 'https://www.rdspcanada.ca/apply-for-the-dtc/', label: 'Apply for the DTC' }
         };
 
         function loadAssessment() {
@@ -216,7 +217,7 @@
                     '<div class="ns-card-head"><h4>' + esc(prog.name) + '</h4>' +
                     '<span class="ns-badge todo">Apply first</span></div>' +
                     '<p>DTC approval is required for the Canada Disability Benefit, the RDSP, and many other programs.</p>' +
-                    '<a class="ns-apply-btn" href="https://dtcc.ca/" target="_blank" rel="noopener">Apply for the DTC &rarr;</a>' +
+                    '<a class="ns-apply-btn" href="https://www.rdspcanada.ca/apply-for-the-dtc/" target="_blank" rel="noopener">Apply for the DTC &rarr;</a>' +
                     '<a class="ns-link" href="' + prog.page + '">Review ' + esc(prog.name) + ' &rarr;</a>';
                 cardsEl.appendChild(card);
                 return;
@@ -310,7 +311,7 @@
             <li><a href="https://www.rdspcanada.ca/cdsb-eligibility/">Disability Bond</a></li>
             <li><a href="https://resources.rdspcanada.ca/">Disability Resources</a></li>
             <li><a href="https://www.rdspcanada.ca/programs/additional-programs/">Additional Programs</a></li>
-            <li><a href="https://dtcc.ca/" target="_blank" rel="noopener">Disability Tax Credit</a></li>
+            <li><a href="https://www.rdspcanada.ca/apply-for-the-dtc/" target="_blank" rel="noopener">Disability Tax Credit</a></li>
           </ul>
         </div>
         <div>
