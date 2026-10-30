@@ -7,7 +7,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="https://www.rdspcanada.ca/assets/favicon-32.png">
     <link rel="apple-touch-icon" href="https://www.rdspcanada.ca/assets/favicon-256.png">
     <link rel="stylesheet" href="https://www.rdspcanada.ca/assets/style.css?v=13">
-    <link rel="stylesheet" href="assets/tool.css?v=2">
+    <link rel="stylesheet" href="assets/tool.css?v=3">
     <script>document.documentElement.classList.add('js')</script>
   <!-- Privacy-friendly analytics by Plausible -->
   <script async src="https://plausible.io/js/pa-eq3lLSt92POxpNUJ3IeP6.js"></script>
@@ -116,7 +116,7 @@
             <h4>Key information</h4>
             <ul>
                 <li><strong>Who it's for:</strong> Eligible Canadian residents of all ages who do not have access to dental insurance.</li>
-                <li><strong>Income limit:</strong> Your adjusted family net income must be less than $90,000.</li>
+                <li><strong>Income limit:</strong> Your adjusted family net income must be less than $90,000. If you are 18 or older, this is your income plus your spouse's or partner's, not your parents'.</li>
                 <li><strong>What it covers:</strong> A wide range of oral health services, including exams, cleanings, fillings, root canals, gum treatment, and dentures.</li>
                 <li><strong>Co-payment:</strong> If your income is under $70,000, there's no co-payment. Higher incomes pay a share of the cost.</li>
                 <li><strong>Free to apply:</strong> The CDCP will never ask you to pay to apply or renew your coverage.</li>
@@ -171,6 +171,7 @@
         <div class="quiz-box" id="cdcp-quiz">
             <div class="quiz-q" data-key="income">
                 <p>Is your adjusted family net income <strong>less than $90,000</strong>?</p>
+                <p class="quiz-hint">If you are 18 or older, family net income is your income plus your spouse's or partner's, not your parents'.</p>
                 <div class="quiz-options">
                     <button type="button" class="quiz-opt" data-value="yes">Yes</button>
                     <button type="button" class="quiz-opt" data-value="no">No</button>
@@ -406,6 +407,6 @@
       });
     })();
   </script>
-  <script src="assets/tool.js?v=5"></script>
+  <script src="assets/tool.js?v=6"></script>
 </body>
 </html>

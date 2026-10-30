@@ -7,7 +7,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="https://www.rdspcanada.ca/assets/favicon-32.png">
     <link rel="apple-touch-icon" href="https://www.rdspcanada.ca/assets/favicon-256.png">
     <link rel="stylesheet" href="https://www.rdspcanada.ca/assets/style.css?v=13">
-    <link rel="stylesheet" href="assets/tool.css?v=2">
+    <link rel="stylesheet" href="assets/tool.css?v=3">
     <script>document.documentElement.classList.add('js')</script>
   <!-- Privacy-friendly analytics by Plausible -->
   <script async src="https://plausible.io/js/pa-eq3lLSt92POxpNUJ3IeP6.js"></script>
@@ -119,7 +119,7 @@
                 <li><strong>Who it's for:</strong> Working-age Canadians between 18 and 64 years old who have a disability.</li>
                 <li><strong>Eligibility:</strong> A person must qualify to receive this benefit.</li>
                 <li><strong>Income-based:</strong> The amount you receive depends on your income.</li>
-                <li><strong>Retroactive:</strong> Under certain circumstances, you may receive back payments for up to 24 months from when your application is received — though not for any month before June 2025, when the benefit began.</li>
+                <li><strong>Back payments:</strong> You may receive back payments for up to 24 months before your application, as far back as June 2025, when the benefit began.</li>
             </ul>
         </div>
 
@@ -158,7 +158,7 @@
         </div>
 
         <h3>Do you qualify?</h3>
-        <p>Answer these three questions to see if you're likely to qualify.</p>
+        <p>Answer these questions to see if you're likely to qualify.</p>
 
         <div class="quiz-box" id="cdb-quiz">
             <div class="quiz-q" data-key="age">
@@ -177,6 +177,42 @@
             </div>
             <div class="quiz-q" data-key="sin">
                 <p>Do you have a valid <strong>Social Insurance Number (SIN)</strong>?</p>
+                <div class="quiz-options">
+                    <button type="button" class="quiz-opt" data-value="yes">Yes</button>
+                    <button type="button" class="quiz-opt" data-value="no">No</button>
+                </div>
+            </div>
+            <div class="quiz-q" data-key="taxes">
+                <p>Have you <strong>filed last year's income tax return</strong>? (And your spouse or common-law partner, if you have one.)</p>
+                <div class="quiz-options">
+                    <button type="button" class="quiz-opt" data-value="yes">Yes</button>
+                    <button type="button" class="quiz-opt" data-value="no">No</button>
+                </div>
+            </div>
+            <div class="quiz-q" data-key="partner">
+                <p>Do you have a <strong>spouse or common-law partner</strong>?</p>
+                <div class="quiz-options">
+                    <button type="button" class="quiz-opt" data-value="yes">Yes</button>
+                    <button type="button" class="quiz-opt" data-value="no">No</button>
+                </div>
+            </div>
+            <div class="quiz-q" data-key="partnerdtc" style="display:none;">
+                <p>Does your spouse or partner also have the <strong>Disability Tax Credit</strong>?</p>
+                <div class="quiz-options">
+                    <button type="button" class="quiz-opt" data-value="yes">Yes</button>
+                    <button type="button" class="quiz-opt" data-value="no">No</button>
+                </div>
+            </div>
+            <div class="quiz-q" data-key="cdbwork" style="display:none;">
+                <p id="cdb-work-text"></p>
+                <div class="quiz-options">
+                    <button type="button" class="quiz-opt" data-value="yes">Yes</button>
+                    <button type="button" class="quiz-opt" data-value="no">No</button>
+                </div>
+            </div>
+            <div class="quiz-q" data-key="cdbincome" style="display:none;">
+                <p id="cdb-income-text"></p>
+                <p class="quiz-hint" id="cdb-income-hint"></p>
                 <div class="quiz-options">
                     <button type="button" class="quiz-opt" data-value="yes">Yes</button>
                     <button type="button" class="quiz-opt" data-value="no">No</button>
@@ -273,8 +309,41 @@
             dtc: "You must be approved for the Disability Tax Credit (DTC). The DTC page in this guide explains how to apply.",
             resident: "You must be a resident of Canada for income tax purposes.",
             sin: "You must have a valid Social Insurance Number (SIN), which you can obtain through Service Canada.",
-            taxes: "You, and your spouse or common-law partner if applicable, must have filed an income tax return for the previous year."
+            taxes: "You, and your spouse or common-law partner if applicable, must have filed an income tax return for the previous year.",
+            cdbincome: "Your income must be under the limit for the Canada Disability Benefit."
         };
+        // Highest income that still gets a payment (canada.ca formula, 2025-26 figures: reduced by 20 cents
+        // for each dollar over $23,000 single or $32,500 for a couple, 10 cents each when both partners get it).
+        // Income from work is partly not counted ($10,000 single, $14,000 couple), which raises the limit.
+        function incomeLimit() {
+            var base = answers.partner === 'no' ? 35000
+                : answers.partner === 'yes' && answers.partnerdtc === 'yes' ? 56500
+                : answers.partner === 'yes' && answers.partnerdtc === 'no' ? 44500 : null;
+            if (!base || !answers.cdbwork) return null;
+            if (answers.cdbwork !== 'yes') return base;
+            // Rounded down to $58,000 so it is not mistaken for the Bond's $58,523 limit.
+            return base === 44500 ? 58000 : base + (answers.partner === 'yes' ? 14000 : 10000);
+        }
+        var incomeQ = quizQ('cdbincome'), partnerDtcQ = quizQ('partnerdtc'), workQ = quizQ('cdbwork');
+        function quizQ(k) { return document.querySelector('#cdb-quiz .quiz-q[data-key="' + k + '"]'); }
+        function updateIncomeQuestion() {
+            partnerDtcQ.style.display = answers.partner === 'yes' ? '' : 'none';
+            var household = answers.partner === 'no' || (answers.partner === 'yes' && answers.partnerdtc);
+            workQ.style.display = household ? '' : 'none';
+            document.getElementById('cdb-work-text').innerHTML = answers.partner === 'yes'
+                ? 'Did you or your spouse or partner have any <strong>income from work</strong> last year?'
+                : 'Did you have any <strong>income from work</strong> last year?';
+            var lim = incomeLimit();
+            incomeQ.style.display = lim ? '' : 'none';
+            if (!lim) return;
+            var amt = '$' + lim.toLocaleString('en-CA');
+            document.getElementById('cdb-income-text').innerHTML = answers.partner === 'yes'
+                ? 'Was your <strong>family net income</strong> for last year (yours plus your spouse\'s or partner\'s) less than <strong>' + amt + '</strong>?'
+                : 'Was your <strong>net income</strong> for last year less than <strong>' + amt + '</strong>?';
+            document.getElementById('cdb-income-hint').textContent = answers.partner === 'yes'
+                ? 'Net income is line 23600 of your tax return. Add your line 23600 and your spouse\'s or partner\'s.'
+                : 'Net income is line 23600 of your tax return.';
+        }
 
         var quiz = document.getElementById('cdb-quiz');
         if (!quiz) return;
@@ -295,11 +364,22 @@
                     q.querySelectorAll('.quiz-opt').forEach(function(b) { b.classList.remove('selected'); });
                     btn.classList.add('selected');
                     answers[key] = btn.getAttribute('data-value');
+                    if (key === 'partner' || key === 'partnerdtc' || key === 'cdbwork') {
+                        if (key === 'partner') { clearAnswer('partnerdtc'); clearAnswer('cdbwork'); }
+                        clearAnswer('cdbincome');
+                        updateIncomeQuestion();
+                    }
                     if (skipBtn) skipBtn.style.display = 'none';
                     showResult();
                 });
             });
         });
+
+        // A changed household answer changes the income limit, so the income question is asked again.
+        function clearAnswer(k) {
+            delete answers[k];
+            var q = quizQ(k); if (q) q.querySelectorAll('.quiz-opt').forEach(function(b) { b.classList.remove('selected'); });
+        }
 
         function loadAssessment() {
             try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; }
@@ -313,14 +393,15 @@
             catch (e) { /* storage unavailable — result still shows on screen */ }
         }
 
-        var keys = ['age', 'dtc', 'resident', 'sin'];
-        if (!answers.dtc) keys = keys.filter(function(k) { return k !== 'dtc'; });
+        var REQS = ['age', 'dtc', 'resident', 'sin', 'taxes', 'cdbincome'];
+        var keys = answers.dtc ? REQS : REQS.filter(function(k) { return k !== 'dtc'; });
         var resultBox = document.getElementById('cdb-result');
 
         function showResult() {
             // Wait until every question has been answered.
-            var unanswered = keys.filter(function(k) { return !answers[k]; });
-            if (unanswered.length) return;
+            var needed = keys.concat('partner', 'cdbwork', answers.partner === 'yes' ? ['partnerdtc'] : []);
+            var unanswered = needed.filter(function(k) { return !answers[k]; });
+            if (unanswered.length) { if (continueBtn) continueBtn.style.display = 'none'; return; }
 
             var unmet = keys.filter(function(k) { return answers[k] === 'no'; });
             var qualifies = unmet.length === 0;
@@ -333,6 +414,11 @@
                 unmet: unmet,
                 reasons: unmet.map(function(k) { return GUIDANCE[k]; }),
                 hasDTC: answers.dtc || null,
+                partner: answers.partner,
+                partnerDtc: answers.partnerdtc || null,
+                workIncome: answers.cdbwork || null,
+                incomeLimit: incomeLimit(),
+                asked: keys.slice(),
                 completed: true
             });
             if (window.applyDtcVisibility) window.applyDtcVisibility();
@@ -399,6 +485,6 @@
       });
     })();
   </script>
-  <script src="assets/tool.js?v=5"></script>
+  <script src="assets/tool.js?v=6"></script>
 </body>
 </html>

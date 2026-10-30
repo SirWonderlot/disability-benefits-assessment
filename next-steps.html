@@ -7,7 +7,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="https://www.rdspcanada.ca/assets/favicon-32.png">
     <link rel="apple-touch-icon" href="https://www.rdspcanada.ca/assets/favicon-256.png">
     <link rel="stylesheet" href="https://www.rdspcanada.ca/assets/style.css?v=13">
-    <link rel="stylesheet" href="assets/tool.css?v=2">
+    <link rel="stylesheet" href="assets/tool.css?v=3">
     <script>document.documentElement.classList.add('js')</script>
   <!-- Privacy-friendly analytics by Plausible -->
   <script async src="https://plausible.io/js/pa-eq3lLSt92POxpNUJ3IeP6.js"></script>
@@ -364,7 +364,11 @@
             disability: 'Severe and prolonged disability', condition: 'Long-term medical condition'
         };
         var AGE_LABEL = { cdb: 'Age 18 to 64', 'cpp-d': 'Age 18 to 64', bond: 'Age 49 or younger', grant: 'Age 49 or younger', gap: 'Age 6 months to 80 years' };
-        function label(k, id) { return k === 'age' ? AGE_LABEL[id] : LABEL[k]; }
+        function money(n) { return '$' + Number(n).toLocaleString('en-CA'); }
+        function label(k, id) {
+            if (k === 'cdbincome') { var c = result('cdb') || {}; return (c.partner === 'yes' ? 'Family income under ' : 'Income under ') + money(c.incomeLimit); }
+            return k === 'age' ? AGE_LABEL[id] : LABEL[k];
+        }
 
         // Things a person can go and get, and how each is said in a sentence.
         var OBTAIN = { sin: 'get a ' + B('Social Insurance Number'), taxes: 'file your ' + B('tax return') + ' for the previous year',
@@ -380,8 +384,8 @@
                    gap: 'This program is for people aged ' + B('6 months to 80 years') + '.' },
             resident: 'You must be a ' + B('resident of Canada') + ' for tax purposes.',
             sin: 'You must have a valid ' + B('Social Insurance Number (SIN)') + '. You can get one through Service Canada.',
-            bondincome: 'Your family net income must be ' + B('less than $58,523') + ' (2026).',
-            income: 'Your adjusted family net income must be ' + B('less than $90,000') + '.',
+            bondincome: 'Your family net income must be ' + B('less than $58,523') + ' (2026). If you are 18 or older, family net income is your income plus your spouse\'s or partner\'s, not your parents\'.',
+            income: 'Your adjusted family net income must be ' + B('less than $90,000') + '. If you are 18 or older, family net income is your income plus your spouse\'s or partner\'s, not your parents\'.',
             insurance: 'You must ' + B('not have dental insurance') + ' through an employer, a pension or a private plan.',
             taxes: 'You must have ' + B('filed a tax return') + ' for the previous year.',
             contributions: 'You must have ' + B('contributed enough to the Canada Pension Plan') + ', usually in at least 4 of the last 6 years.',
@@ -389,17 +393,23 @@
             condition: 'This program is for people living with a ' + B('long-term medical condition') + '.',
             dtc: 'You must qualify for the ' + B('Disability Tax Credit') + '.'
         };
-        function need(k, id) { var n = NEED[k]; return typeof n === 'string' ? n : n[id]; }
+        NEED.cdbincome = function() {
+            var c = result('cdb') || {};
+            return c.partner === 'yes'
+                ? 'Your family net income (yours plus your spouse\'s or partner\'s) must be ' + B('less than ' + money(c.incomeLimit)) + '.'
+                : 'Your net income must be ' + B('less than ' + money(c.incomeLimit)) + '.';
+        };
+        function need(k, id) { var n = NEED[k]; return typeof n === 'string' ? n : typeof n === 'function' ? n() : n[id]; }
 
         var KEYS = {
-            cdb: ['age', 'resident', 'sin', 'dtc'], bond: ['age', 'resident', 'sin', 'bondincome', 'dtc'],
+            cdb: ['age', 'resident', 'sin', 'taxes', 'cdbincome', 'dtc'], bond: ['age', 'resident', 'sin', 'bondincome', 'dtc'],
             grant: ['age', 'resident', 'sin', 'dtc'], cdcp: ['income', 'insurance', 'resident', 'taxes'],
             'cpp-d': ['age', 'contributions', 'disability'], gap: ['age', 'condition'],
             da: ['resident', 'sin', 'dtc'], refunds: ['resident', 'sin', 'dtc']
         };
         var SOURCE = { bond: 'rdsp', grant: 'rdsp' };
         var shared = data.shared || {};
-        var SHARED = { cdb: { age: 'age1864', resident: 'resident', sin: 'sin' }, cdcp: { resident: 'resident' },
+        var SHARED = { cdb: { age: 'age1864', resident: 'resident', sin: 'sin', taxes: 'taxes' }, cdcp: { resident: 'resident', taxes: 'taxes' },
             'cpp-d': { age: 'age1864' }, bond: { resident: 'resident', sin: 'sin' }, grant: { resident: 'resident', sin: 'sin' } };
 
         function result(id) { var r = data[SOURCE[id] || id]; return r && r.completed ? r : null; }
@@ -435,6 +445,7 @@
             var r = result(id);
             return KEYS[id].filter(function(k) {
                 if (k === 'bondincome') return !!(r && r.bondIncome);
+                if (id === 'cdb' && (k === 'taxes' || k === 'cdbincome')) return !!(r && r.asked && r.asked.indexOf(k) >= 0);
                 if ((id === 'da' || id === 'refunds') && k === 'sin') return known('sin') !== null;
                 return true;
             }).map(function(k) { return { key: k, ok: u.indexOf(k) < 0 }; });
@@ -454,8 +465,8 @@
         var RDSP_URL = 'https://www.canada.ca/en/employment-social-development/programs/disability/savings.html';
         var P = {
             cdb: { name: 'Canada Disability Benefit', desc: 'A payment of <span class="amt">up to $204.20 a month ($2,450.40 a year)</span>.',
-                   ready: function() { return 'You can apply for the ' + B('Canada Disability Benefit') + ' now.'; },
-                   later: function(g) { return 'You can begin collecting the ' + B('Canada Disability Benefit') + ' after you ' + g + '.'; },
+                   ready: function() { return 'You can apply for the ' + B('Canada Disability Benefit') + ' now.' + BACKPAY; },
+                   later: function(g) { return 'You can begin collecting the ' + B('Canada Disability Benefit') + ' after you ' + g + '.' + BACKPAY; },
                    btn: btn('https://www.canada.ca/en/services/benefits/disability/canada-disability-benefit/apply.html', 'Apply for the Canada Disability Benefit') },
             bond: { name: 'Canada Disability Savings Bond', desc: '<span class="amt">Up to $20,000</span> that the government deposits into a Registered Disability Savings Plan (RDSP), a special registered account that saves for your future.',
                    ready: function() { return 'You can begin collecting the ' + B('Canada Disability Savings Bond') + ' once you open an RDSP.'; },
@@ -478,13 +489,22 @@
                             : data.gapQuestionnaire ? 'You have completed the ' + B('health questionnaire') + '.'
                             : 'Your next step is the ' + B('health questionnaire') + ', which determines the benefit amount you qualify for.'; },
                    btn: data.gapBooked || data.gapQuestionnaire ? '' : btn('gap-health-questionnaire.html', 'Complete the health questionnaire', true) },
-            da: { name: 'Disability Amount', desc: 'A <span class="amt">$10,341 tax credit (2026)</span> that lowers the income tax you pay each year. If you do not need it, it can be transferred to a supporting family member.',
+            da: { name: 'Disability Amount', desc: 'A <span class="amt">$10,341 tax credit (2026)</span> that lowers the income tax you pay each year. If you do not need it, it can be transferred to a supporting family member, such as a parent, spouse or partner. They claim it on their own tax return, which lowers the tax they pay and can give them a tax refund.',
                    ready: function() { return 'You may already be receiving the ' + B('Disability Amount') + '. If not, you can claim it on your tax return.'; },
                    later: function(g) { return 'You can begin claiming the ' + B('Disability Amount') + ' after you ' + g + '.'; }, btn: '' },
             refunds: { name: 'Refunds for past years', desc: 'If you paid income tax in past years, the CRA can adjust up to 10 previous tax returns to apply the Disability Amount, worth <span class="amt">up to $40,000</span>.',
                    ready: function() { return 'You may already have received these ' + B('refunds') + '. If not, you can ask the CRA to adjust your past tax returns.'; },
                    later: function(g) { return 'You can receive these ' + B('refunds') + ' after you ' + g + '.'; }, btn: '' }
         };
+        // CDB back payments: up to 24 months before the application, never before June 2025
+        // ($200 a month to June 2026, then $204.20), counted to the current month.
+        function cdbBackPay() {
+            var now = new Date(), end = now.getFullYear() * 12 + now.getMonth();
+            var start = Math.max(2025 * 12 + 5, end - 23), total = 0;
+            for (var m = start; m <= end; m++) total += m <= 2026 * 12 + 5 ? 200 : 204.20;
+            return '$' + total.toLocaleString('en-CA', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        }
+        var BACKPAY = ' You may also receive back payments as far back as June 2025, up to ' + cdbBackPay() + '.';
         function eligibleCard(id) {
             var p = P[id], g = toGet(id);
             return '<li><h4>' + esc(p.name) + '</h4><p>' + p.desc + '</p>' + reqList(items(id), id) +
@@ -546,7 +566,7 @@
       <tr><th scope="row">Tax refund for past years</th><td>Up to $40,000. The CRA can adjust up to 10 previous tax returns to apply the disability amount.</td><td><span class="d-only">Once, when approved</span><span class="m-only">Refunded once upon approval</span></td></tr>
       <tr><th scope="row">Canada Disability Benefit<br><span class="noinc-tag">No income needed</span></th><td>Up to $204.20 a month ($2,450.40 a year), for adults aged 18 to 64.</td><td><span class="d-only">Monthly</span><span class="m-only">Paid monthly</span></td></tr>
       <tr><th scope="row">Child Disability Benefit<br><span class="noinc-tag">No income needed</span></th><td>Up to $290 a month ($3,480 a year) for each eligible child, tax-free.</td><td><span class="d-only">Monthly</span><span class="m-only">Paid monthly</span></td></tr>
-      <tr><th scope="row">Disability amount (tax credit)</th><td>$10,341, plus up to $6,032 for a person under 18. Unused amounts can be transferred to a supporting family member.</td><td><span class="d-only">Annually</span><span class="m-only">Tax credit, claimed annually</span></td></tr>
+      <tr><th scope="row">Disability amount (tax credit)</th><td>$10,341, plus up to $6,032 for a person under 18. Unused amounts can be transferred to a supporting family member, who claims them on their tax return and can get a tax refund.</td><td><span class="d-only">Annually</span><span class="m-only">Tax credit, claimed annually</span></td></tr>
       <tr><th scope="row">Home Accessibility Tax Credit</th><td>Claim up to $20,000 a year in eligible renovation costs, worth up to $2,800.</td><td><span class="d-only">Annually</span><span class="m-only">Tax credit, claimed annually</span></td></tr>
       <tr><th scope="row">Home Buyers' Amount</th><td>A credit on up to $10,000 (worth up to $1,400) when buying a more accessible home, even if it is not a first home.</td><td><span class="d-only">When buying a home</span><span class="m-only">Tax credit, claimed when buying a home</span></td></tr>
       <tr><th scope="row">Child care expense deduction</th><td>Deduct up to $11,000 a year in child care costs for a child eligible for the DTC, instead of $8,000 or $5,000.</td><td><span class="d-only">Annually</span><span class="m-only">Deduction, claimed annually</span></td></tr>
@@ -618,6 +638,6 @@
       });
     })();
   </script>
-  <script src="assets/tool.js?v=5"></script>
+  <script src="assets/tool.js?v=6"></script>
 </body>
 </html>

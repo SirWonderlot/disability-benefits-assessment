@@ -59,6 +59,7 @@
 .quiz-q { padding: 1rem 0; border-bottom: 1px solid var(--line); }
 .quiz-q p { margin: 0 0 .7rem; color: var(--ink); }
 .quiz-q strong { font-weight: 600; }
+.quiz-q p.quiz-hint { margin: -.4rem 0 .7rem; font-size: .9rem; color: var(--muted); }
 .quiz-options { display: flex; gap: .6rem; }
 .quiz-opt { font: inherit; font-weight: 400; min-width: 96px; min-height: 46px; padding: .5rem 1.2rem; border-radius: 10px; border: 2px solid var(--link); background: #fff; color: var(--link); cursor: pointer; }
 .quiz-opt:hover { background: var(--note-bg); }
