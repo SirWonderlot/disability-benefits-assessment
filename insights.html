@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Assessment insights · RDSP Canada</title>
+  <link rel="icon" type="image/svg+xml" href="assets/insights-icon.svg">
+  <link rel="apple-touch-icon" href="https://www.rdspcanada.ca/assets/favicon-256.png">
+  <!-- Private: not linked from anywhere, hidden from search engines, and empty without the
+       passcode. The rows come from the "RDSP Canada assessments" Google Sheet (Apps Script
+       doGet), which hands them over only when the passcode matches. ?demo shows sample data. -->
+  <style>
+    :root {
+      color-scheme: light;
+      --page: #f5f5f7;
+      --card: #ffffff;
+      --ink: #1d1d1f;
+      --ink-2: #6e6e73;
+      --ink-3: #86868b;
+      --hairline: #e5e5ea;
+      --track: #f0f0f3;
+      --blue: #2a78d6;
+      --blue-soft: #86b6ef;
+      --orange: #eb6834;
+      --lavender: #9d8df1;
+      --green: #23a455;
+      --gray: #c7c7cc;
+      --gray-soft: #e5e5ea;
+      --radius: 18px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--page);
+      color: var(--ink);
+      font: 15px/1.45 -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    .wrap { max-width: 1400px; margin: 0 auto; padding: 40px 40px 64px; }
+
+    header.top { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; margin-bottom: 28px; flex-wrap: wrap; }
+    .eyebrow { font-size: 13px; font-weight: 600; letter-spacing: .02em; color: var(--blue); margin: 0 0 6px; }
+    h1 { font: 700 34px/1.1 -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", Arial, sans-serif; letter-spacing: -.02em; margin: 0; }
+    .updated { color: var(--ink-3); font-size: 13px; margin-top: 8px; }
+    .updated .live { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: #0ca30c; margin-right: 6px; vertical-align: 1px; }
+
+    .range { display: inline-flex; background: #e8e8ed; border-radius: 10px; padding: 3px; }
+    .range button {
+      border: 0; background: transparent; font: 500 13px/1 inherit; font-family: inherit; color: var(--ink);
+      padding: 8px 14px; border-radius: 8px; cursor: pointer;
+    }
+    .range button[aria-pressed="true"] { background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,.12); font-weight: 600; }
+
+    .grid { display: grid; gap: 20px; }
+    .kpis { grid-template-columns: repeat(4, 1fr); margin-bottom: 20px; }
+    .two { grid-template-columns: 1.35fr 1fr; margin-bottom: 20px; }
+    .three { grid-template-columns: 1fr 1fr 1fr; margin-bottom: 20px; }
+
+    .card { background: var(--card); border-radius: var(--radius); padding: 24px 26px; box-shadow: 0 1px 2px rgba(0,0,0,.04), 0 8px 24px rgba(0,0,0,.04); }
+    .card h2 { font-size: 17px; font-weight: 600; margin: 0; letter-spacing: -.01em; }
+    .card .sub { color: var(--ink-2); font-size: 13px; margin: 4px 0 20px; }
+
+    .kpi .label { color: var(--ink-2); font-size: 13px; font-weight: 500; }
+    .kpi .value { font: 700 44px/1.05 -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", Arial, sans-serif; letter-spacing: -.03em; margin: 10px 0 6px; font-variant-numeric: tabular-nums; }
+    .kpi .note { color: var(--ink-3); font-size: 13px; }
+
+    /* Horizontal bars: label, track with a 4px-rounded fill anchored left, value. */
+    .bars { display: grid; gap: 10px; }
+    .bar { display: grid; grid-template-columns: 130px 1fr 92px; align-items: center; gap: 14px; }
+    .bar .name { font-size: 14px; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .bar .track { height: 26px; background: var(--track); border-radius: 6px; overflow: hidden; display: flex; gap: 2px; }
+    .bar .fill { height: 100%; border-radius: 0 4px 4px 0; min-width: 2px; transition: width .5s ease; }
+    .bar .num { text-align: right; font-size: 14px; font-variant-numeric: tabular-nums; }
+    .bar .num span { color: var(--ink-3); font-size: 12px; margin-left: 6px; }
+    .bar.hot .name { font-weight: 600; }
+
+    .stack .bar { grid-template-columns: 130px 1fr 150px; }
+    .stack .track .seg { height: 100%; }
+    .stack .track .seg:last-child { border-radius: 0 4px 4px 0; }
+    .legend { display: flex; gap: 18px; flex-wrap: wrap; margin: -6px 0 16px; font-size: 13px; color: var(--ink-2); }
+    .legend i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; }
+
+    .callout { display: flex; gap: 16px; align-items: center; background: #fff7f2; border-radius: 14px; padding: 16px 18px; margin-top: 18px; }
+    .callout .big { font: 700 30px/1 -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif; color: var(--orange); font-variant-numeric: tabular-nums; }
+    .callout p { margin: 0; font-size: 14px; color: var(--ink); }
+
+    .split { display: flex; height: 44px; border-radius: 10px; overflow: hidden; gap: 2px; margin: 4px 0 14px; }
+    .split div { display: flex; align-items: center; padding: 0 14px; color: #fff; font-weight: 600; font-size: 14px; white-space: nowrap; }
+    .split-key { display: flex; justify-content: space-between; font-size: 13px; color: var(--ink-2); }
+
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    th { text-align: left; color: var(--ink-3); font-weight: 500; padding: 0 7px 10px; border-bottom: 1px solid var(--hairline); white-space: nowrap; }
+    td { padding: 10px 7px; border-bottom: 1px solid var(--hairline); white-space: nowrap; font-variant-numeric: tabular-nums; }
+    tr:last-child td { border-bottom: 0; }
+    td.path, td.wrap-cell { white-space: normal; color: var(--ink-2); }
+    td.path { min-width: 170px; }
+    td.wrap-cell { min-width: 96px; }
+    .pill { display: inline-block; padding: 2px 9px; border-radius: 999px; font-size: 12px; font-weight: 500; }
+    .pill.yes { background: #e8f1fc; color: #1c5cab; }
+    .pill.no { background: #fdeee7; color: #a8441b; }
+    .pill.skip { background: #f0f0f3; color: var(--ink-2); }
+    .pill.na { color: var(--ink-3); }
+    .pill.done { background: #efebfd; color: #5a46c8; }
+    .pill.apply { background: #e3f5e9; color: #18793d; margin: 1px 2px 1px 0; }
+    .table-scroll { overflow-x: auto; }
+
+    #tip { position: fixed; pointer-events: none; background: rgba(29,29,31,.92); color: #fff; font-size: 12px; padding: 7px 10px; border-radius: 8px; opacity: 0; transition: opacity .12s; z-index: 10; }
+
+    /* Passcode screen */
+    .gate { min-height: 100vh; display: grid; place-items: center; }
+    .gate form { background: #fff; border-radius: 22px; padding: 40px; width: 380px; box-shadow: 0 8px 30px rgba(0,0,0,.08); text-align: center; }
+    .gate h1 { font-size: 24px; margin-bottom: 8px; }
+    .gate p { color: var(--ink-2); margin: 0 0 22px; }
+    .gate input { width: 100%; font: inherit; font-size: 16px; padding: 12px 14px; border: 1px solid #d2d2d7; border-radius: 12px; margin-bottom: 12px; }
+    .gate button { width: 100%; font: inherit; font-weight: 600; padding: 12px; border: 0; border-radius: 12px; background: var(--blue); color: #fff; cursor: pointer; }
+    .gate .err { color: #d03b3b; font-size: 13px; min-height: 18px; margin: 10px 0 0; }
+    [hidden] { display: none !important; }
+  </style>
+</head>
+<body>
+  <div class="gate" id="gate" hidden>
+    <form id="gate-form">
+      <p class="eyebrow">RDSP Canada</p>
+      <h1>Assessment insights</h1>
+      <p>Enter your passcode. This computer will remember it.</p>
+      <input id="code" type="password" autocomplete="current-password" aria-label="Passcode">
+      <button type="submit">Open dashboard</button>
+      <p class="err" id="gate-err" role="alert"></p>
+    </form>
+  </div>
+
+  <div class="wrap" id="dash" hidden>
+    <header class="top">
+      <div>
+        <p class="eyebrow">RDSP Canada · Benefits Assessment Tool</p>
+        <h1>Assessment insights</h1>
+        <div class="updated" id="updated"></div>
+      </div>
+      <div class="range" role="group" aria-label="Time range">
+        <button data-days="1">Today</button>
+        <button data-days="7" aria-pressed="true">7 days</button>
+        <button data-days="30">30 days</button>
+        <button data-days="0">All time</button>
+      </div>
+    </header>
+
+    <section class="grid kpis">
+      <div class="card kpi"><div class="label">Visitors</div><div class="value" id="k-visitors">–</div><div class="note">Opened the assessment</div></div>
+      <div class="card kpi"><div class="label">Started</div><div class="value" id="k-started">–</div><div class="note" id="k-started-note"></div></div>
+      <div class="card kpi"><div class="label">Reached next steps</div><div class="value" id="k-done">–</div><div class="note" id="k-done-note"></div></div>
+      <div class="card kpi"><div class="label">Have the DTC</div><div class="value" id="k-dtc">–</div><div class="note" id="k-dtc-note"></div></div>
+    </section>
+
+    <section class="grid two">
+      <div class="card">
+        <h2>The journey</h2>
+        <p class="sub">How many visitors reached each page. GAP is shown only in B.C. and Ontario.</p>
+        <div class="bars" id="journey"></div>
+        <div class="callout" id="shortcut">
+          <div class="big" id="shortcut-n">0</div>
+          <p id="shortcut-text"></p>
+        </div>
+      </div>
+      <div class="card">
+        <h2>Where people stopped</h2>
+        <p class="sub">The last page reached by visitors who did not get to next steps.</p>
+        <div class="bars" id="stopped"></div>
+      </div>
+    </section>
+
+    <section class="grid two">
+      <div class="card stack">
+        <h2>Results by program</h2>
+        <p class="sub">What visitors were shown on each program page.</p>
+        <div class="legend">
+          <span><i style="background:var(--blue)"></i>Eligible</span>
+          <span><i style="background:var(--orange)"></i>Not eligible</span>
+          <span><i style="background:var(--gray)"></i>Opened, not answered</span>
+        </div>
+        <div class="bars" id="programs"></div>
+      </div>
+      <div class="card">
+        <h2>Provinces</h2>
+        <p class="sub">Visitors who chose a province.</p>
+        <div class="bars" id="provinces"></div>
+      </div>
+    </section>
+
+    <section class="grid two">
+    <section class="card stack videos">
+      <h2>Videos</h2>
+      <p class="sub">Of the visitors who opened each program page, how many played its video, and how far they watched.</p>
+      <div class="legend">
+        <span><i style="background:var(--blue)"></i>Watched most of it (75% or more)</span>
+        <span><i style="background:var(--blue-soft)"></i>Watched some</span>
+        <span><i style="background:var(--gray-soft)"></i>Did not play it</span>
+      </div>
+      <div class="bars" id="videos"></div>
+    </section>
+    <section class="card">
+      <h2>Apply clicks on next steps</h2>
+      <p class="sub">Of the visitors who reached next steps, how many clicked to apply for the DTC or to complete the GAP health questionnaire.</p>
+      <div class="bars" id="clicks"></div>
+    </section>
+    </section>
+
+    <section class="card">
+      <h2>Latest visitors</h2>
+      <p class="sub">Each row is one anonymous visitor, updated as they move through the tool.</p>
+      <div class="table-scroll"><table id="latest"></table></div>
+    </section>
+  </div>
+  <div id="tip" role="tooltip"></div>
+
+  <script>
+  (function () {
+    // The Apps Script web app behind the "RDSP Canada assessments" sheet.
+    var ENDPOINT = 'https://script.google.com/macros/s/AKfycbxH3n2vdZZSmQOs3C-3mXQLoKuF_kkkICzhRvuZIcPRfQV6njWp_zmIDU2u0BMM57empQ/exec';
+    var STEPS = ['Start', 'CDB', 'CDCP', 'CPP-D', 'GAP', 'RDSP', 'Next steps'];
+    var PROGRAMS = [['CDB', 'Disability Benefit'], ['CDCP', 'Dental Care'], ['CPP-D', 'CPP Disability'], ['GAP', 'GAP'], ['RDSP', 'RDSP']];
+    var VIDEO_PAGES = [['CDB', 'Disability Benefit'], ['CDCP', 'Dental Care'], ['GAP', 'GAP'], ['RDSP', 'RDSP']];
+    // "CDB 100%, RDSP 35%" -> { CDB: 100, RDSP: 35 }
+    var videosOf = function (r) {
+      var o = {};
+      String(r['Videos watched'] || '').split(', ').forEach(function (x) { var m = x.match(/^(.+) (\d+)%$/); if (m) o[m[1]] = Number(m[2]); });
+      return o;
+    };
+    var PROVINCES = { AB: 'Alberta', BC: 'British Columbia', MB: 'Manitoba', NB: 'New Brunswick', NL: 'Newfoundland and Labrador', NS: 'Nova Scotia', ON: 'Ontario', PE: 'Prince Edward Island', QC: 'Quebec', SK: 'Saskatchewan', NT: 'Northwest Territories', NU: 'Nunavut', YT: 'Yukon' };
+    var demo = /[?&]demo\b/.test(location.search);
+    var rows = [], days = 7;
+    var $ = function (id) { return document.getElementById(id); };
+    var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
+    var pct = function (n, d) { return d ? Math.round((n / d) * 100) + '%' : '–'; };
+    var fmt = function (n) { return n.toLocaleString('en-CA'); };
+
+    // ----- Data -----------------------------------------------------------------
+    function sample() {
+      // Sample visitors for the mock-up: some stop at the start, some take the step bar
+      // straight to next steps, most outside B.C. and Ontario never see GAP.
+      var out = [], seed = 7, rnd = function () { seed = (seed * 16807) % 2147483647; return seed / 2147483647; };
+      var provs = ['ON', 'ON', 'ON', 'BC', 'BC', 'AB', 'AB', 'QC', 'MB', 'NS', 'SK', 'NB'];
+      for (var i = 0; i < 214; i++) {
+        var started = new Date(Date.now() - rnd() * 14 * 86400000);
+        var answered = rnd() > 0.32, prov = provs[Math.floor(rnd() * provs.length)], dtc = rnd() > 0.55 ? 'yes' : 'no';
+        var pages = ['Start'], r = { Visitor: Math.random().toString(36).slice(2, 12), Started: started.toISOString(), Province: answered ? prov : '', Citizen: answered ? 'yes' : (rnd() > 0.5 ? '' : 'no'), 'Has the DTC': answered ? dtc : '' };
+        if (answered && r.Citizen === 'yes') {
+          var shortcut = rnd() < 0.18, stopAt = rnd() < 0.45 ? 1 + Math.floor(rnd() * 5) : 7;
+          for (var s = 1; s < 7; s++) {
+            var name = STEPS[s];
+            if (name === 'GAP' && prov !== 'BC' && prov !== 'ON') continue;
+            if (shortcut && s > 1 && s < 6) continue;
+            if (s >= stopAt && name !== 'Next steps') break;
+            if (name === 'Next steps' && stopAt < 7 && !shortcut) break;
+            pages.push(name);
+          }
+        }
+        PROGRAMS.forEach(function (p) {
+          var seen = pages.indexOf(p[0]) !== -1;
+          r[p[0]] = p[0] === 'GAP' && r.Province && prov !== 'BC' && prov !== 'ON' ? 'Not offered' : !seen ? '' : rnd() < 0.12 ? 'Skipped' : (dtc === 'yes' ? rnd() > 0.25 : rnd() > 0.6) ? 'Eligible' : 'Not eligible';
+        });
+        r['Videos watched'] = VIDEO_PAGES.filter(function (p) { return pages.indexOf(p[0]) !== -1 && rnd() < 0.42; })
+          .map(function (p) { return p[0] + ' ' + (rnd() < 0.55 ? 100 : 10 + Math.floor(rnd() * 60)) + '%'; }).join(', ');
+        r['Clicked apply'] = pages.indexOf('Next steps') === -1 ? '' : ['DTC', 'GAP'].filter(function (c) { return c === 'DTC' ? dtc === 'no' && rnd() < 0.55 : (prov === 'BC' || prov === 'ON') && rnd() < 0.35; }).join(', ');
+        r['Pages visited'] = pages.join(', ');
+        r['Got as far as'] = pages[pages.length - 1];
+        r['Reached next steps'] = pages.indexOf('Next steps') !== -1 ? 'Yes' : 'No';
+        r['Last seen'] = new Date(started.getTime() + rnd() * 600000).toISOString();
+        out.push(r);
+      }
+      return out;
+    }
+
+    function load(code) {
+      if (demo) return Promise.resolve({ rows: sample() });
+      return fetch(ENDPOINT + '?key=' + encodeURIComponent(code)).then(function (r) { return r.json(); });
+    }
+
+    // ----- Rendering ------------------------------------------------------------
+    function inRange(r) {
+      if (!days) return true;
+      var start = new Date(); start.setHours(0, 0, 0, 0); start.setDate(start.getDate() - (days - 1));
+      return new Date(r.Started) >= start;
+    }
+    var pagesOf = function (r) { return String(r['Pages visited'] || '').split(', ').filter(Boolean); };
+
+    function bars(el, items, total, opts) {
+      opts = opts || {};
+      var max = Math.max.apply(null, items.map(function (i) { return i.n; }).concat([1]));
+      el.innerHTML = items.map(function (i) {
+        var w = (i.n / max) * 100;
+        return '<div class="bar' + (i.hot ? ' hot' : '') + '" data-tip="' + esc(i.tip || (i.label + ': ' + fmt(i.n) + (total ? ' (' + pct(i.n, total) + ')' : ''))) + '">' +
+          '<div class="name">' + esc(i.label) + '</div>' +
+          '<div class="track"><div class="fill" style="width:' + w + '%;background:' + (i.color || opts.color || 'var(--blue)') + '"></div></div>' +
+          '<div class="num">' + fmt(i.n) + (total ? '<span>' + pct(i.n, total) + '</span>' : '') + '</div></div>';
+      }).join('') || '<p class="sub">No visitors in this range yet.</p>';
+    }
+
+    function render() {
+      var list = rows.filter(inRange);
+      var started = list.filter(function (r) { return r.Province && r.Citizen; });
+      var done = list.filter(function (r) { return r['Reached next steps'] === 'Yes'; });
+      var dtc = started.filter(function (r) { return r['Has the DTC'] === 'yes'; });
+      $('k-visitors').textContent = fmt(list.length);
+      $('k-started').textContent = fmt(started.length);
+      $('k-started-note').textContent = pct(started.length, list.length) + ' answered the first questions';
+      $('k-done').textContent = fmt(done.length);
+      $('k-done-note').textContent = pct(done.length, started.length) + ' of those who started';
+      $('k-dtc').textContent = pct(dtc.length, started.length);
+      $('k-dtc-note').textContent = fmt(dtc.length) + ' of ' + fmt(started.length) + ' already qualified';
+
+      // Journey: visitors who reached each page.
+      bars($('journey'), STEPS.map(function (s) {
+        var n = list.filter(function (r) { return pagesOf(r).indexOf(s) !== -1; }).length;
+        return { label: s, n: n, hot: s === 'Next steps', color: s === 'Next steps' ? 'var(--lavender)' : null };
+      }), list.length);
+
+      var jumped = done.filter(function (r) { return pagesOf(r).indexOf('RDSP') === -1; }).length;
+      $('shortcut-n').textContent = fmt(jumped);
+      $('shortcut-text').innerHTML = 'reached next steps <b>without opening the RDSP page</b>, most likely using the step bar at the top. That is ' + pct(jumped, done.length) + ' of everyone who reached next steps.';
+
+      // Where people stopped (did not reach next steps).
+      var stoppedRows = list.filter(function (r) { return r['Reached next steps'] !== 'Yes'; });
+      bars($('stopped'), STEPS.slice(0, 6).map(function (s) {
+        return { label: s, n: stoppedRows.filter(function (r) { return (r['Got as far as'] || 'Start') === s; }).length };
+      }), stoppedRows.length, { color: 'var(--orange)' });
+
+      // Results by program: one stacked bar per program.
+      $('programs').innerHTML = PROGRAMS.map(function (p) {
+        var c = { e: 0, n: 0, s: 0 };
+        list.forEach(function (r) { var v = r[p[0]]; if (v === 'Eligible') c.e++; else if (v === 'Not eligible') c.n++; else if (v === 'Skipped') c.s++; });
+        var t = c.e + c.n + c.s;
+        var seg = function (n, color, label) { return n ? '<div class="seg" style="width:' + (n / Math.max(t, 1)) * 100 + '%;background:' + color + '" data-tip="' + esc(p[1] + ' · ' + label + ': ' + n + ' (' + pct(n, t) + ')') + '"></div>' : ''; };
+        return '<div class="bar"><div class="name">' + esc(p[1]) + '</div><div class="track">' +
+          seg(c.e, 'var(--blue)', 'Eligible') + seg(c.n, 'var(--orange)', 'Not eligible') + seg(c.s, 'var(--gray)', 'Opened, not answered') +
+          '</div><div class="num">' + fmt(t) + '<span>' + pct(c.e, t) + ' eligible</span></div></div>';
+      }).join('');
+
+      // Videos: of those who opened each page, how far they watched.
+      $('videos').innerHTML = VIDEO_PAGES.map(function (p) {
+        var opened = list.filter(function (r) { return pagesOf(r).indexOf(p[0]) !== -1; });
+        var c = { most: 0, some: 0, none: 0 };
+        opened.forEach(function (r) { var v = videosOf(r)[p[0]]; if (v === undefined) c.none++; else if (v >= 75) c.most++; else c.some++; });
+        var t = opened.length;
+        var seg = function (n, color, label) { return n ? '<div class="seg" style="width:' + (n / Math.max(t, 1)) * 100 + '%;background:' + color + '" data-tip="' + esc(p[1] + ' video · ' + label + ': ' + n + ' (' + pct(n, t) + ')') + '"></div>' : ''; };
+        return '<div class="bar"><div class="name">' + esc(p[1]) + '</div><div class="track">' +
+          seg(c.most, 'var(--blue)', 'Watched most of it') + seg(c.some, 'var(--blue-soft)', 'Watched some') + seg(c.none, 'var(--gray-soft)', 'Did not play it') +
+          '</div><div class="num">' + fmt(c.most + c.some) + '<span>' + pct(c.most + c.some, t) + ' played</span></div></div>';
+      }).join('');
+
+      // Apply buttons clicked on next steps.
+      var CLICKS = [['DTC', 'Apply for the DTC'], ['GAP', 'GAP questionnaire']];
+      var clicksOf = function (r) { return String(r['Clicked apply'] || '').split(', ').filter(function (c) { return c === 'DTC' || c === 'GAP'; }); };
+      bars($('clicks'), CLICKS.map(function (c) {
+        return { label: c[1], n: done.filter(function (r) { return clicksOf(r).indexOf(c[0]) !== -1; }).length, hot: c[0] === 'DTC' };
+      }), done.length, { color: 'var(--green)' });
+
+      // Provinces, most visitors first.
+      var counts = {};
+      started.forEach(function (r) { counts[r.Province] = (counts[r.Province] || 0) + 1; });
+      bars($('provinces'), Object.keys(counts).sort(function (a, b) { return counts[b] - counts[a]; }).map(function (k) {
+        return { label: PROVINCES[k] || k, n: counts[k] };
+      }), started.length);
+
+      // Latest visitors.
+      var pill = function (v) {
+        var cls = v === 'Eligible' ? 'yes' : v === 'Not eligible' ? 'no' : v === 'Skipped' ? 'skip' : 'na';
+        return v ? '<span class="pill ' + cls + '">' + esc(v === 'Skipped' ? 'Not answered' : v) + '</span>' : '<span class="pill na">–</span>';
+      };
+      var when = function (iso) { var d = new Date(iso); return d.toLocaleDateString('en-CA', { month: 'short', day: 'numeric' }) + ', ' + d.toLocaleTimeString('en-CA', { hour: 'numeric', minute: '2-digit' }); };
+      var latest = list.slice().sort(function (a, b) { return new Date(b['Last seen'] || b.Started) - new Date(a['Last seen'] || a.Started); }).slice(0, 25);
+      $('latest').innerHTML = '<tr><th>Last seen</th><th>Province</th><th>Has DTC</th><th>Got as far as</th>' + PROGRAMS.map(function (p) { return '<th>' + p[0] + '</th>'; }).join('') + '<th>Videos</th><th>Clicked apply</th><th>Pages visited</th></tr>' +
+        latest.map(function (r) {
+          return '<tr><td>' + when(r['Last seen'] || r.Started) + '</td><td>' + esc(r.Province || '–') + '</td><td>' + esc(r['Has the DTC'] === 'yes' ? 'Yes' : r['Has the DTC'] === 'no' ? 'No' : '–') + '</td><td>' + (r['Got as far as'] === 'Next steps' ? '<span class="pill done">Next steps</span>' : esc(r['Got as far as'] || 'Start')) + '</td>' +
+            PROGRAMS.map(function (p) { return '<td>' + pill(r[p[0]]) + '</td>'; }).join('') + '<td class="wrap-cell">' + esc(r['Videos watched'] || '–') + '</td><td class="wrap-cell">' + (clicksOf(r).map(function (c) { return '<span class="pill apply">' + esc(c) + '</span>'; }).join('') || '<span class="pill na">–</span>') + '</td><td class="path">' + esc(r['Pages visited']) + '</td></tr>';
+        }).join('');
+
+      $('updated').innerHTML = '<span class="live"></span>' + (demo ? 'Sample data' : 'Live · updated ' + new Date().toLocaleTimeString('en-CA', { hour: 'numeric', minute: '2-digit' }) + ' · refreshes every minute');
+    }
+
+    // ----- Hover tooltips ---------------------------------------------------------
+    var tip = $('tip');
+    document.addEventListener('mousemove', function (e) {
+      var t = e.target.closest && e.target.closest('[data-tip]');
+      if (!t) { tip.style.opacity = 0; return; }
+      tip.textContent = t.getAttribute('data-tip');
+      tip.style.left = Math.min(e.clientX + 14, innerWidth - tip.offsetWidth - 8) + 'px';
+      tip.style.top = (e.clientY + 16) + 'px';
+      tip.style.opacity = 1;
+    });
+
+    document.querySelectorAll('.range button').forEach(function (b) {
+      b.addEventListener('click', function () {
+        document.querySelectorAll('.range button').forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+        days = Number(b.getAttribute('data-days'));
+        render();
+      });
+    });
+
+    // ----- Passcode -------------------------------------------------------------
+    var CODE_KEY = 'insightsPasscode';
+    function open(code) {
+      return load(code).then(function (data) {
+        if (!data || !data.rows) throw new Error('denied');
+        rows = data.rows;
+        $('gate').hidden = true;
+        $('dash').hidden = false;
+        render();
+        return true;
+      });
+    }
+    function showGate(msg) { $('gate').hidden = false; $('dash').hidden = true; $('gate-err').textContent = msg || ''; }
+    $('gate-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var code = $('code').value.trim();
+      open(code).then(function () {
+        try { localStorage.setItem(CODE_KEY, code); } catch (x) { /* not remembered */ }
+        setInterval(function () { open(code).catch(function () {}); }, 60000);
+      }).catch(function () { showGate('That passcode did not work.'); });
+    });
+    var saved = null;
+    try { saved = localStorage.getItem(CODE_KEY); } catch (x) { /* no storage */ }
+    if (demo || saved) {
+      open(saved).then(function () { if (!demo) setInterval(function () { open(saved).catch(function () {}); }, 60000); })
+        .catch(function () { try { localStorage.removeItem(CODE_KEY); } catch (x) {} showGate(); });
+    } else showGate();
+  })();
+  </script>
+</body>
+</html>

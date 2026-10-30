@@ -99,7 +99,9 @@
       province: p.province || '', citizen: p.citizen || '', dtc: p.dtc || '',
       cdb: result(d, 'cdb', 'cdb.html'), cdcp: result(d, 'cdcp', 'cdcp.html'), cppd: result(d, 'cpp-d', 'cpp-d.html'),
       gap: result(d, 'gap', 'gap.html'), rdsp: result(d, 'rdsp', 'rdsp.html'),
-      nextSteps: t.pages.indexOf('next-steps.html') !== -1
+      nextSteps: t.pages.indexOf('next-steps.html') !== -1,
+      videos: Object.keys(t.videos || {}).map(function (k) { return k + ' ' + t.videos[k] + '%'; }).join(', '),
+      clicks: (t.clicks || []).join(', ')
     });
     if (body === last) return;                       // nothing new since the last update
     last = body;
@@ -110,4 +112,52 @@
   setTimeout(send, 1500);
   document.addEventListener('visibilitychange', function () { if (document.visibilityState === 'hidden') send(); });
   window.addEventListener('pagehide', send);
+
+  // On next steps: whether they click to apply for the DTC (towards dtcc.ca) or to complete
+  // the GAP health questionnaire (not the header or footer links).
+  var APPLY_LINKS = [[/rdspcanada\.ca\/apply-for-the-dtc/, 'DTC'], [/gap-health-questionnaire\.html|access\.rdspcanada\.ca/, 'GAP']];
+  if (page === 'next-steps.html') {
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest && e.target.closest('a[href]');
+      if (!a || a.closest('header, footer, nav')) return;
+      var hit = APPLY_LINKS.filter(function (x) { return x[0].test(a.href); })[0];
+      if (!hit) return;
+      var d = load();
+      if (!d) return;
+      var tr = d.tracking || t;
+      tr.clicks = tr.clicks || [];
+      if (tr.clicks.indexOf(hit[1]) === -1) tr.clicks.push(hit[1]);
+      t = tr;
+      d.tracking = tr;
+      try { localStorage.setItem(KEY, JSON.stringify(d)); } catch (x) { /* storage unavailable */ }
+      send();
+    }, true);
+  }
+
+  // The program video (Vimeo): the furthest point watched, as a percentage, kept per program
+  // ("CDB 100%"). Sent with the next update, when they leave or switch away.
+  var video = document.querySelector('iframe[src*="player.vimeo.com"]');
+  if (!video) return;
+  var program = LABEL[page];
+  var api = document.createElement('script');
+  api.src = 'https://player.vimeo.com/api/player.js';
+  api.onload = function () {
+    var player = new window.Vimeo.Player(video);
+    function watched(p) {
+      var d = load();
+      if (!d) return;
+      var tr = d.tracking || t;
+      tr.videos = tr.videos || {};
+      var n = Math.min(100, Math.round(p * 100));
+      if (n <= (tr.videos[program] || 0) && tr.videos[program] !== undefined) return;
+      tr.videos[program] = n;
+      t = tr;
+      d.tracking = tr;
+      try { localStorage.setItem(KEY, JSON.stringify(d)); } catch (e) { /* storage unavailable */ }
+    }
+    player.on('play', function (e) { watched(e && e.percent || 0); });
+    player.on('timeupdate', function (e) { if (e && e.percent >= ((t.videos || {})[program] || 0) / 100 + 0.05) watched(e.percent); });
+    player.on('ended', function () { watched(1); send(); });
+  };
+  document.head.appendChild(api);
 })();
