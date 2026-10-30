@@ -56,3 +56,58 @@
   // Pre-filled answers should not hide "Skip this program".
   if (skip) skip.style.display = skipDisplay;
 })();
+
+// Anonymous progress for the assessments spreadsheet (a Google Sheet, through Apps Script):
+// one row per visitor, by a random id kept with their answers, updated as they go: the pages
+// visited, how far they got, and each program's result. No names, contact details or IP
+// addresses are sent (see the privacy policy, section 2).
+(function () {
+  var ENDPOINT = 'https://script.google.com/macros/s/AKfycbxH3n2vdZZSmQOs3C-3mXQLoKuF_kkkICzhRvuZIcPRfQV6njWp_zmIDU2u0BMM57empQ/exec';
+  var KEY = 'dbpAssessment';
+  var ORDER = ['assessment.html', 'cdb.html', 'cdcp.html', 'cpp-d.html', 'gap.html', 'rdsp.html', 'next-steps.html'];
+  var LABEL = { 'assessment.html': 'Start', 'cdb.html': 'CDB', 'cdcp.html': 'CDCP', 'cpp-d.html': 'CPP-D', 'gap.html': 'GAP', 'rdsp.html': 'RDSP', 'next-steps.html': 'Next steps' };
+  var page = location.pathname.split('/').pop() || 'index.html';
+  if (!LABEL[page]) return;
+  function load() { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { return null; } }
+
+  var all = load();
+  if (!all) return;                                  // storage unavailable: nothing to follow
+  var t = all.tracking || {};
+  if (!/^[a-z0-9]{8,16}$/.test(t.id || '')) t.id = (Math.random().toString(36).slice(2) + Math.random().toString(36).slice(2)).slice(0, 12);
+  t.pages = t.pages || [];
+  if (t.pages.indexOf(page) === -1) t.pages.push(page);
+  all.tracking = t;
+  try { localStorage.setItem(KEY, JSON.stringify(all)); } catch (e) { return; }
+
+  // A program's result: Eligible / Not eligible once answered, Skipped if the page was
+  // opened but not answered, blank if never opened. GAP is offered only in B.C. and Ontario.
+  function result(d, id, file) {
+    var r = d[id];
+    if (r && r.completed) return r.qualifies ? 'Eligible' : 'Not eligible';
+    if (id === 'gap' && d.profile && d.profile.province && ['BC', 'ON'].indexOf(d.profile.province) === -1) return 'Not offered';
+    return t.pages.indexOf(file) !== -1 ? 'Skipped' : '';
+  }
+  var last = '';
+  function send() {
+    var d = load() || {};
+    var p = d.profile || {};
+    var visited = ORDER.filter(function (f) { return t.pages.indexOf(f) !== -1; });
+    var body = JSON.stringify({
+      id: t.id,
+      furthest: LABEL[visited[visited.length - 1]] || 'Start',
+      pages: visited.map(function (f) { return LABEL[f]; }).join(', '),
+      province: p.province || '', citizen: p.citizen || '', dtc: p.dtc || '',
+      cdb: result(d, 'cdb', 'cdb.html'), cdcp: result(d, 'cdcp', 'cdcp.html'), cppd: result(d, 'cpp-d', 'cpp-d.html'),
+      gap: result(d, 'gap', 'gap.html'), rdsp: result(d, 'rdsp', 'rdsp.html'),
+      nextSteps: t.pages.indexOf('next-steps.html') !== -1
+    });
+    if (body === last) return;                       // nothing new since the last update
+    last = body;
+    try { fetch(ENDPOINT, { method: 'POST', mode: 'no-cors', keepalive: true, headers: { 'Content-Type': 'text/plain' }, body: body }); } catch (e) { /* offline */ }
+  }
+  // On arriving (after the page's own scripts have read the answers), and again when they
+  // leave or switch away, so answers given on this page are included.
+  setTimeout(send, 1500);
+  document.addEventListener('visibilitychange', function () { if (document.visibilityState === 'hidden') send(); });
+  window.addEventListener('pagehide', send);
+})();
