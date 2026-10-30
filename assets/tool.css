@@ -9,9 +9,6 @@
 /* ---------- Progress bar ---------- */
 .progress-bar { display: flex; gap: .35rem; margin: 0 0 1.5rem; padding: 0; }
 .progress-step { flex: 1 1 0; min-width: 0; text-align: center; font-size: .82rem; color: var(--muted); }
-.progress-step a { display: block; color: inherit; text-decoration: none; }
-.progress-step a:hover { color: var(--link); }
-.progress-step a:hover .step-label { text-decoration: underline; }
 .step-tracker { display: none; }
 .step-bar { height: 6px; border-radius: 999px; background: var(--note-line); margin-bottom: .4rem; }
 .progress-step.active { color: var(--ink); font-weight: 600; }

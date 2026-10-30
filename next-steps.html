@@ -77,46 +77,46 @@
       <div class="wrap">
         <div class="progress-bar">
         <div class="progress-step">
-            <a href="cdb.html">
+            <div>
                 <div class="step-tracker">&nbsp;</div>
                 <div class="step-bar"></div>
                 <span class="step-label">CDB</span>
-            </a>
+            </div>
         </div>
         <div class="progress-step">
-            <a href="cdcp.html">
+            <div>
                 <div class="step-tracker">&nbsp;</div>
                 <div class="step-bar"></div>
                 <span class="step-label">CDCP</span>
-            </a>
+            </div>
         </div>
         <div class="progress-step">
-            <a href="cpp-d.html">
+            <div>
                 <div class="step-tracker">&nbsp;</div>
                 <div class="step-bar"></div>
                 <span class="step-label">CPP-D</span>
-            </a>
+            </div>
         </div>
         <div class="progress-step">
-            <a href="gap.html">
+            <div>
                 <div class="step-tracker">&nbsp;</div>
                 <div class="step-bar"></div>
                 <span class="step-label">GAP</span>
-            </a>
+            </div>
         </div>
         <div class="progress-step">
-            <a href="rdsp.html">
+            <div>
                 <div class="step-tracker">&nbsp;</div>
                 <div class="step-bar"></div>
                 <span class="step-label">RDSP</span>
-            </a>
+            </div>
         </div>
         <div class="progress-step">
-            <a href="dtc.html">
+            <div>
                 <div class="step-tracker">&nbsp;</div>
                 <div class="step-bar"></div>
                 <span class="step-label">DTC</span>
-            </a>
+            </div>
         </div>
         <div class="progress-step active">
             <div class="step-tracker">7 of 7</div>
@@ -533,13 +533,6 @@
             return '<li><h4>' + esc(SKIP_NAMES[id]) + '</h4><p>You have not checked your eligibility for this program yet.</p>' + btn(PAGES[id], 'Check your eligibility', true) + '</li>';
         }).join('') + '</ul>';
 
-        var PROV = { AB: 'Alberta', BC: 'British Columbia', MB: 'Manitoba', NB: 'New Brunswick', NL: 'Newfoundland and Labrador',
-            NS: 'Nova Scotia', ON: 'Ontario', PE: 'Prince Edward Island', QC: 'Quebec', SK: 'Saskatchewan',
-            NT: 'Northwest Territories', NU: 'Nunavut', YT: 'Yukon' };
-        var provName = PROV[prov];
-        html += '<h3 class="sum-h">Provincial benefits</h3><ul class="sum-cards"><li><h4>' + (provName ? esc(provName) + ' disability benefits' : 'Disability benefits in your province') + '</h4><p>' +
-            (provName ? esc(provName) + ' also has its own disability benefits programs.' : 'Each province and territory also has its own disability benefits programs.') + '</p>' +
-            btn('https://www.rdspcanada.ca/provincial-benefits/' + (provName ? '#' + prov.toLowerCase() : ''), provName ? 'View ' + provName + ' benefits' : 'View provincial benefits') + '</li></ul>';
         if (dtcBox) html += `<div class="dtc-benefits">
           <h3>What DTC approval can mean</h3>
 
