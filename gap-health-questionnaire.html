@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en-CA">
+<head>
+    <meta charset="UTF-8">
+    <meta name="robots" content="noindex">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Health Questionnaire | RDSP Canada</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="https://www.rdspcanada.ca/assets/favicon-32.png">
+    <link rel="apple-touch-icon" href="https://www.rdspcanada.ca/assets/favicon-256.png">
+    <link rel="stylesheet" href="https://www.rdspcanada.ca/assets/style.css?v=13">
+    <link rel="stylesheet" href="assets/tool.css?v=2">
+    <script>document.documentElement.classList.add('js')</script>
+  <!-- Privacy-friendly analytics by Plausible -->
+  <script async src="https://plausible.io/js/pa-eq3lLSt92POxpNUJ3IeP6.js"></script>
+  <script>
+    window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
+    plausible.init()
+    // Count clicks on the main next-step links (no personal information is sent).
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest && e.target.closest('a[href]'); if (!a || a.closest('footer')) return;
+      var h = a.href, n = /dtcc\.ca/.test(h) ? 'Apply for DTC'
+        : /disability-tax-credit\/about-dtc\.html/.test(h) ? 'Apply DTC Independently'
+        : /access\.rdspcanada\.ca/.test(h) ? 'Open Health Questionnaire'
+        : /calendly\.com/.test(h) ? 'Book Review'
+        : /canada-disability-benefit\/apply/.test(h) ? 'Apply CDB'
+        : /dental-care-plan\/apply/.test(h) ? 'Apply CDCP'
+        : /cpp-disability-benefit\/apply/.test(h) ? 'Apply CPP-D'
+        : /registered-disability-savings-plan-rdsp\.html|disability\/savings\.html/.test(h) ? 'Open RDSP' : null;
+      if (n) plausible(n);
+    });
+  </script>
+  <style>
+    .hq-points { list-style: none; padding: 0; margin: 1.25rem 0 1.5rem; display: grid; gap: .7rem; max-width: var(--prose); }
+    .hq-points li { margin: 0; display: flex; align-items: center; gap: .7rem; font-size: 1.05rem; color: var(--ink); }
+    .hq-points .ri { flex: none; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; background: #e3f2e8; color: #2f7d4f; }
+    .hq-start { font-weight: 400; display: inline-flex; justify-content: center; align-items: center; gap: .5rem; font-size: 1.1rem; padding: .9rem 1.3rem; }
+    .hq-start .ext { display: block; font-weight: 400; font-size: .85em; opacity: .9; }
+    .hq-back { display: inline-block; margin-top: 1.5rem; font-weight: 600; }
+    .page-intro h1 { font-size: 1.9rem; line-height: 1.15; }
+    .page-intro .lede { font-size: 1.12rem; line-height: 1.65; color: var(--text); }
+    .page-intro .lede strong { font-weight: 600; color: var(--ink); }
+    @media (max-width: 640px) { .hq-start { display: flex; width: 100%; } }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="https://www.rdspcanada.ca/">
+        <img src="https://www.rdspcanada.ca/assets/logo-flag.png" alt="" width="40" height="40">
+        <span><span class="brand-name">RDSP Canada</span><span class="brand-tag">Disability benefits information</span></span>
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+      <nav class="site-nav" id="site-nav" aria-label="Main">
+        <ul>
+        <li><a href="https://www.rdspcanada.ca/cdsb-eligibility/">Disability Bond</a></li>
+        <li><a href="https://www.rdspcanada.ca/provincial-benefits/">Provincial Programs</a></li>
+        <li><a class="nav-tool" aria-current="page" href="https://assessment.rdspcanada.ca/assessment.html">Assessment Tool</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main id="main" class="tool">
+    <div class="page-intro">
+      <div class="wrap">
+        <span class="eyebrow">Guaranteed Access Program</span>
+        <h1>Health questionnaire</h1>
+        <p class="lede">The next step for the <strong>Guaranteed Access Program (GAP)</strong> is a short health questionnaire.</p>
+      </div>
+    </div>
+    <div class="section">
+      <div class="wrap">
+        <ul class="hq-points">
+          <li><span class="ri"><svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="3"/></svg></span>Takes less than 3 minutes</li>
+          <li><span class="ri"><svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="3"/></svg></span>No medical tests or medical records needed</li>
+          <li><span class="ri"><svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="3"/></svg></span>Your answers determine the benefit amount you qualify for</li>
+        </ul>
+        <p>The questionnaire opens in a new tab. When you finish you can return to your summary.</p>
+        <a class="btn hq-start" href="https://access.rdspcanada.ca/" target="_blank" rel="noopener">Start the health questionnaire <span aria-hidden="true">&rarr;</span></a>
+        <br>
+        <a class="hq-back" href="next-steps.html">&larr; Back to your summary</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-grid">
+        <div class="footer-about">
+          <div class="footer-brand"><img src="https://www.rdspcanada.ca/assets/logo-flag.png" alt="" width="32" height="32"> RDSP Canada</div>
+          <p>A disability benefits resource that offers tools to assist Canadians in collecting their disability benefits.</p>
+        </div>
+        <div>
+          <h2>Resources</h2>
+          <ul>
+            <li><a href="https://assessment.rdspcanada.ca/assessment.html">Benefits Assessment Tool</a></li>
+            <li><a href="https://www.rdspcanada.ca/apply-for-the-dtc/" target="_blank" rel="noopener">Disability Tax Credit</a></li>
+            <li><a href="https://www.rdspcanada.ca/provincial-benefits/">Provincial Benefits</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>About</h2>
+          <ul>
+            <li><a href="https://www.rdspcanada.ca/contact/">Contact</a></li>
+            <li><a href="https://www.rdspcanada.ca/privacy-policy/">Privacy</a></li>
+            <li><a href="https://www.rdspcanada.ca/terms-of-use/">Terms of Use</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; RDSP Canada 2026</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var b = document.querySelector('.nav-toggle'), n = document.getElementById('site-nav');
+      if (!b || !n) return;
+      b.addEventListener('click', function () {
+        var open = n.classList.toggle('open');
+        b.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+    })();
+  </script>
+  <script src="assets/tool.js?v=1"></script>
+</body>
+</html>
