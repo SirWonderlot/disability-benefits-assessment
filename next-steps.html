@@ -154,6 +154,29 @@
     (function() {
         var STORAGE_KEY = 'dbpAssessment';
 
+        // The "Apply for the DTC with assistance" page on rdspcanada.ca shows what qualifying
+        // means for this person, from answers passed in the link (the two sites cannot
+        // share saved answers): whether the Canada Disability Benefit (?age=), the RDSP grant
+        // (?rdsp=) and the bond (?bond=, family income under the limit) would apply once they
+        // qualify. Only a lasting barrier (age, residency, income) says "no"; not having the
+        // DTC yet, or a SIN or tax return they can still get, does not.
+        window.dtcApplyUrl = function() {
+            var d = {};
+            try { d = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch (e) {}
+            var OBTAINABLE = ['dtc', 'sin', 'taxes'];
+            var applies = function(r) {
+                return (r.unmet || []).every(function(k) { return OBTAINABLE.indexOf(k) !== -1; }) ? 'yes' : 'no';
+            };
+            var q = [], s = d.shared || {};
+            if (d.cdb && d.cdb.completed) q.push('age=' + applies(d.cdb));
+            else if (s.age1864) q.push('age=' + (s.age1864.v === 'yes' ? 'yes' : 'no'));
+            if (d.rdsp && d.rdsp.completed) {
+                q.push('rdsp=' + applies(d.rdsp));
+                if (d.rdsp.bondIncome) q.push('bond=' + (applies(d.rdsp) === 'yes' && d.rdsp.bondIncome === 'yes' ? 'yes' : 'no'));
+            }
+            return 'https://www.rdspcanada.ca/apply-for-the-dtc/' + (q.length ? '?' + q.join('&') : '');
+        };
+
         // The six programs in this guide, in order. Each program's quick check
         // writes its result into localStorage under its own id.
         var PROGRAMS = [
@@ -172,7 +195,7 @@
             'cpp-d': { url: 'https://www.canada.ca/en/services/benefits/publicpensions/cpp-disability-benefit/apply.html', label: 'Apply with the Government of Canada' },
             'gap':   { url: 'https://access.rdspcanada.ca/', label: 'Complete your health questionnaire' },
             'rdsp':  { url: 'https://www.canada.ca/en/employment-social-development/programs/disability/savings.html', label: 'Learn how to open an RDSP' },
-            'dtc':   { url: 'https://www.rdspcanada.ca/apply-for-the-dtc/', label: 'Apply for the DTC' }
+            'dtc':   { url: window.dtcApplyUrl(), label: 'Apply for the DTC with assistance' }
         };
 
         function loadAssessment() {
@@ -240,7 +263,7 @@
                     '<div class="ns-card-head"><h4>' + esc(prog.name) + '</h4>' +
                     '<span class="ns-badge todo">Apply first</span></div>' +
                     '<p>DTC approval is required for the Canada Disability Benefit, the RDSP, and many other programs.</p>' +
-                    '<a class="ns-apply-btn" href="https://www.rdspcanada.ca/apply-for-the-dtc/" target="_blank" rel="noopener">Apply for the DTC &rarr;</a>' +
+                    '<a class="ns-apply-btn" href="' + esc(window.dtcApplyUrl()) + '" target="_blank" rel="noopener">Apply for the DTC with assistance &rarr;</a>' +
                     '<a class="ns-link" href="' + prog.page + '">Review ' + esc(prog.name) + ' &rarr;</a>';
                 cardsEl.appendChild(card);
                 return;
@@ -491,7 +514,7 @@
                 dtcBox = true;
                 html += '<div class="dtc-apply"><h4>Apply for the Disability Tax Credit</h4>' +
                     '<p>The DTC is for people whose health condition has lasted, or is expected to last, at least 12 months. Once you qualify, you can begin collecting the benefits above.</p>' +
-                    '<a class="btn" href="https://www.rdspcanada.ca/apply-for-the-dtc/" target="_blank" rel="noopener">Apply for the DTC</a></div>';
+                    '<a class="btn" href="' + esc(window.dtcApplyUrl()) + '" target="_blank" rel="noopener">Apply for the DTC with assistance</a></div>';
             }
             var others = OTHER_IDS.filter(eligible);
             if (others.length) {
