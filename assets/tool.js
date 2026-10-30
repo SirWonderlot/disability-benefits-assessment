@@ -30,6 +30,13 @@
     all.shared[sk] = { v: v, page: page };
     try { localStorage.setItem(KEY, JSON.stringify(all)); } catch (e) { /* storage unavailable */ }
   }
+  // A DTC holder must already have a SIN (it is needed to apply for the DTC), so never ask them.
+  var all0 = load();
+  if (all0.profile && all0.profile.dtc === 'yes' && !(all0.shared && all0.shared.sin)) {
+    all0.shared = all0.shared || {};
+    all0.shared.sin = { v: 'yes', page: 'assessment.html' };
+    try { localStorage.setItem(KEY, JSON.stringify(all0)); } catch (e) { /* storage unavailable */ }
+  }
   var shared = load().shared || {};
   var skip = document.querySelector('.skip-btn');
   var skipDisplay = skip ? skip.style.display : '';

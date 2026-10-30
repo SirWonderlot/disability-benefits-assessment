@@ -396,11 +396,12 @@
             });
             if (id === 'bond' && r.bondIncome === 'no') u.push('bondincome');
             if (!hasDtc && KEYS[id].indexOf('dtc') >= 0 && u.indexOf('dtc') < 0) u.push('dtc');
-            if (hasDtc) u = u.filter(function(k) { return k !== 'dtc'; });
+            if (hasDtc) u = u.filter(function(k) { return k !== 'dtc' && k !== 'sin'; });
             return KEYS[id].filter(function(k) { return u.indexOf(k) >= 0; });
         }
         // Residency and SIN as answered (true, false or unknown).
         function known(k) {
+            if (k === 'sin' && hasDtc) return true;   // the DTC cannot be approved without a SIN
             if (shared[k]) return shared[k].v === 'yes';
             var seen = false, ok = true;
             ['cdb', 'rdsp'].forEach(function(id) { var r = data[id]; if (r && r.completed) { seen = true; if ((r.unmet || []).indexOf(k) >= 0) ok = false; } });
@@ -601,6 +602,6 @@
       });
     })();
   </script>
-  <script src="assets/tool.js?v=2"></script>
+  <script src="assets/tool.js?v=3"></script>
 </body>
 </html>
