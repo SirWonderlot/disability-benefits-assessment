@@ -6,7 +6,7 @@
     <title>Guaranteed Access Program (GAP) | RDSP Canada</title>
     <link rel="icon" type="image/png" sizes="32x32" href="https://www.rdspcanada.ca/assets/favicon-32.png">
     <link rel="apple-touch-icon" href="https://www.rdspcanada.ca/assets/favicon-256.png">
-    <link rel="stylesheet" href="https://www.rdspcanada.ca/assets/style.css?v=11">
+    <link rel="stylesheet" href="https://www.rdspcanada.ca/assets/style.css?v=13">
     <link rel="stylesheet" href="assets/tool.css?v=2">
     <script>document.documentElement.classList.add('js')</script>
   <!-- Privacy-friendly analytics by Plausible -->
@@ -40,11 +40,10 @@
       <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
       <nav class="site-nav" id="site-nav" aria-label="Main">
         <ul>
-        <li><a href="https://www.rdspcanada.ca/disability-benefits-programs/">Benefits Programs</a></li>
         <li><a href="https://www.rdspcanada.ca/cdsb-eligibility/">Disability Bond</a></li>
         <li><a href="https://resources.rdspcanada.ca/">Disability Resources</a></li>
         <li><a href="https://www.rdspcanada.ca/programs/additional-programs/">Additional Programs</a></li>
-        <li><a class="nav-tool" aria-current="page" href="https://www.rdspcanada.ca/disability-benefits-assessment-tool/">Assessment Tool</a></li>
+        <li><a class="nav-tool" aria-current="page" href="https://assessment.rdspcanada.ca/assessment.html">Assessment Tool</a></li>
         </ul>
       </nav>
     </div>
@@ -98,7 +97,7 @@
             <a href="next-steps.html">
                 <div class="step-tracker">&nbsp;</div>
                 <div class="step-bar"></div>
-                <span class="step-label">Next Steps</span>
+                <span class="step-label">Summary</span>
             </a>
         </div>
     </div>
@@ -190,19 +189,9 @@
         </div>
 
         <a href="rdsp.html" class="skip-btn" id="gap-skip">Skip this program</a>
-        <div id="gap-specialist" class="next-step-box" style="display:none;">
-            <h3>Your next step: the health questionnaire</h3>
-            <p>The Guaranteed Access Program starts with a short <strong>health questionnaire</strong>. Your answers determine the benefit amount you qualify for.</p>
-            <ol>
-                <li><strong>Complete the health questionnaire.</strong> Start it now using the button below, or later from your Next Steps page at the end of this assessment.</li>
-                <li><strong>Book your review.</strong> When you finish, choose a time to meet with a Disability Benefits Specialist.</li>
-                <li><strong>Review with your specialist.</strong> Because this is an important program, your specialist reviews your questionnaire with you to make sure everything is accurate, confirms your benefit amount and its cost, and assists you with additional disability benefits programs (if applicable): the Disability Tax Credit Certificate, Canada Disability Benefit, Registered Disability Savings Plan, Canadian Dental Care Plan, and Canada Pension Plan Disability.</li>
-            </ol>
-        </div>
 
         <div class="gap-actions">
-            <a href="https://access.rdspcanada.ca/" target="_blank" rel="noopener" class="continue-btn start-q-btn" id="gap-start-q" style="display:none;">Complete the health questionnaire now <span class="ext">(opens in a new tab)</span></a>
-            <a href="rdsp.html" class="continue-btn" id="gap-continue" style="display:none;">Continue to the next program &rarr;</a>
+            <a href="rdsp.html" class="continue-btn" id="gap-continue" style="display:none;">Continue &rarr;</a>
         </div>
 
     </section>
@@ -258,7 +247,7 @@
         try { data = JSON.parse(localStorage.getItem('dbpAssessment')) || {}; } catch (e) {}
         var hasDtc = data.profile && data.profile.dtc;
         // Answered on the first page. Hide only when we know they already have it.
-        var showDtc = hasDtc !== 'yes';
+        var showDtc = false; // DTC is covered in the summary at the end
 
         document.querySelectorAll('.progress-step').forEach(function(step) {
             var label = step.querySelector('.step-label');
@@ -374,71 +363,11 @@
                 completed: true
             });
 
-            var html;
-            if (qualifies) {
-                html = '<h4>You may be eligible for the Guaranteed Access Program</h4>' +
-                    '<p>You meet the basic requirements for this program.</p>' +
-                    '<div class="interest-choices">' +
-                        '<button type="button" class="interest-btn interest-opt" id="gap-interest">I am interested in this program</button>' +
-                        '<button type="button" class="interest-btn interest-opt" id="gap-not-interested">I am not interested in this program</button>' +
-                    '</div>';
-            } else {
-                html = '<h4>You may not be eligible at this time</h4>' +
-                    '<p>Based on the information you provided, you do not appear to meet all of the eligibility requirements. The following ' + (unmet.length === 1 ? 'requirement will' : 'requirements will') + ' need to be met:</p><ul>';
-                unmet.forEach(function(k) { html += '<li>' + GUIDANCE[k] + '</li>'; });
-                html += '</ul>';
-            }
-
-            resultBox.className = 'quiz-result show ' + (qualifies ? 'pass' : 'fail');
-            resultBox.innerHTML = html;
-
+            // Results, and the health questionnaire, are shown together at the end of the assessment.
+            resultBox.className = 'quiz-result';
+            resultBox.innerHTML = '';
             var continueBtn = document.getElementById('gap-continue');
-            var startQBtn = document.getElementById('gap-start-q');
-            // Interested: offer the questionnaire first; Continue becomes the secondary choice.
-            function showInterested(on) {
-                if (startQBtn) startQBtn.style.display = on ? 'inline-block' : 'none';
-                if (continueBtn) continueBtn.classList.toggle('secondary', on);
-            }
-            showInterested(false);
-
-            if (qualifies) {
-                // Continue stays hidden until they choose interested or not interested.
-                var choices = quiz.querySelector('.interest-choices');
-                var interestBtn = document.getElementById('gap-interest');
-                var notInterestBtn = document.getElementById('gap-not-interested');
-                var specialist = document.getElementById('gap-specialist');
-
-                if (continueBtn) continueBtn.style.display = 'none';
-                if (specialist) specialist.style.display = 'none';
-                // Reset the booking section to its starting state.
-                if (gapCalendar) { gapCalendar.style.display = 'block'; gapCalendar.style.height = '1100px'; }
-                if (gapConfirm) gapConfirm.style.display = 'flex';
-                if (gapSkip) gapSkip.style.display = 'block';
-
-                function pick(btn) {
-                    [interestBtn, notInterestBtn].forEach(function(b) { if (b) b.classList.toggle('selected', b === btn); });
-                }
-                if (interestBtn) {
-                    interestBtn.addEventListener('click', function() {
-                        pick(interestBtn);
-                        if (specialist) specialist.style.display = 'block';
-                        if (continueBtn) continueBtn.style.display = 'inline-block';
-                        showInterested(true);
-                        if (specialist) specialist.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    });
-                }
-                if (notInterestBtn) {
-                    notInterestBtn.addEventListener('click', function() {
-                        pick(notInterestBtn);
-                        if (specialist) specialist.style.display = 'none';
-                        if (continueBtn) continueBtn.style.display = 'inline-block';
-                        showInterested(false);
-                    });
-                }
-            } else {
-                // Not eligible: no choice to make, so allow them to continue.
-                if (continueBtn) continueBtn.style.display = 'inline-block';
-            }
+            if (continueBtn) continueBtn.style.display = 'inline-block';
         }
     })();
 </script>
@@ -480,24 +409,14 @@
       <div class="footer-grid">
         <div class="footer-about">
           <div class="footer-brand"><img src="https://www.rdspcanada.ca/assets/logo-flag.png" alt="" width="32" height="32"> RDSP Canada</div>
-          <p>Plain-language information about federal and provincial disability benefits programs.</p>
+          <p>A disability benefits resource that offers tools to assist Canadians in collecting their disability benefits.</p>
         </div>
         <div>
-          <h2>Information</h2>
+          <h2>Resources</h2>
           <ul>
-            <li><a href="https://www.rdspcanada.ca/disability-benefits-assessment-tool/">Assessment Tool</a></li>
-            <li><a href="https://www.rdspcanada.ca/disability-benefits-programs/">Benefits Programs</a></li>
-            <li><a href="https://www.rdspcanada.ca/cdsb-eligibility/">Disability Bond</a></li>
-            <li><a href="https://resources.rdspcanada.ca/">Disability Resources</a></li>
-            <li><a href="https://www.rdspcanada.ca/programs/additional-programs/">Additional Programs</a></li>
+            <li><a href="https://assessment.rdspcanada.ca/assessment.html">Benefits Assessment Tool</a></li>
             <li><a href="https://www.rdspcanada.ca/apply-for-the-dtc/" target="_blank" rel="noopener">Disability Tax Credit</a></li>
-          </ul>
-        </div>
-        <div>
-          <h2>Government sources</h2>
-          <ul>
-            <li><a href="https://www.canada.ca/en/revenue-agency.html" target="_blank" rel="noopener">Canada Revenue Agency (CRA)</a></li>
-            <li><a href="https://www.canada.ca/en/services/benefits/finder.html" target="_blank" rel="noopener">Benefits Finder</a></li>
+            <li><a href="https://www.rdspcanada.ca/provincial-benefits/">Provincial Benefits</a></li>
           </ul>
         </div>
         <div>
