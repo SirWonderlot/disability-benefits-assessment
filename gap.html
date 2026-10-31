@@ -176,13 +176,6 @@
                     <button type="button" class="quiz-opt" data-value="no">No</button>
                 </div>
             </div>
-            <div class="quiz-q" data-key="finalexpense">
-                <p>Do they currently have a <strong>final expense program</strong> in place?</p>
-                <div class="quiz-options">
-                    <button type="button" class="quiz-opt" data-value="yes">Yes</button>
-                    <button type="button" class="quiz-opt" data-value="no">No</button>
-                </div>
-            </div>
 
             <div class="quiz-result" id="gap-result"></div>
         </div>
@@ -340,7 +333,7 @@
         if (gapSkip) gapSkip.addEventListener('click', function() { proceedAfterBooking(false); });
 
         var keys = ['age', 'condition'];          // determine eligibility
-        var allKeys = ['age', 'condition', 'finalexpense']; // must all be answered first
+        var allKeys = ['age', 'condition'];        // must all be answered first
         var resultBox = document.getElementById('gap-result');
 
         function showResult() {
@@ -358,7 +351,6 @@
                 qualifies: qualifies,
                 unmet: unmet,
                 reasons: unmet.map(function(k) { return GUIDANCE[k]; }),
-                hasFinalExpense: answers.finalexpense || null,
                 completed: true
             });
 

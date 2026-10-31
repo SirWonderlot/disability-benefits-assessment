@@ -143,6 +143,17 @@
             catch (e) { /* storage unavailable */ }
         }
 
+        // Continue starts a new assessment: clear answers and results from any earlier run on this
+        // device (including a GAP questionnaire someone else completed), keeping only this profile
+        // and the anonymous tracking id.
+        continueBtn.addEventListener('click', function() {
+            var all = loadAssessment();
+            var fresh = { profile: all.profile };
+            if (all.tracking) fresh.tracking = all.tracking;
+            try { localStorage.setItem(STORAGE_KEY, JSON.stringify(fresh)); }
+            catch (e) { /* storage unavailable */ }
+        });
+
         // Citizenship and DTC Yes/No buttons.
         quiz.querySelectorAll('.quiz-q[data-key="citizen"] .quiz-opt, .quiz-q[data-key="dtc"] .quiz-opt').forEach(function(btn) {
             btn.addEventListener('click', function() {
