@@ -34,7 +34,7 @@
 .key-info-box h4 { font-size: 1.25rem; margin-bottom: .5rem; }
 .key-info-box ul { list-style: none; padding: 0; margin: 0; border-top: 1px solid var(--line); }
 .key-info-box li { margin: 0; padding: .85rem 0; border-bottom: 1px solid var(--line); }
-.key-info-box strong { color: var(--ink); }
+.key-info-box strong { color: #b42318; font-weight: 600; }
 /* Bold words in text: one notch lighter than the main site, same colour as the text (Todd, 2026-11-07). */
 p strong, p b, li strong, li b, td strong, .quiz-q strong, .note strong { font-weight: 500; color: inherit; }
 
@@ -119,3 +119,48 @@ p strong, p b, li strong, li b, td strong, .quiz-q strong, .note strong { font-w
 @media (max-width: 640px) { .progress-step.active .step-tracker::before { content: "Step "; } }
 .quiz-options.stack { flex-direction: column; align-items: stretch; max-width: 240px; }
 .quiz-options.stack .quiz-opt { text-align: left; }
+
+/* GAP step, page 1: the benefit chart. Each Next shows one bar and its explanation. */
+/* Benefit chart: bars appear one at a time, each explained underneath. */
+.gchart { margin: 4px 0 18px; }
+.gplot { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; height: 250px; }
+.gcol { position: relative; }
+.gcol .ghost { position: absolute; left: 0; right: 0; bottom: 0; top: 46px; background: #f1f4f8; }
+.gcol:first-child .ghost { display: none; }
+.gbar { position: absolute; left: 0; right: 0; bottom: 0; height: 0; overflow: hidden; color: #fff;
+display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
+transition: height 2s cubic-bezier(.25,.6,.25,1); }
+.gbar.budget { background: #1f4a87; }
+.gbar.death { background: #54769b; }
+.gbar.maturity { background: #275590; }
+.gcol.on .gbar.budget { height: 8px; }
+.gcol.on .gbar.death, .gcol.on .gbar.maturity { height: calc(100% - 46px); }
+.gnum { width: 40px; height: 40px; border: 2px solid rgba(255,255,255,.85); border-radius: 50%; display: grid; place-items: center; font-weight: 700; font-size: 1.15rem; }
+.gname { font-size: .9rem; font-weight: 600; text-align: center; line-height: 1.2; padding: 0 4px; }
+.gnum, .gname { opacity: 0; transition: opacity .6s 1.6s; }
+.gcol.on .gnum, .gcol.on .gname { opacity: 1; }
+.gamt { position: absolute; left: -4px; right: -4px; text-align: center; font-weight: 700; color: #1c2630; font-size: .9rem; line-height: 1.2; opacity: 0; transition: opacity .6s 1.4s; }
+.gcol:first-child .gamt { bottom: 14px; }
+.gcol .gamt.top { top: 6px; }
+.gcol.on .gamt { opacity: 1; }
+.gaxis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; border-top: 2px solid #1c2630; padding-top: 8px; }
+.gaxis span { font-size: .8rem; line-height: 1.25; text-align: center; color: #2e3a46; }
+.gstack { display: flex; flex-direction: column; }
+.gx { display: grid; grid-template-rows: 0fr; opacity: 0; transition: grid-template-rows 1s ease, opacity .8s ease .5s; }
+.gx.open { grid-template-rows: 1fr; opacity: 1; }
+.gx > div { overflow: hidden; min-height: 0; }
+.gx > div > div { display: grid; gap: 4px; padding: 14px 0; border-top: 1px solid #d9e0e7; }
+.gtap { padding: 4px 0 14px; }
+.gtap[hidden] { display: none; }
+.gx .estimate-key { display: flex; align-items: center; gap: 8px; }
+.gx .chip { width: 22px; height: 22px; border-radius: 50%; color: #fff; font-size: .78rem; font-weight: 700; display: inline-grid; place-items: center; }
+.estimate-key { color: #b42318; font-size: .95rem; font-weight: 600; }
+.estimate-value { color: #1c2630; font-size: 1.35rem; font-weight: 700; line-height: 1.2; }
+.estimate-desc { color: #2e3a46; font-size: 1rem; line-height: 1.55; }
+.gx > div > div { padding: 14px 0; }
+.gstatic .gx { grid-template-rows: 1fr; opacity: 1; }
+.gtap .btn-next { display: block; width: 100%; background: var(--link); color: #fff; border: 0; border-radius: 8px; padding: .8rem 1rem; font: inherit; font-weight: 600; font-size: 1.05rem; cursor: pointer; }
+.parts { margin: .4rem 0 1rem; }
+.estimate-value { font-weight: 600; }
+.lb { font-weight: 500; color: inherit; }
+@media (prefers-reduced-motion: reduce) { .gbar, .gnum, .gname, .gamt, .gx { transition: none; } }
