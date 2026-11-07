@@ -100,10 +100,7 @@
 
 /* ---------- Next Steps cards ---------- */
 #ns-cards { display: grid; gap: 1rem; margin-top: 1rem; }
-.ns-card { background: #fff; border: 1px solid var(--line); border-left: 4px solid var(--line); border-radius: var(--radius); padding: 1.1rem 1.25rem; }
-.ns-card.pass { border-left-color: #2f7d4f; }
-.ns-card.fail { border-left-color: #c0392b; }
-.ns-card.todo { border-left-color: var(--note-line); }
+.ns-card { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 1.1rem 1.25rem; }
 .ns-card-head { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem .75rem; margin-bottom: .4rem; }
 .ns-card-head h4 { margin: 0; font-size: 1.1rem; }
 .ns-badge { font-size: .78rem; font-weight: 600; letter-spacing: .03em; border-radius: 999px; padding: .1rem .55rem; white-space: nowrap; }
