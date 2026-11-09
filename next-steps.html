@@ -274,7 +274,7 @@
                 card.innerHTML =
                     '<div class="ns-card-head"><h4>' + esc(prog.name) + '</h4>' +
                     '<span class="ns-badge pass">Review booked</span></div>' +
-                    '<p>You have booked your questionnaire review with a Disability Benefits Specialist.</p>' +
+                    '<p>You have booked your Benefits Review session with a Benefits Specialist.</p>' +
                     '<a class="ns-link" href="' + prog.page + '">Review ' + esc(prog.name) + ' &rarr;</a>';
                 cardsEl.appendChild(card);
                 return;
@@ -286,8 +286,8 @@
                 card.innerHTML =
                     '<div class="ns-card-head"><h4>' + esc(prog.name) + '</h4>' +
                     '<span class="ns-badge pass">Questionnaire complete</span></div>' +
-                    '<p>Your health questionnaire is complete. Book your review with a Disability Benefits Specialist to confirm your benefit amount and its cost.</p>' +
-                    '<a class="ns-apply-btn" href="' + REVIEW_BOOKING_URL + '" target="_blank" rel="noopener">Book your questionnaire review &rarr;</a>' +
+                    '<p>Your health questionnaire is complete. Book your Benefits Review session with a Benefits Specialist to confirm your benefit amounts.</p>' +
+                    '<a class="ns-apply-btn" href="' + REVIEW_BOOKING_URL + '" target="_blank" rel="noopener">Book your Benefits Review session &rarr;</a>' +
                     '<a class="ns-link" href="' + prog.page + '">Review ' + esc(prog.name) + ' &rarr;</a>';
                 cardsEl.appendChild(card);
                 return;
@@ -485,7 +485,7 @@
                    btn: btn('https://www.canada.ca/en/services/benefits/publicpensions/cpp-disability-benefit/apply.html', 'Apply for CPP Disability') },
             gap: { name: 'Guaranteed Access Program', desc: 'A tax-free lump sum (<span class="amt">minimum $10,000</span>) paid to a person of your choosing, or to you if you outlive the term. Offered through iA Financial Group.',
                    ready: function() {
-                       return data.gapBooked ? 'You have completed the ' + B('health questionnaire') + ' and booked your review with a ' + B('Disability Benefits Specialist') + '.'
+                       return data.gapBooked ? 'You have completed the ' + B('health questionnaire') + ' and booked your Benefits Review session with a ' + B('Benefits Specialist') + '.'
                             : data.gapQuestionnaire ? 'You have completed the ' + B('health questionnaire') + '.'
                             : 'Your next step is the ' + B('health questionnaire') + ', which determines the benefit amount you qualify for.'; },
                    btn: data.gapBooked || data.gapQuestionnaire ? '' : btn('gap-health-questionnaire.html', 'Complete the health questionnaire', true) },
