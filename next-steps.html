@@ -217,7 +217,7 @@
             data.gapQuestionnaire = true;
             try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch (e) { /* storage unavailable */ }
         }
-        var REVIEW_BOOKING_URL = 'https://calendly.com/benefits-rdspcanada/benefits-review-session-clone';
+        var REVIEW_BOOKING_URL = 'https://calendly.com/benefits-rdspcanada/benefits-review-session-clone?utm_campaign=gap'; // gap: GAP Program Review session messages
 
         // The questionnaire opens in its own tab. When it finishes (or a review is booked),
         // the shared assessment data changes; refresh this tab so GAP shows the new status.
