@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en-CA">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Next Steps | RDSP Canada</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="https://www.rdspcanada.ca/assets/favicon-32.png">
+    <link rel="apple-touch-icon" href="https://www.rdspcanada.ca/assets/favicon-256.png">
+    <link rel="stylesheet" href="https://www.rdspcanada.ca/assets/style.css?v=15">
+    <link rel="stylesheet" href="assets/tool.css?v=8">
+    <script>document.documentElement.classList.add('js')</script>
+  <!-- Privacy-friendly analytics by Plausible -->
+  <script>
+    window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
+    plausible.init()
+    // Count clicks on the main next-step links (no personal information is sent).
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest && e.target.closest('a[href]'); if (!a || a.closest('footer')) return;
+      var h = a.href, n = /dtcc\.ca/.test(h) ? 'Apply for DTC'
+        : /disability-tax-credit\/about-dtc\.html/.test(h) ? 'Apply DTC Independently'
+        : /access\.rdspcanada\.ca/.test(h) ? 'Open Health Questionnaire'
+        : /calendly\.com/.test(h) ? 'Book Review'
+        : /canada-disability-benefit\/apply/.test(h) ? 'Apply CDB'
+        : /dental-care-plan\/apply/.test(h) ? 'Apply CDCP'
+        : /cpp-disability-benefit\/apply/.test(h) ? 'Apply CPP-D'
+        : /registered-disability-savings-plan-rdsp\.html|disability\/savings\.html/.test(h) ? 'Open RDSP' : null;
+      if (n) plausible(n);
+    });
+  </script>
+  <style>
+    .sum-cards { list-style: none; padding: 0; margin: 1.25rem 0 0; display: grid; gap: 1rem; }
+    .sum-cards > li { margin: 0; background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 1.1rem 1.15rem; }
+    .sum-cards h4 { font-size: 1.15rem; line-height: 1.3; margin: 0 0 .45rem; color: var(--ink); }
+    .sum-cards p { margin: 0 0 .55rem; font-size: 1.02rem; }
+    .sum-cards .amt, .sum-cards strong { font-weight: 600; color: inherit; }
+    .sum-cards .amt { color: var(--ink); }
+    .reqs { list-style: none; padding: 0; margin: .2rem 0 .8rem; display: grid; gap: .45rem; }
+    .reqs li { margin: 0; display: flex; align-items: center; gap: .6rem; font-size: 1rem; }
+    .ri { flex: none; width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; }
+    .ri.yes { background: #e3f2e8; color: #2f7d4f; }
+    .ri.no { background: #fdecea; color: #b42318; }
+    .when { color: #1f5e3a; background: #f1f8f4; border-radius: 8px; padding: .55rem .7rem; margin: 0 !important; }
+    .when.not { color: var(--text); background: var(--surface); }
+    .sum-cards .ns-apply-btn { margin: .8rem 0 0; }
+    .sum-cards .after { margin: .6rem 0 0; font-size: .95rem; color: var(--muted); }
+    .sum-h { margin-top: 2.5rem !important; }
+    .needs { list-style: none; margin: 0; padding: .55rem .7rem; background: var(--surface); border-radius: 8px; display: grid; gap: .35rem; }
+    .needs li { margin: 0; font-size: 1rem; }
+    .page-intro h1 { font-size: 1.9rem; line-height: 1.15; }
+    .page-intro .lede { font-size: 1.12rem; line-height: 1.65; color: var(--text); }
+    #summary .dtc-apply { margin-top: 1.5rem; }
+    #summary .dtc-benefits { margin-top: 2.5rem; }
+  </style>
+</head>
+<body>
+<div style="background:#fff4d6;color:#5c4400;text-align:center;font:600 14px/1.4 system-ui,sans-serif;padding:6px 16px;border-bottom:1px solid #e8d49a">Test version of the Benefits Assessment Tool. Not the live tool.</div>
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="https://www.rdspcanada.ca/">
+        <img src="https://www.rdspcanada.ca/assets/logo-flag.png" alt="" width="40" height="40">
+        <span><span class="brand-name">RDSP Canada</span><span class="brand-tag">Disability benefits information</span></span>
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+      <nav class="site-nav" id="site-nav" aria-label="Main">
+        <ul>
+        <li><a href="https://www.rdspcanada.ca/cdsb-eligibility/">Disability Bond</a></li>
+        <li><a href="https://www.rdspcanada.ca/provincial-benefits/">Provincial Programs</a></li>
+        <li><a class="nav-tool" aria-current="page" href="assessment.html">Assessment Tool</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="tool">
+    <div class="page-intro">
+      <div class="wrap">
+        <div class="progress-bar">
+        <div class="progress-step">
+            <div>
+                <div class="step-tracker">&nbsp;</div>
+                <div class="step-bar"></div>
+                <span class="step-label">CDB</span>
+            </div>
+        </div>
+        <div class="progress-step">
+            <div>
+                <div class="step-tracker">&nbsp;</div>
+                <div class="step-bar"></div>
+                <span class="step-label">GAP</span>
+            </div>
+        </div>
+        <div class="progress-step">
+            <div>
+                <div class="step-tracker">&nbsp;</div>
+                <div class="step-bar"></div>
+                <span class="step-label">CDCP</span>
+            </div>
+        </div>
+        <div class="progress-step">
+            <div>
+                <div class="step-tracker">&nbsp;</div>
+                <div class="step-bar"></div>
+                <span class="step-label">CPP-D</span>
+            </div>
+        </div>
+        <div class="progress-step">
+            <div>
+                <div class="step-tracker">&nbsp;</div>
+                <div class="step-bar"></div>
+                <span class="step-label">RDSP</span>
+            </div>
+        </div>
+        <div class="progress-step active">
+            <div class="step-tracker">6 of 6</div>
+            <div class="step-bar"></div>
+            <span class="step-label" data-end-label>Summary</span>
+        </div>
+    </div>
+        <span class="eyebrow">Assessment Tool</span>
+        <h1>Your next steps</h1>
+      </div>
+    </div>
+    <div class="section">
+      <div class="wrap dbp-widget">
+
+    
+    <div id="summary" hidden></div>
+    <section id="ns-section">
+        <p>Here's a personalized summary based on the quick checks you completed along the way.</p>
+
+        <h3>Program by program</h3>
+        <div id="ns-cards"></div>
+    </section>
+
+
+      </div>
+    </div>
+  </main>
+
+
+
+
+
+<script>
+    // ===== Next Steps — read saved answers and tailor the page =====
+    (function() {
+        var STORAGE_KEY = 'dbpAssessmentTest';
+
+        // The "Apply for the DTC with assistance" page on rdspcanada.ca shows what qualifying
+        // means for this person, from answers passed in the link (the two sites cannot
+        // share saved answers): whether the Canada Disability Benefit (?age=), the RDSP grant
+        // (?rdsp=) and the bond (?bond=, family income under the limit) would apply once they
+        // qualify. Only a lasting barrier (age, residency, income) says "no"; not having the
+        // DTC yet, or a SIN or tax return they can still get, does not.
+        window.dtcApplyUrl = function() {
+            var d = {};
+            try { d = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch (e) {}
+            var OBTAINABLE = ['dtc', 'sin', 'taxes'];
+            var applies = function(r) {
+                return (r.unmet || []).every(function(k) { return OBTAINABLE.indexOf(k) !== -1; }) ? 'yes' : 'no';
+            };
+            var q = [], s = d.shared || {};
+            if (d.cdb && d.cdb.completed) q.push('age=' + applies(d.cdb));
+            else if (s.age1864) q.push('age=' + (s.age1864.v === 'yes' ? 'yes' : 'no'));
+            if (d.rdsp && d.rdsp.completed) {
+                q.push('rdsp=' + applies(d.rdsp));
+                if (d.rdsp.bondIncome) q.push('bond=' + (applies(d.rdsp) === 'yes' && d.rdsp.bondIncome === 'yes' ? 'yes' : 'no'));
+            }
+            return 'https://www.rdspcanada.ca/apply-for-the-dtc/' + (q.length ? '?' + q.join('&') : '');
+        };
+
+        // The six programs in this guide, in order. Each program's quick check
+        // writes its result into localStorage under its own id.
+        var PROGRAMS = [
+            { id: 'dtc',   name: 'Disability Tax Credit (DTC)', page: 'dtc.html' },
+            { id: 'cdb',   name: 'Canada Disability Benefit (CDB)',        page: 'cdb.html' },
+            { id: 'cdcp',  name: 'Canadian Dental Care Plan (CDCP)',       page: 'cdcp.html' },
+            { id: 'cpp-d', name: 'Canada Pension Plan Disability (CPP-D)', page: 'cpp-d.html' },
+            { id: 'gap',   name: 'Guaranteed Access Program (GAP)',        page: 'gap.html' },
+            { id: 'rdsp',  name: 'Registered Disability Savings Plan (RDSP)', page: 'rdsp.html' }
+        ];
+
+        // Where to apply for each program once eligible. Government links open in a new tab.
+        var APPLY = {
+            'cdb':   { url: 'https://www.canada.ca/en/services/benefits/disability/canada-disability-benefit/apply.html', label: 'Apply with the Government of Canada' },
+            'cdcp':  { url: 'https://www.canada.ca/en/services/benefits/dental/dental-care-plan/apply.html', label: 'Apply with the Government of Canada' },
+            'cpp-d': { url: 'https://www.canada.ca/en/services/benefits/publicpensions/cpp-disability-benefit/apply.html', label: 'Apply with the Government of Canada' },
+            'gap':   { url: 'https://access.rdspcanada.ca/', label: 'Complete your health questionnaire' },
+            'rdsp':  { url: 'https://www.canada.ca/en/employment-social-development/programs/disability/savings.html', label: 'Learn how to open an RDSP' },
+            'dtc':   { url: window.dtcApplyUrl(), label: 'Apply for the DTC with assistance' }
+        };
+
+        function loadAssessment() {
+            try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; }
+            catch (e) { return {}; }
+        }
+
+        function esc(s) {
+            return String(s).replace(/[&<>"]/g, function(c) {
+                return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
+            });
+        }
+
+        var data = loadAssessment();
+        var cardsEl = document.getElementById('ns-cards');
+
+        // Returning from the GAP health questionnaire (access.rdspcanada.ca links back with ?gap=questionnaire).
+        if (/[?&]gap=questionnaire\b/.test(location.search) && !data.gapQuestionnaire) {
+            data.gapQuestionnaire = true;
+            try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch (e) { /* storage unavailable */ }
+        }
+        var REVIEW_BOOKING_URL = 'https://calendly.com/benefits-rdspcanada/benefits-review-session-clone?utm_campaign=gap'; // gap: GAP Program Review session messages
+
+        // The questionnaire opens in its own tab. When it finishes (or a review is booked),
+        // the shared assessment data changes; refresh this tab so GAP shows the new status.
+        window.addEventListener('storage', function (e) {
+            if (e.key === STORAGE_KEY) location.reload();
+        });
+
+        // GAP only applies to BC and Ontario residents.
+        var prov = data.profile && data.profile.province;
+        var hideGap = (prov && prov !== 'BC' && prov !== 'ON');
+        if (hideGap) {
+            PROGRAMS = PROGRAMS.filter(function(p) { return p.id !== 'gap'; });
+            document.querySelectorAll('.progress-step').forEach(function(step) {
+                var label = step.querySelector('.step-label');
+                if (label && label.textContent.trim() === 'GAP') { step.style.display = 'none'; }
+            });
+        }
+
+        // DTC only appears for those who indicated they do NOT already have the DTC.
+        var hasDtc = data.profile && data.profile.dtc;
+        // Answered on the first page. Hide only when we know they already have it.
+        var showDtc = true; // the DTC question is the first step, on its own page
+        if (!showDtc) {
+            PROGRAMS = PROGRAMS.filter(function(p) { return p.id !== 'dtc'; });
+            document.querySelectorAll('.progress-step').forEach(function(step) {
+                var label = step.querySelector('.step-label');
+                if (label && label.textContent.trim() === 'DTC') { step.style.display = 'none'; }
+            });
+        }
+
+        var qualifyList = [];
+        var notYetList = [];
+        var completedCount = 0;
+
+        PROGRAMS.forEach(function(prog) {
+            var r = data[prog.id];
+            var card = document.createElement('div');
+
+            // DTC: no quick check; it is the first step for those without it.
+            if (prog.id === 'dtc') {
+                card.className = 'ns-card todo';
+                card.innerHTML =
+                    '<div class="ns-card-head"><h4>' + esc(prog.name) + '</h4>' +
+                    '<span class="ns-badge todo">Apply first</span></div>' +
+                    '<p>DTC approval is required for the Canada Disability Benefit, the RDSP, and many other programs.</p>' +
+                    '<a class="ns-apply-btn" href="' + esc(window.dtcApplyUrl()) + '" target="_blank" rel="noopener">Apply for the DTC with assistance &rarr;</a>' +
+                    '<a class="ns-link" href="' + prog.page + '">Review ' + esc(prog.name) + ' &rarr;</a>';
+                cardsEl.appendChild(card);
+                return;
+            }
+            // GAP: if a session has been booked, show it as booked.
+            if (prog.id === 'gap' && data.gapBooked) {
+                card.className = 'ns-card pass';
+                card.innerHTML =
+                    '<div class="ns-card-head"><h4>' + esc(prog.name) + '</h4>' +
+                    '<span class="ns-badge pass">Review booked</span></div>' +
+                    '<p>You have scheduled your GAP Program Review session with a Benefits Specialist.</p>' +
+                    '<a class="ns-link" href="' + prog.page + '">Review ' + esc(prog.name) + ' &rarr;</a>';
+                cardsEl.appendChild(card);
+                return;
+            }
+
+            // GAP: questionnaire done but no review booked yet.
+            if (prog.id === 'gap' && data.gapQuestionnaire) {
+                card.className = 'ns-card pass';
+                card.innerHTML =
+                    '<div class="ns-card-head"><h4>' + esc(prog.name) + '</h4>' +
+                    '<span class="ns-badge pass">Questionnaire complete</span></div>' +
+                    '<p>Your health questionnaire is complete. Schedule your GAP Program Review session with a Benefits Specialist to confirm your benefit amounts.</p>' +
+                    '<a class="ns-apply-btn" href="' + REVIEW_BOOKING_URL + '" target="_blank" rel="noopener">Schedule your GAP Program Review session &rarr;</a>' +
+                    '<a class="ns-link" href="' + prog.page + '">Review ' + esc(prog.name) + ' &rarr;</a>';
+                cardsEl.appendChild(card);
+                return;
+            }
+
+            if (r && r.completed) {
+                completedCount++;
+                if (r.qualifies) {
+                    qualifyList.push(prog);
+                    var apply = APPLY[prog.id];
+                    var applyHtml = '';
+                    if (apply) {
+                        applyHtml = '<a class="ns-apply-btn" href="' + apply.url + '"' +
+                            (apply.internal ? '' : ' target="_blank" rel="noopener"') + '>' +
+                            esc(apply.label) + ' &rarr;</a>';
+                    }
+                    card.className = 'ns-card pass';
+                    card.innerHTML =
+                        '<div class="ns-card-head"><h4>' + esc(prog.name) + '</h4>' +
+                        '<span class="ns-badge pass">You appear to be eligible</span></div>' +
+                        '<p>Based on the information you provided, you appear to meet the eligibility requirements.' +
+                        (prog.id === 'gap' ? ' The next step is a health questionnaire, which determines the benefit amount you qualify for.' : '') + '</p>' +
+                        applyHtml +
+                        '<a class="ns-link" href="' + prog.page + '">Review ' + esc(prog.name) + ' &rarr;</a>';
+                } else {
+                    notYetList.push(prog);
+                    var reasons = (r.reasons && r.reasons.length) ? r.reasons : [];
+                    var listHtml = reasons.length
+                        ? '<ul>' + reasons.map(function(x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul>'
+                        : '';
+                    card.className = 'ns-card fail';
+                    card.innerHTML =
+                        '<div class="ns-card-head"><h4>' + esc(prog.name) + '</h4>' +
+                        '<span class="ns-badge fail">Requirements not yet met</span></div>' +
+                        '<p>Based on the information you provided, the following will need to be met:</p>' +
+                        listHtml +
+                        '<a class="ns-link" href="' + prog.page + '">Review ' + esc(prog.name) + ' &rarr;</a>';
+                }
+            } else {
+                card.className = 'ns-card todo';
+                card.innerHTML =
+                    '<div class="ns-card-head"><h4>' + esc(prog.name) + '</h4>' +
+                    '<span class="ns-badge todo">Not yet checked</span></div>' +
+                    '<p>You have not completed the quick check for this program yet.</p>' +
+                    '<a class="ns-link" href="' + prog.page + '">Take the quick check &rarr;</a>';
+            }
+
+            cardsEl.appendChild(card);
+        });
+    })();
+</script>
+
+
+
+<script>
+    // ===== Summary of results — built from the answers saved at each step =====
+    // Requirements a person can obtain (a SIN, a tax return, the DTC) are next steps, not reasons
+    // they are ineligible. Only the other requirements (age, income, residency and so on) are barriers.
+    (function() {
+        var data;
+        try { data = JSON.parse(localStorage.getItem('dbpAssessmentTest')) || {}; } catch (e) { data = {}; }
+        var profile = data.profile || {};
+        var hasDtc = profile.dtc === 'yes';
+
+        function esc(s) { return String(s).replace(/[&<>"]/g, function(c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+        function B(t) { return '<strong>' + t + '</strong>'; }
+        var YES = '<span class="ri yes"><svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="3"/></svg></span>';
+        var NO = '<span class="ri no"><svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true"><path d="M5.5 5.5l9 9M14.5 5.5l-9 9" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg></span>';
+
+        var LABEL = {
+            resident: 'Residency requirement', sin: 'Social Insurance Number', dtc: 'Disability Tax Credit',
+            income: 'Family income under $90,000', bondincome: 'Family income under $58,523',
+            insurance: 'No other dental coverage', taxes: 'Tax return filed', contributions: 'CPP contributions',
+            disability: 'Severe and prolonged disability', condition: 'Long-term medical condition'
+        };
+        var AGE_LABEL = { cdb: 'Age 18 to 64', 'cpp-d': 'Age 18 to 64', bond: 'Age 49 or younger', grant: 'Age 49 or younger', gap: 'Age 6 months to 80 years' };
+        function money(n) { return '$' + Number(n).toLocaleString('en-CA'); }
+        function label(k, id) {
+            if (k === 'cdbincome') { var c = result('cdb') || {}; return (c.partner === 'yes' ? 'Family income under ' : 'Income under ') + money(c.incomeLimit); }
+            return k === 'age' ? AGE_LABEL[id] : LABEL[k];
+        }
+
+        // Things a person can go and get, and how each is said in a sentence.
+        var OBTAIN = { sin: 'get a ' + B('Social Insurance Number'), taxes: 'file your ' + B('tax return') + ' for the previous year',
+                       dtc: 'qualify for the ' + B('Disability Tax Credit') };
+        function steps(keys) {
+            var parts = ['sin', 'taxes', 'dtc'].filter(function(k) { return keys.indexOf(k) >= 0; }).map(function(k) { return OBTAIN[k]; });
+            return parts.length < 2 ? parts.join('') : parts.slice(0, -1).join(', ') + ' and ' + parts[parts.length - 1];
+        }
+        // What is needed, for barriers in the not-eligible section.
+        var NEED = {
+            age: { cdb: 'You must be between ' + B('18 and 64') + ' years of age.', 'cpp-d': 'You must be between ' + B('18 and 64') + ' years of age.',
+                   bond: 'You must be ' + B('age 49 or younger') + ' at the end of 2026.', grant: 'You must be ' + B('age 49 or younger') + ' at the end of 2026.',
+                   gap: 'This program is for people aged ' + B('6 months to 80 years') + '.' },
+            resident: 'You must be a ' + B('resident of Canada') + ' for tax purposes.',
+            sin: 'You must have a valid ' + B('Social Insurance Number (SIN)') + '. You can get one through Service Canada.',
+            bondincome: 'Your family net income must be ' + B('less than $58,523') + ' (2026). If you are 18 or older, family net income is your income plus your spouse\'s or partner\'s, not your parents\'.',
+            income: 'Your adjusted family net income must be ' + B('less than $90,000') + '. If you are 18 or older, family net income is your income plus your spouse\'s or partner\'s, not your parents\'.',
+            insurance: 'You must ' + B('not have dental insurance') + ' through an employer, a pension or a private plan.',
+            taxes: 'You must have ' + B('filed a tax return') + ' for the previous year.',
+            contributions: 'You must have ' + B('contributed enough to the Canada Pension Plan') + ', usually in at least 4 of the last 6 years.',
+            disability: 'You must have a ' + B('severe and prolonged disability') + ' that regularly prevents you from working.',
+            condition: 'This program is for people living with a ' + B('long-term medical condition') + '.',
+            dtc: 'You must qualify for the ' + B('Disability Tax Credit') + '.'
+        };
+        NEED.cdbincome = function() {
+            var c = result('cdb') || {};
+            return c.partner === 'yes'
+                ? 'Your family net income (yours plus your spouse\'s or partner\'s) must be ' + B('less than ' + money(c.incomeLimit)) + '.'
+                : 'Your net income must be ' + B('less than ' + money(c.incomeLimit)) + '.';
+        };
+        function need(k, id) { var n = NEED[k]; return typeof n === 'string' ? n : typeof n === 'function' ? n() : n[id]; }
+
+        var KEYS = {
+            cdb: ['age', 'resident', 'sin', 'taxes', 'cdbincome', 'dtc'], bond: ['age', 'resident', 'sin', 'bondincome', 'dtc'],
+            grant: ['age', 'resident', 'sin', 'dtc'], cdcp: ['income', 'insurance', 'resident', 'taxes'],
+            'cpp-d': ['age', 'contributions', 'disability'], gap: ['age', 'condition'],
+            da: ['resident', 'sin', 'dtc'], refunds: ['resident', 'sin', 'dtc']
+        };
+        var SOURCE = { bond: 'rdsp', grant: 'rdsp' };
+        var shared = data.shared || {};
+        var SHARED = { cdb: { age: 'age1864', resident: 'resident', sin: 'sin', taxes: 'taxes' }, cdcp: { resident: 'resident', taxes: 'taxes' },
+            'cpp-d': { age: 'age1864' }, bond: { resident: 'resident', sin: 'sin' }, grant: { resident: 'resident', sin: 'sin' } };
+
+        function result(id) { var r = data[SOURCE[id] || id]; return r && r.completed ? r : null; }
+        // Unmet requirements for a program, using the answers asked once where they exist.
+        function unmet(id) {
+            if (id === 'da' || id === 'refunds') {
+                var t = [];
+                ['resident', 'sin'].forEach(function(k) { if (known(k) === false) t.push(k); });
+                if (!hasDtc) t.push('dtc');
+                return t;
+            }
+            var r = result(id); if (!r) return null;
+            var m = SHARED[id] || {};
+            var u = (r.unmet || []).filter(function(k) { return !(k in m); });
+            Object.keys(m).forEach(function(k) {
+                if (shared[m[k]] ? shared[m[k]].v === 'no' : (r.unmet || []).indexOf(k) >= 0) u.push(k);
+            });
+            if (id === 'bond' && r.bondIncome === 'no') u.push('bondincome');
+            if (!hasDtc && KEYS[id].indexOf('dtc') >= 0 && u.indexOf('dtc') < 0) u.push('dtc');
+            if (hasDtc) u = u.filter(function(k) { return k !== 'dtc' && k !== 'sin'; });
+            return KEYS[id].filter(function(k) { return u.indexOf(k) >= 0; });
+        }
+        // Residency and SIN as answered (true, false or unknown).
+        function known(k) {
+            if (k === 'sin' && hasDtc) return true;   // the DTC cannot be approved without a SIN
+            if (shared[k]) return shared[k].v === 'yes';
+            var seen = false, ok = true;
+            ['cdb', 'rdsp'].forEach(function(id) { var r = data[id]; if (r && r.completed) { seen = true; if ((r.unmet || []).indexOf(k) >= 0) ok = false; } });
+            return seen ? ok : null;
+        }
+        function items(id) {
+            var u = unmet(id) || [];
+            var r = result(id);
+            return KEYS[id].filter(function(k) {
+                if (k === 'bondincome') return !!(r && r.bondIncome);
+                if (id === 'cdb' && (k === 'taxes' || k === 'cdbincome')) return !!(r && r.asked && r.asked.indexOf(k) >= 0);
+                if ((id === 'da' || id === 'refunds') && k === 'sin') return known('sin') !== null;
+                return true;
+            }).map(function(k) { return { key: k, ok: u.indexOf(k) < 0 }; });
+        }
+        function barriers(id) { return (unmet(id) || []).filter(function(k) { return !OBTAIN[k]; }); }
+        function toGet(id) { return (unmet(id) || []).filter(function(k) { return !!OBTAIN[k]; }); }
+
+        function reqList(its, id) {
+            return '<ul class="reqs">' + its.map(function(it) { return '<li>' + (it.ok ? YES : NO) + esc(label(it.key, id)) + '</li>'; }).join('') + '</ul>';
+        }
+        function btn(url, text, sameTab) {
+            return '<a class="ns-apply-btn" href="' + url + '"' + (sameTab ? '' : ' target="_blank" rel="noopener"') + '>' + esc(text) + ' &rarr;</a>';
+        }
+
+        var prov = profile.province;
+        var gapArea = !prov || prov === 'BC' || prov === 'ON';
+        var RDSP_URL = 'https://www.canada.ca/en/employment-social-development/programs/disability/savings.html';
+        var P = {
+            cdb: { name: 'Canada Disability Benefit', desc: 'A payment of <span class="amt">up to $204.20 a month ($2,450.40 a year)</span>.',
+                   ready: function() { return 'You can apply for the ' + B('Canada Disability Benefit') + ' now.' + BACKPAY; },
+                   later: function(g) { return 'You can begin collecting the ' + B('Canada Disability Benefit') + ' after you ' + g + '.' + BACKPAY; },
+                   btn: btn('https://www.canada.ca/en/services/benefits/disability/canada-disability-benefit/apply.html', 'Apply for the Canada Disability Benefit') },
+            bond: { name: 'Canada Disability Savings Bond', desc: '<span class="amt">Up to $20,000</span> that the government deposits into a Registered Disability Savings Plan (RDSP), a special registered account that saves for your future.',
+                   ready: function() { return 'You can begin collecting the ' + B('Canada Disability Savings Bond') + ' once you open an RDSP.'; },
+                   later: function(g) { return 'You can begin collecting the ' + B('Canada Disability Savings Bond') + ' after you ' + g + '.'; },
+                   btn: btn(RDSP_URL, 'Learn how to open an RDSP') },
+            grant: { name: 'Canada Disability Savings Grant', desc: 'The government matches the money you put into your RDSP, <span class="amt">up to $70,000</span> over your lifetime.',
+                   ready: function() { return 'You can begin collecting the ' + B('Canada Disability Savings Grant') + ' once you open an RDSP and make deposits.'; },
+                   later: function(g) { return 'You can begin collecting the ' + B('Canada Disability Savings Grant') + ' after you ' + g + '.'; },
+                   btn: btn(RDSP_URL, 'Learn how to open an RDSP') },
+            cdcp: { name: 'Canadian Dental Care Plan', desc: 'Dental care coverage for people who do not have dental insurance.',
+                   ready: function() { return 'You can apply for the ' + B('Canadian Dental Care Plan') + ' now.'; },
+                   later: function(g) { return 'You can apply for the ' + B('Canadian Dental Care Plan') + ' after you ' + g + '.'; },
+                   btn: btn('https://www.canada.ca/en/services/benefits/dental/dental-care-plan/apply.html', 'Apply for the CDCP') },
+            'cpp-d': { name: 'Canada Pension Plan Disability', desc: 'Monthly payments of <span class="amt">$610.46 to $1,741.20 (2026)</span>, depending on how much you paid into the Canada Pension Plan.',
+                   ready: function() { return 'You can apply for ' + B('CPP Disability') + ' now.'; },
+                   btn: btn('https://www.canada.ca/en/services/benefits/publicpensions/cpp-disability-benefit/apply.html', 'Apply for CPP Disability') },
+            gap: { name: 'Guaranteed Access Program', desc: 'A tax-free lump sum (<span class="amt">minimum $10,000</span>) paid to a person of your choosing, or to you if you outlive the term. Offered through iA Financial Group.',
+                   ready: function() {
+                       return data.gapBooked ? 'You have completed the ' + B('health questionnaire') + ' and scheduled your GAP Program Review session with a ' + B('Benefits Specialist') + '.'
+                            : data.gapQuestionnaire ? 'You have completed the ' + B('health questionnaire') + '.'
+                            : 'Your next step is the ' + B('health questionnaire') + ', which determines the benefit amount you qualify for.'; },
+                   btn: data.gapBooked || data.gapQuestionnaire ? '' : btn('gap-health-questionnaire.html', 'Complete the health questionnaire', true) },
+            da: { name: 'Disability Amount', desc: 'A <span class="amt">$10,341 tax credit (2026)</span> that lowers the income tax you pay each year. If you do not need it, it can be transferred to a supporting family member, such as a parent, spouse or partner. They claim it on their own tax return, which lowers the tax they pay and can give them a tax refund.',
+                   ready: function() { return 'You may already be receiving the ' + B('Disability Amount') + '. If not, you can claim it on your tax return.'; },
+                   later: function(g) { return 'You can begin claiming the ' + B('Disability Amount') + ' after you ' + g + '.'; }, btn: '' },
+            refunds: { name: 'Refunds for past years', desc: 'If you paid income tax in past years, the CRA can adjust up to 10 previous tax returns to apply the Disability Amount, worth <span class="amt">up to $40,000</span>.',
+                   ready: function() { return 'You may already have received these ' + B('refunds') + '. If not, you can ask the CRA to adjust your past tax returns.'; },
+                   later: function(g) { return 'You can receive these ' + B('refunds') + ' after you ' + g + '.'; }, btn: '' }
+        };
+        // CDB back payments: up to 24 months before the application, never before June 2025
+        // ($200 a month to June 2026, then $204.20), counted to the current month.
+        function cdbBackPay() {
+            var now = new Date(), end = now.getFullYear() * 12 + now.getMonth();
+            var start = Math.max(2025 * 12 + 5, end - 23), total = 0;
+            for (var m = start; m <= end; m++) total += m <= 2026 * 12 + 5 ? 200 : 204.20;
+            return '$' + total.toLocaleString('en-CA', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        }
+        var BACKPAY = ' You may also receive back payments as far back as June 2025, up to ' + cdbBackPay() + '.';
+        function eligibleCard(id) {
+            var p = P[id], g = toGet(id);
+            return '<li><h4>' + esc(p.name) + '</h4><p>' + p.desc + '</p>' + reqList(items(id), id) +
+                '<p class="when">' + (g.length ? p.later(steps(g)) : p.ready()) + '</p>' + (g.length ? '' : p.btn) + '</li>';
+        }
+        function notCard(id) {
+            var p = P[id];
+            return '<li><h4>' + esc(p.name) + '</h4>' + reqList(items(id), id) +
+                '<ul class="needs">' + (unmet(id) || []).map(function(k) { return '<li>' + need(k, id) + '</li>'; }).join('') + '</ul></li>';
+        }
+        function done(id) { return (id === 'da' || id === 'refunds') ? true : !!result(id) && (id !== 'gap' || gapArea); }
+        function eligible(id) { return done(id) && !barriers(id).length; }
+        function blocked(id) { return done(id) && barriers(id).length > 0; }
+
+        var DTC_IDS = ['cdb', 'bond', 'grant', 'da', 'refunds'];
+        var OTHER_IDS = ['gap', 'cdcp', 'cpp-d'];
+        var ORDER = ['cdb', 'gap', 'bond', 'grant', 'cdcp', 'cpp-d', 'da', 'refunds'];
+        var html = '', listed = 0, pending = 0, dtcBox = false;
+        function list(ids) { listed += ids.length; ids.forEach(function(id) { if (toGet(id).length) pending++; }); return ids.length ? '<ul class="sum-cards">' + ids.map(eligibleCard).join('') + '</ul>' : ''; }
+
+        if (hasDtc) {
+            html += list(ORDER.filter(eligible));
+        } else {
+            var waiting = DTC_IDS.filter(eligible);
+            html += list(waiting);
+            if (waiting.length) {
+                dtcBox = true;
+                html += '<div class="dtc-apply"><h4>Apply for the Disability Tax Credit</h4>' +
+                    '<p>The DTC is for people whose health condition has lasted, or is expected to last, at least 12 months. Once you qualify, you can begin collecting the benefits above.</p>' +
+                    '<a class="btn" href="' + esc(window.dtcApplyUrl()) + '" target="_blank" rel="noopener">Apply for the DTC with assistance</a></div>';
+            }
+            var others = OTHER_IDS.filter(eligible);
+            if (others.length) {
+                var allNow = others.every(function(id) { return !toGet(id).length; });
+                html += '<h3 class="sum-h">' + (allNow ? 'Benefits you can apply for now' : 'Other benefits you may be eligible for') + '</h3>' + list(others);
+            }
+        }
+        var notIds = ORDER.filter(blocked);
+        if (notIds.length) html += '<h3 class="sum-h">Programs you may not be eligible for</h3><p>Here is what is needed for each.</p><ul class="sum-cards">' + notIds.map(notCard).join('') + '</ul>';
+
+        var PAGES = { cdb: 'cdb.html', cdcp: 'cdcp.html', 'cpp-d': 'cpp-d.html', gap: 'gap.html', rdsp: 'rdsp.html' };
+        var SKIP_NAMES = { cdb: 'Canada Disability Benefit', cdcp: 'Canadian Dental Care Plan', 'cpp-d': 'Canada Pension Plan Disability',
+            gap: 'Guaranteed Access Program', rdsp: 'Canada Disability Savings Bond and Grant' };
+        var skipped = ['cdb', 'gap', 'rdsp', 'cdcp', 'cpp-d'].filter(function(id) { return !(data[id] && data[id].completed) && (id !== 'gap' || gapArea); });
+        if (skipped.length) html += '<h3 class="sum-h">Programs you skipped</h3><ul class="sum-cards">' + skipped.map(function(id) {
+            return '<li><h4>' + esc(SKIP_NAMES[id]) + '</h4><p>You have not checked your eligibility for this program yet.</p>' + btn(PAGES[id], 'Check your eligibility', true) + '</li>';
+        }).join('') + '</ul>';
+
+        if (dtcBox) html += `<div class="dtc-benefits">
+          <h3>What DTC approval can mean</h3>
+
+  <div class="noinc-intro">
+    <p><strong>You don't need an income to benefit.</strong> Benefits marked <span class="noinc-tag">No income needed</span> are paid even if you have little or no income.</p>
+  </div>
+
+  <table class="dtc-table">
+    <thead><tr><th scope="col">Benefit</th><th scope="col">Amount (2026)</th><th scope="col">How often</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">Tax refund for past years</th><td>Up to $40,000. The CRA can adjust up to 10 previous tax returns to apply the disability amount.</td><td><span class="d-only">Once, when approved</span><span class="m-only">Refunded once upon approval</span></td></tr>
+      <tr><th scope="row">Canada Disability Benefit<br><span class="noinc-tag">No income needed</span></th><td>Up to $204.20 a month ($2,450.40 a year), for adults aged 18 to 64.</td><td><span class="d-only">Monthly</span><span class="m-only">Paid monthly</span></td></tr>
+      <tr><th scope="row">Child Disability Benefit<br><span class="noinc-tag">No income needed</span></th><td>Up to $290 a month ($3,480 a year) for each eligible child, tax-free.</td><td><span class="d-only">Monthly</span><span class="m-only">Paid monthly</span></td></tr>
+      <tr><th scope="row">Disability amount (tax credit)</th><td>$10,341, plus up to $6,032 for a person under 18. Unused amounts can be transferred to a supporting family member, who claims them on their tax return and can get a tax refund.</td><td><span class="d-only">Annually</span><span class="m-only">Tax credit, claimed annually</span></td></tr>
+      <tr><th scope="row">Home Accessibility Tax Credit</th><td>Claim up to $20,000 a year in eligible renovation costs, worth up to $2,800.</td><td><span class="d-only">Annually</span><span class="m-only">Tax credit, claimed annually</span></td></tr>
+      <tr><th scope="row">Home Buyers' Amount</th><td>A credit on up to $10,000 (worth up to $1,400) when buying a more accessible home, even if it is not a first home.</td><td><span class="d-only">When buying a home</span><span class="m-only">Tax credit, claimed when buying a home</span></td></tr>
+      <tr><th scope="row">Child care expense deduction</th><td>Deduct up to $11,000 a year in child care costs for a child eligible for the DTC, instead of $8,000 or $5,000.</td><td><span class="d-only">Annually</span><span class="m-only">Deduction, claimed annually</span></td></tr>
+      <tr><th scope="row">Canada Disability Savings Grant<br><span class="noinc-tag">No income needed</span></th><td>Matches up to 300% of deposits: up to $3,500 a year, $70,000 in a lifetime.</td><td><span class="d-only">Annually</span><span class="m-only">Paid into the RDSP annually</span></td></tr>
+      <tr><th scope="row">Canada Disability Savings Bond<br><span class="noinc-tag">No income needed</span></th><td>Up to $1,000 a year and $20,000 in a lifetime. No deposits needed.</td><td><span class="d-only">Annually</span><span class="m-only">Paid into the RDSP annually</span></td></tr>
+      <tr><th scope="row">Registered Disability Savings Plan (RDSP)<br><span class="noinc-tag">No income needed</span></th><td>The account that holds the Grant and Bond. Savings grow tax-sheltered, with up to $200,000 in personal contributions.</td><td>Ongoing</td></tr>
+      <tr><th scope="row">Canada Workers Benefit disability supplement</th><td>Up to $860 a year for lower-income workers.</td><td><span class="d-only">Annually</span><span class="m-only">Paid annually</span></td></tr>
+      <tr><th scope="row">Attendant care expenses</th><td>Claim up to $10,000 a year ($20,000 in the year of death) in attendant care as a medical expense, in addition to the disability amount.</td><td><span class="d-only">Annually</span><span class="m-only">Claimed annually as a medical expense</span></td></tr>
+      <tr><th scope="row">Qualified disability trust</th><td>Income in a trust for a person with the DTC can be taxed at lower, graduated rates.</td><td><span class="d-only">Annually</span><span class="m-only">Lower tax, annually</span></td></tr>
+    </tbody>
+  </table>
+  <p class="dtc-fine">Federal amounts for 2026. Some depend on income and other rules. DTC approval also lowers your provincial or territorial income tax.</p>
+        </div>`;
+
+        var box = document.getElementById('summary');
+        box.innerHTML = html;
+        box.hidden = false;
+        var old = document.getElementById('ns-section'); if (old) old.hidden = true;
+        var eyebrow = document.querySelector('.page-intro .eyebrow'); if (eyebrow) eyebrow.textContent = 'Benefits Assessment Tool';
+        var h1 = document.querySelector('.page-intro h1');
+        if (h1) {
+            h1.textContent = 'Summary of results';
+            h1.insertAdjacentHTML('afterend', listed
+                ? '<p class="lede">Below are the benefits you may be eligible to receive.</p><p class="lede">' +
+                  (!pending ? 'Each shows the requirements you meet and how to apply.' : 'Each shows the requirements you meet and what is still needed before you can begin collecting it.') + '</p>'
+                : '<p class="lede">You may not be eligible for these programs at this time.</p><p class="lede">Each shows the requirements you meet and what is still needed.</p>');
+        }
+        document.title = 'Summary of results | RDSP Canada';
+    })();
+</script>
+
+<script>
+    // ===== End of the assessment: people without the DTC end on the DTC page (their summary),
+    //       everyone else on the summary page. =====
+    window.applyDtcVisibility = function() {
+        var data = {};
+        try { data = JSON.parse(localStorage.getItem('dbpAssessmentTest')) || {}; } catch (e) {}
+        var dtc = data.profile && data.profile.dtc;
+        var noDtc = dtc === 'no';
+        document.querySelectorAll('[data-end-label]').forEach(function(l) { l.textContent = noDtc ? 'DTC' : 'Summary'; });
+        document.querySelectorAll('a[data-end-link]').forEach(function(a) { a.setAttribute('href', noDtc ? 'dtc.html' : 'next-steps.html'); });
+        var page = location.pathname.split('/').pop();
+        if (noDtc && page === 'next-steps.html') location.replace('dtc.html');
+        if (dtc === 'yes' && page === 'dtc.html') location.replace('next-steps.html');
+    };
+    applyDtcVisibility();
+</script>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-grid">
+        <div class="footer-about">
+          <div class="footer-brand"><img src="https://www.rdspcanada.ca/assets/logo-flag.png" alt="" width="32" height="32"> RDSP Canada</div>
+          <p>A disability benefits resource that offers tools to assist Canadians in collecting their disability benefits.</p>
+        </div>
+        <div>
+          <h2>Resources</h2>
+          <ul>
+            <li><a href="assessment.html">Benefits Assessment Tool</a></li>
+            <li><a href="https://www.rdspcanada.ca/apply-for-the-dtc/" target="_blank" rel="noopener">Disability Tax Credit</a></li>
+            <li><a href="https://www.rdspcanada.ca/provincial-benefits/">Provincial Benefits</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>About</h2>
+          <ul>
+            <li><a href="https://www.rdspcanada.ca/contact/">Contact</a></li>
+            <li><a href="https://www.rdspcanada.ca/privacy-policy/">Privacy</a></li>
+            <li><a href="https://www.rdspcanada.ca/terms-of-use/">Terms of Use</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; RDSP Canada 2026</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var b = document.querySelector('.nav-toggle'), n = document.getElementById('site-nav');
+      if (!b || !n) return;
+      b.addEventListener('click', function () {
+        var open = n.classList.toggle('open');
+        b.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+    })();
+  </script>
+  <script src="assets/tool.js?v=8"></script>
+</body>
+</html>
