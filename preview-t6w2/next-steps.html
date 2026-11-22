@@ -8,7 +8,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="https://www.rdspcanada.ca/assets/favicon-32.png">
     <link rel="apple-touch-icon" href="https://www.rdspcanada.ca/assets/favicon-256.png">
     <link rel="stylesheet" href="https://www.rdspcanada.ca/assets/style.css?v=15">
-    <link rel="stylesheet" href="assets/tool.css?v=9">
+    <link rel="stylesheet" href="assets/tool.css?v=10">
     <script>document.documentElement.classList.add('js')</script>
   <!-- Privacy-friendly analytics by Plausible -->
   <script>
@@ -396,15 +396,15 @@
         function need(k, id) { var n = NEED[k]; return typeof n === 'string' ? n : typeof n === 'function' ? n() : n[id]; }
 
         var KEYS = {
-            cdb: ['age', 'resident', 'sin', 'taxes', 'cdbincome', 'dtc'], bond: ['age', 'resident', 'sin', 'bondincome', 'dtc'],
-            grant: ['age', 'resident', 'sin', 'dtc'], cdcp: ['income', 'insurance', 'resident', 'taxes'],
+            cdb: ['age', 'resident', 'cdbincome', 'dtc'], bond: ['age', 'resident', 'bondincome', 'dtc'],
+            grant: ['age', 'resident', 'dtc'], cdcp: ['income', 'insurance', 'resident'],
             'cpp-d': ['age', 'contributions', 'disability'], gap: ['age', 'condition'],
-            da: ['resident', 'sin', 'dtc'], refunds: ['resident', 'sin', 'dtc']
+            da: ['resident', 'dtc'], refunds: ['resident', 'dtc']
         };
         var SOURCE = { bond: 'rdsp', grant: 'rdsp' };
         var shared = data.shared || {};
-        var SHARED = { cdb: { age: 'age1864', resident: 'resident', sin: 'sin', taxes: 'taxes' }, cdcp: { resident: 'resident', taxes: 'taxes' },
-            'cpp-d': { age: 'age1864' }, bond: { resident: 'resident', sin: 'sin' }, grant: { resident: 'resident', sin: 'sin' } };
+        var SHARED = { cdb: { age: 'age1864', resident: 'resident' }, cdcp: { resident: 'resident' },
+            'cpp-d': { age: 'age1864' }, bond: { resident: 'resident' }, grant: { resident: 'resident' } };
 
         function result(id) { var r = data[SOURCE[id] || id]; return r && r.completed ? r : null; }
         // Unmet requirements for a program, using the answers asked once where they exist.
@@ -649,6 +649,6 @@
       });
     })();
   </script>
-  <script src="assets/tool.js?v=9"></script>
+  <script src="assets/tool.js?v=10"></script>
 </body>
 </html>

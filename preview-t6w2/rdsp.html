@@ -8,7 +8,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="https://www.rdspcanada.ca/assets/favicon-32.png">
     <link rel="apple-touch-icon" href="https://www.rdspcanada.ca/assets/favicon-256.png">
     <link rel="stylesheet" href="https://www.rdspcanada.ca/assets/style.css?v=15">
-    <link rel="stylesheet" href="assets/tool.css?v=9">
+    <link rel="stylesheet" href="assets/tool.css?v=10">
     <script>document.documentElement.classList.add('js')</script>
   <!-- Privacy-friendly analytics by Plausible -->
   <script>
@@ -166,13 +166,6 @@
                     <button type="button" class="quiz-opt" data-value="no">No</button>
                 </div>
             </div>
-            <div class="quiz-q" data-key="sin">
-                <p>Do you have a valid <strong>Social Insurance Number (SIN)</strong>?</p>
-                <div class="quiz-options">
-                    <button type="button" class="quiz-opt" data-value="yes">Yes</button>
-                    <button type="button" class="quiz-opt" data-value="no">No</button>
-                </div>
-            </div>
             <div class="quiz-q" data-key="age">
                 <p>At the end of 2026, will you be <strong>age 49 or younger</strong>?</p>
                 <div class="quiz-options">
@@ -301,7 +294,7 @@
             catch (e) { /* storage unavailable — result still shows on screen */ }
         }
 
-        var keys = ['dtc', 'resident', 'sin', 'age'];
+        var keys = ['dtc', 'resident', 'age'];
         if (!answers.dtc) keys = keys.filter(function(k) { return k !== 'dtc'; });
         var resultBox = document.getElementById('rdsp-result');
 
@@ -389,6 +382,6 @@
       });
     })();
   </script>
-  <script src="assets/tool.js?v=9"></script>
+  <script src="assets/tool.js?v=10"></script>
 </body>
 </html>

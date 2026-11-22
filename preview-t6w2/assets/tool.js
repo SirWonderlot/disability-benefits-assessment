@@ -11,14 +11,14 @@
   });
 })();
 
-// Ask age (18 to 64), residency, SIN and tax filing once. The first page that asks keeps the
+// Ask age (18 to 64) and residency once. The first page that asks keeps the
 // question; later pages reuse the answer and hide their copy of it.
 (function () {
   var MAP = {
-    'cdb.html':   { age: 'age1864', resident: 'resident', sin: 'sin', taxes: 'taxes' },
-    'cdcp.html':  { resident: 'resident', taxes: 'taxes' },
+    'cdb.html':   { age: 'age1864', resident: 'resident' },
+    'cdcp.html':  { resident: 'resident' },
     'cpp-d.html': { age: 'age1864' },
-    'rdsp.html':  { resident: 'resident', sin: 'sin' }
+    'rdsp.html':  { resident: 'resident' }
   };
   var page = location.pathname.split('/').pop() || 'index.html';
   var map = MAP[page];
