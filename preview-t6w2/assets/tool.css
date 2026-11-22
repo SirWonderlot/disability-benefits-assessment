@@ -82,6 +82,8 @@ p strong, p b, li strong, li b, td strong, .quiz-q strong, .note strong { font-w
 }
 .continue-btn:hover, .interest-btn:hover, .ns-apply-btn:hover { background: var(--link-hover); color: #fff; }
 .continue-btn { margin-top: 1rem; }
+.continue-note { margin: 1.75rem 0 0; max-width: var(--prose); }
+.continue-note + .continue-btn, .continue-note + .gap-actions .continue-btn { margin-top: .75rem; }
 .continue-btn.secondary { background: #fff; color: var(--link); }
 .continue-btn.secondary:hover { background: var(--note-bg); color: var(--link); }
 .skip-btn { display: inline-block; margin-top: 1rem; color: var(--link); font-weight: 600; }

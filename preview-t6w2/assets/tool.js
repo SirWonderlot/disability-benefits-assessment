@@ -161,3 +161,35 @@
   };
   document.head.appendChild(api);
 })();
+
+// Continue buttons name where they go next, with a short line above saying what happens next.
+// Follows the button's href, which other scripts change (GAP skipped outside BC and Ontario,
+// and the assessment ends on the DTC page or the summary).
+(function () {
+  var NEXT = {
+    'cdb.html':        ['Continue to CDB', 'We\'ll go through each program one at a time, starting with the <strong>Canada Disability Benefit (CDB)</strong>. You\'ll see your results at the end of the assessment.'],
+    'gap.html':        ['Continue to GAP', 'Next is the <strong>Guaranteed Access Program (GAP)</strong>.'],
+    'cdcp.html':       ['Continue to CDCP', 'Next is the <strong>Canadian Dental Care Plan (CDCP)</strong>.'],
+    'cpp-d.html':      ['Continue to CPP-D', 'Next is the <strong>Canada Pension Plan Disability benefit (CPP-D)</strong>.'],
+    'rdsp.html':       ['Continue to RDSP', 'Next is the <strong>Registered Disability Savings Plan (RDSP)</strong>.'],
+    'dtc.html':        ['See your results', 'That was the last program. Next, you\'ll see your results and what the <strong>Disability Tax Credit (DTC)</strong> will mean for you.'],
+    'next-steps.html': ['See your results', 'That was the last program. Next, you\'ll see your results and how to apply.']
+  };
+  var MIDDLE = ' Your answers are saved, and you\'ll see your results at the end of the assessment.';
+  document.querySelectorAll('a.continue-btn').forEach(function (btn) {
+    var holder = btn.parentElement.classList.contains('gap-actions') ? btn.parentElement : btn;
+    var note = document.createElement('p');
+    note.className = 'continue-note';
+    holder.parentElement.insertBefore(note, holder);
+    function update() {
+      var next = NEXT[(btn.getAttribute('href') || '').split('/').pop()];
+      if (!next) { note.style.display = 'none'; return; }
+      if (btn.innerHTML !== next[0] + ' &rarr;') btn.innerHTML = next[0] + ' &rarr;';
+      var simple = /^Next is/.test(next[1]);
+      note.innerHTML = next[1] + (simple ? MIDDLE : '');
+      note.style.display = btn.style.display === 'none' ? 'none' : '';
+    }
+    update();
+    new MutationObserver(update).observe(btn, { attributes: true, attributeFilter: ['href', 'style'] });
+  });
+})();

@@ -8,7 +8,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="https://www.rdspcanada.ca/assets/favicon-32.png">
     <link rel="apple-touch-icon" href="https://www.rdspcanada.ca/assets/favicon-256.png">
     <link rel="stylesheet" href="https://www.rdspcanada.ca/assets/style.css?v=15">
-    <link rel="stylesheet" href="assets/tool.css?v=8">
+    <link rel="stylesheet" href="assets/tool.css?v=9">
     <script>document.documentElement.classList.add('js')</script>
   <!-- Privacy-friendly analytics by Plausible -->
   <script>
@@ -134,16 +134,16 @@
                 <span class="stat-label">Age range to qualify</span>
             </div>
             <div class="stat-card">
-                <span class="stat-number">Monthly</span>
-                <span class="stat-label">How often the payment is made</span>
+                <span class="stat-number">Payments</span>
+                <span class="stat-label">Made on a monthly basis</span>
             </div>
             <div class="stat-card">
                 <span class="stat-number">28 days</span>
-                <span class="stat-label">Time to receive your decision letter after applying</span>
+                <span class="stat-label">For the application to be processed</span>
             </div>
             <div class="stat-card">
-                <span class="stat-number">July 2025</span>
-                <span class="stat-label">When the first payments began</span>
+                <span class="stat-number">Retroactive</span>
+                <span class="stat-label">Back payments for up to 24 months, but not before June 2025</span>
             </div>
         </div>
 
@@ -155,13 +155,6 @@
         <p>Answer these questions to see if you're likely to qualify.</p>
 
         <div class="quiz-box" id="cdb-quiz">
-            <div class="quiz-q" data-key="dtc">
-                <p>Are you currently qualified for the <strong>Disability Tax Credit (DTC)</strong>?</p>
-                <div class="quiz-options">
-                    <button type="button" class="quiz-opt" data-value="yes">Yes</button>
-                    <button type="button" class="quiz-opt" data-value="no">No</button>
-                </div>
-            </div>
             <div class="quiz-q" data-key="age">
                 <p>Are you between <strong>18 and 64 years old</strong>?</p>
                 <div class="quiz-options">
@@ -183,8 +176,8 @@
                     <button type="button" class="quiz-opt" data-value="no">No</button>
                 </div>
             </div>
-            <div class="quiz-q" data-key="taxes">
-                <p>Have you <strong>filed last year's income tax return</strong>? (And your spouse or common-law partner, if you have one.)</p>
+            <div class="quiz-q" data-key="dtc">
+                <p>Are you currently qualified for the <strong>Disability Tax Credit (DTC)</strong>?</p>
                 <div class="quiz-options">
                     <button type="button" class="quiz-opt" data-value="yes">Yes</button>
                     <button type="button" class="quiz-opt" data-value="no">No</button>
@@ -199,6 +192,13 @@
             </div>
             <div class="quiz-q" data-key="partnerdtc" style="display:none;">
                 <p>Does your spouse or partner also have the <strong>Disability Tax Credit</strong>?</p>
+                <div class="quiz-options">
+                    <button type="button" class="quiz-opt" data-value="yes">Yes</button>
+                    <button type="button" class="quiz-opt" data-value="no">No</button>
+                </div>
+            </div>
+            <div class="quiz-q" data-key="taxes">
+                <p id="cdb-taxes-text">Have you <strong>filed last year's income tax return</strong>?</p>
                 <div class="quiz-options">
                     <button type="button" class="quiz-opt" data-value="yes">Yes</button>
                     <button type="button" class="quiz-opt" data-value="no">No</button>
@@ -311,6 +311,9 @@
         var incomeQ = quizQ('cdbincome'), partnerDtcQ = quizQ('partnerdtc'), workQ = quizQ('cdbwork');
         function quizQ(k) { return document.querySelector('#cdb-quiz .quiz-q[data-key="' + k + '"]'); }
         function updateIncomeQuestion() {
+            document.getElementById('cdb-taxes-text').innerHTML = answers.partner === 'yes'
+                ? 'Have you and your spouse or partner <strong>filed last year\'s income tax returns</strong>?'
+                : 'Have you <strong>filed last year\'s income tax return</strong>?';
             partnerDtcQ.style.display = answers.partner === 'yes' ? '' : 'none';
             var household = answers.partner === 'no' || (answers.partner === 'yes' && answers.partnerdtc);
             workQ.style.display = household ? '' : 'none';
@@ -359,7 +362,7 @@
                     answers[key] = btn.getAttribute('data-value');
                     if (key === 'dtc') saveDtc(answers.dtc);
                     if (key === 'partner' || key === 'partnerdtc' || key === 'cdbwork') {
-                        if (key === 'partner') { clearAnswer('partnerdtc'); clearAnswer('cdbwork'); }
+                        if (key === 'partner') { clearAnswer('partnerdtc'); clearAnswer('cdbwork'); clearAnswer('taxes'); }
                         clearAnswer('cdbincome');
                         updateIncomeQuestion();
                     }
@@ -479,6 +482,6 @@
       });
     })();
   </script>
-  <script src="assets/tool.js?v=8"></script>
+  <script src="assets/tool.js?v=9"></script>
 </body>
 </html>
