@@ -175,7 +175,7 @@
     'dtc.html':        ['See your results', 'That was the last program. Next, you\'ll see your results and what the <strong>Disability Tax Credit (DTC)</strong> will mean for you.'],
     'next-steps.html': ['See your results', 'That was the last program. Next, you\'ll see your results and how to apply.']
   };
-  var MIDDLE = ' Your answers are saved, and you\'ll see your results at the end of the assessment.';
+  var SAVED = 'Your answers are saved and you\'ll see the results at the end of the assessment. ';
   document.querySelectorAll('a.continue-btn').forEach(function (btn) {
     var holder = btn.parentElement.classList.contains('gap-actions') ? btn.parentElement : btn;
     var note = document.createElement('p');
@@ -186,7 +186,7 @@
       if (!next) { note.style.display = 'none'; return; }
       if (btn.innerHTML !== next[0] + ' &rarr;') btn.innerHTML = next[0] + ' &rarr;';
       var simple = /^Next is/.test(next[1]);
-      note.innerHTML = next[1] + (simple ? MIDDLE : '');
+      note.innerHTML = (simple ? SAVED : '') + next[1];
       note.style.display = btn.style.display === 'none' ? 'none' : '';
     }
     update();
