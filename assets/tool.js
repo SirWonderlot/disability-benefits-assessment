@@ -11,14 +11,14 @@
   });
 })();
 
-// Ask age (18 to 64), residency, SIN and tax filing once. The first page that asks keeps the
+// Ask age (18 to 64) and residency once. The first page that asks keeps the
 // question; later pages reuse the answer and hide their copy of it.
 (function () {
   var MAP = {
-    'cdb.html':   { age: 'age1864', resident: 'resident', sin: 'sin', taxes: 'taxes' },
-    'cdcp.html':  { resident: 'resident', taxes: 'taxes' },
+    'cdb.html':   { age: 'age1864', resident: 'resident' },
+    'cdcp.html':  { resident: 'resident' },
     'cpp-d.html': { age: 'age1864' },
-    'rdsp.html':  { resident: 'resident', sin: 'sin' }
+    'rdsp.html':  { resident: 'resident' }
   };
   var page = location.pathname.split('/').pop() || 'index.html';
   var map = MAP[page];
@@ -64,8 +64,8 @@
 (function () {
   var ENDPOINT = 'https://script.google.com/macros/s/AKfycbxH3n2vdZZSmQOs3C-3mXQLoKuF_kkkICzhRvuZIcPRfQV6njWp_zmIDU2u0BMM57empQ/exec';
   var KEY = 'dbpAssessment';
-  var ORDER = ['assessment.html', 'cdb.html', 'cdcp.html', 'cpp-d.html', 'gap.html', 'rdsp.html', 'next-steps.html'];
-  var LABEL = { 'assessment.html': 'Start', 'cdb.html': 'CDB', 'cdcp.html': 'CDCP', 'cpp-d.html': 'CPP-D', 'gap.html': 'GAP', 'rdsp.html': 'RDSP', 'next-steps.html': 'Next steps' };
+  var ORDER = ['assessment.html', 'cdb.html', 'gap.html', 'cdcp.html', 'cpp-d.html', 'rdsp.html', 'dtc.html', 'next-steps.html'];
+  var LABEL = { 'assessment.html': 'Start', 'dtc.html': 'DTC', 'cdb.html': 'CDB', 'cdcp.html': 'CDCP', 'cpp-d.html': 'CPP-D', 'gap.html': 'GAP', 'rdsp.html': 'RDSP', 'next-steps.html': 'Next steps' };
   var page = location.pathname.split('/').pop() || 'index.html';
   if (!LABEL[page]) return;
   function load() { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { return null; } }
@@ -160,4 +160,36 @@
     player.on('ended', function () { watched(1); send(); });
   };
   document.head.appendChild(api);
+})();
+
+// Continue buttons name where they go next, with a short line above saying what happens next.
+// Follows the button's href, which other scripts change (GAP skipped outside BC and Ontario,
+// and the assessment ends on the DTC page or the summary).
+(function () {
+  var NEXT = {
+    'cdb.html':        ['Continue to CDB', 'We\'ll go through each program one at a time, starting with the <strong>Canada Disability Benefit (CDB)</strong>. You\'ll see your results at the end of the assessment.'],
+    'gap.html':        ['Continue to GAP', 'Next is the <strong>Guaranteed Access Program (GAP)</strong>.'],
+    'cdcp.html':       ['Continue to CDCP', 'Next is the <strong>Canadian Dental Care Plan (CDCP)</strong>.'],
+    'cpp-d.html':      ['Continue to CPP-D', 'Next is the <strong>Canada Pension Plan Disability benefit (CPP-D)</strong>.'],
+    'rdsp.html':       ['Continue to RDSP', 'Next is the <strong>Registered Disability Savings Plan (RDSP)</strong>.'],
+    'dtc.html':        ['Continue', ''],   // the end of the assessment: just Continue, with no line above it
+    'next-steps.html': ['Continue', '']
+  };
+  var SAVED = 'Your answers are saved and you\'ll see the results at the end of the assessment. ';
+  document.querySelectorAll('a.continue-btn').forEach(function (btn) {
+    var holder = btn.parentElement.classList.contains('gap-actions') ? btn.parentElement : btn;
+    var note = document.createElement('p');
+    note.className = 'continue-note';
+    holder.parentElement.insertBefore(note, holder);
+    function update() {
+      var next = NEXT[(btn.getAttribute('href') || '').split('/').pop()];
+      if (!next) { note.style.display = 'none'; return; }
+      if (btn.innerHTML !== next[0] + ' &rarr;') btn.innerHTML = next[0] + ' &rarr;';
+      var simple = /^Next is/.test(next[1]) && !btn.hasAttribute('data-next-only');
+      note.innerHTML = (simple ? SAVED : '') + next[1];
+      note.style.display = btn.style.display === 'none' || !next[1] ? 'none' : '';
+    }
+    update();
+    new MutationObserver(update).observe(btn, { attributes: true, attributeFilter: ['href', 'style'] });
+  });
 })();

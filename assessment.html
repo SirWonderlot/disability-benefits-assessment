@@ -7,7 +7,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="https://www.rdspcanada.ca/assets/favicon-32.png">
     <link rel="apple-touch-icon" href="https://www.rdspcanada.ca/assets/favicon-256.png">
     <link rel="stylesheet" href="https://www.rdspcanada.ca/assets/style.css?v=15">
-    <link rel="stylesheet" href="assets/tool.css?v=6">
+    <link rel="stylesheet" href="assets/tool.css?v=15">
     <script>document.documentElement.classList.add('js')</script>
   <!-- Privacy-friendly analytics by Plausible -->
   <script async src="https://plausible.io/js/pa-eq3lLSt92POxpNUJ3IeP6.js"></script>
@@ -92,13 +92,15 @@
                 </select>
             </div>
 
-            <div class="quiz-q" data-key="dtc">
-                <p>Have you qualified for the <strong>Disability Tax Credit (DTC)</strong>?</p>
-                <div class="quiz-options stack">
-                    <button type="button" class="quiz-opt" data-value="yes">Yes</button>
-                    <button type="button" class="quiz-opt" data-value="no">No</button>
+            <div class="quiz-q" data-key="income">
+                <p>What is your <strong>family's net income</strong>?</p>
+                <p class="quiz-hint">Some disability benefits depend on income. Your best estimate is fine.</p>
+                <div class="quiz-options">
+                    <button type="button" class="quiz-opt" data-value="under20">$20,000 or less</button>
+                    <button type="button" class="quiz-opt" data-value="over20">More than $20,000</button>
                 </div>
             </div>
+
             <div class="quiz-result" id="start-result"></div>
         </div>
 
@@ -115,7 +117,7 @@
 
 
 <script>
-    // ===== Start page — citizenship + province intake =====
+    // ===== Start page — citizenship, province and family income intake =====
     (function() {
         var STORAGE_KEY = 'dbpAssessment';
 
@@ -134,11 +136,12 @@
 
         function saveProfile() {
             var all = loadAssessment();
-            all.profile = {
-                citizen: answers.citizen || null,
-                province: answers.province || null,
-                dtc: answers.dtc || null
-            };
+            // The DTC answer is saved on the CDB page; keep it if there is one.
+            all.profile = all.profile || {};
+            all.profile.citizen = answers.citizen || null;
+            all.profile.province = answers.province || null;
+            // Over $20,000: the DTC page counts the past-years refund and the disability amount as theirs.
+            all.profile.income = answers.income || null;
             try { localStorage.setItem(STORAGE_KEY, JSON.stringify(all)); }
             catch (e) { /* storage unavailable */ }
         }
@@ -148,14 +151,14 @@
         // and the anonymous tracking id.
         continueBtn.addEventListener('click', function() {
             var all = loadAssessment();
-            var fresh = { profile: all.profile };
+            var fresh = { profile: { citizen: all.profile && all.profile.citizen, province: all.profile && all.profile.province, income: all.profile && all.profile.income } };
             if (all.tracking) fresh.tracking = all.tracking;
             try { localStorage.setItem(STORAGE_KEY, JSON.stringify(fresh)); }
             catch (e) { /* storage unavailable */ }
         });
 
-        // Citizenship and DTC Yes/No buttons.
-        quiz.querySelectorAll('.quiz-q[data-key="citizen"] .quiz-opt, .quiz-q[data-key="dtc"] .quiz-opt').forEach(function(btn) {
+        // Citizenship Yes/No and family income buttons.
+        quiz.querySelectorAll('.quiz-q[data-key="citizen"] .quiz-opt, .quiz-q[data-key="income"] .quiz-opt').forEach(function(btn) {
             btn.addEventListener('click', function() {
                 var group = btn.closest('.quiz-q');
                 group.querySelectorAll('.quiz-opt').forEach(function(b) { b.classList.remove('selected'); });
@@ -186,8 +189,8 @@
             resultBox.className = 'quiz-result';
             resultBox.innerHTML = '';
 
-            // Both answers needed to move on.
-            if (answers.citizen === 'yes' && answers.province && answers.dtc) {
+            // All three answers are needed to move on.
+            if (answers.citizen === 'yes' && answers.province && answers.income) {
                 continueBtn.style.display = 'inline-block';
             } else {
                 continueBtn.style.display = 'none';
@@ -238,6 +241,6 @@
       });
     })();
   </script>
-  <script src="assets/tool.js?v=6"></script>
+  <script src="assets/tool.js?v=15"></script>
 </body>
 </html>

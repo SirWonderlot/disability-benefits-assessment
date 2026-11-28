@@ -7,7 +7,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="https://www.rdspcanada.ca/assets/favicon-32.png">
     <link rel="apple-touch-icon" href="https://www.rdspcanada.ca/assets/favicon-256.png">
     <link rel="stylesheet" href="https://www.rdspcanada.ca/assets/style.css?v=15">
-    <link rel="stylesheet" href="assets/tool.css?v=6">
+    <link rel="stylesheet" href="assets/tool.css?v=15">
     <script>document.documentElement.classList.add('js')</script>
   <!-- Privacy-friendly analytics by Plausible -->
   <script async src="https://plausible.io/js/pa-eq3lLSt92POxpNUJ3IeP6.js"></script>
@@ -59,6 +59,11 @@
                 <span class="step-label">CDB</span>
             </div>
         </div>
+        <div class="progress-step active">
+            <div class="step-tracker">2 of 6</div>
+            <div class="step-bar"></div>
+            <span class="step-label">GAP</span>
+        </div>
         <div class="progress-step">
             <div>
                 <div class="step-tracker">&nbsp;</div>
@@ -73,11 +78,6 @@
                 <span class="step-label">CPP-D</span>
             </div>
         </div>
-        <div class="progress-step active">
-            <div class="step-tracker">4 of 7</div>
-            <div class="step-bar"></div>
-            <span class="step-label">GAP</span>
-        </div>
         <div class="progress-step">
             <div>
                 <div class="step-tracker">&nbsp;</div>
@@ -89,14 +89,7 @@
             <div>
                 <div class="step-tracker">&nbsp;</div>
                 <div class="step-bar"></div>
-                <span class="step-label">DTC</span>
-            </div>
-        </div>
-        <div class="progress-step">
-            <div>
-                <div class="step-tracker">&nbsp;</div>
-                <div class="step-bar"></div>
-                <span class="step-label">Summary</span>
+                <span class="step-label" data-end-label>Summary</span>
             </div>
         </div>
     </div>
@@ -109,26 +102,82 @@
 
     
     <section>
-        <p>The <strong>Guaranteed Access Program (GAP)</strong> is offered through iA Financial Group for people living with prolonged medical conditions. It has three parts: a <strong>death benefit</strong>, a <strong>maturity benefit</strong> and a <strong>guarantee</strong> that the funds are always paid out.</p>
-<p>No medical is required to participate. A person living with a long-term medical impairment has guaranteed access to this program.</p>
-<h3 id="howItWorks" style="scroll-margin-top:12px">How the program works</h3>
-<div class="gchart" id="gchart"><div class="gplot">
-<div class="gcol" data-step="1"><span class="gamt">$1 to $2<br>a day</span><div class="gbar budget"></div></div>
-<div class="gcol" data-step="2"><div class="ghost"></div><span class="gamt top">$10,000 to<br>$30,000+</span><div class="gbar death"><span class="gnum">1</span><span class="gname">Death benefit</span></div></div>
-<div class="gcol" data-step="3"><div class="ghost"></div><span class="gamt top">$10,000 to<br>$30,000+</span><div class="gbar maturity"><span class="gnum">2</span><span class="gname">Maturity benefit</span></div></div>
-</div><div class="gaxis"><span>Daily Commitment</span><span>Guaranteed Payout to Loved Ones</span><span>Guaranteed Surrender Value</span></div></div>
-<div class="gstack"><div class="gx" data-step="1"><div><div style="display:grid;gap:4px;border-top:1px solid #d9e0e7"><span class="estimate-key" style="display:flex;align-items:center;gap:8px">Monthly contribution</span><span class="estimate-value">$1 to $2 a day</span><span class="estimate-desc">The program is designed to be financially accessible for people at all income levels. Cost is typically $1 to $2 a day and is guaranteed to never increase.</span></div></div></div>
-<div class="gx" data-step="2"><div><div style="display:grid;gap:4px;border-top:1px solid #d9e0e7"><span class="estimate-key" style="display:flex;align-items:center;gap:8px"><span class="chip" style="background:#54769b">1</span>Death benefit</span><span class="estimate-value">Minimum $10,000</span><span class="estimate-desc">This is the amount that a person or persons of your choosing receive <b class="lb">tax-free</b> in the event of your passing. They are free to use the funds for whatever their needs might be, such as final expenses or outstanding debts. There are no restrictions on how the funds are used.</span></div></div></div>
-<div class="gx" data-step="3"><div><div style="display:grid;gap:4px;border-top:1px solid #d9e0e7"><span class="estimate-key" style="display:flex;align-items:center;gap:8px"><span class="chip" style="background:#275590">2</span>Maturity benefit</span><span class="estimate-value">Minimum $10,000</span><span class="estimate-desc">If you outlive the term of your death benefit, the program matures and <b class="lb">the full amount is paid directly to you</b>. You are free to use it however you wish.</span></div></div></div>
-<div class="gx" data-step="4"><div><div style="display:grid;gap:4px;border-top:1px solid #d9e0e7"><span class="estimate-key" style="display:flex;align-items:center;gap:8px">Guarantee</span><span class="estimate-desc">The funds <b class="lb">are guaranteed to be paid out</b>, either to a person or persons of your choosing in the event of your passing (death benefit), or directly to you at the end of the term (maturity benefit).</span><span class="estimate-desc" style="margin-top:8px">This program is designed to be affordable for everyone and to provide peace of mind for you and your loved ones.</span></div></div></div>
-<div class="gtap" id="chartNext"><button type="button" class="btn-next" onclick="if(chartStep>=4){location.href='gap-details.html';}else{chartShow(chartStep+1);document.getElementById('howItWorks').scrollIntoView({behavior:'smooth',block:'start'});}">Next</button></div></div><a href="rdsp.html" class="skip-btn" id="gap-skip">Skip this program</a><script>
-let chartStep=0;
-function chartShow(n){chartStep=n;
- document.querySelectorAll('#gchart .gcol').forEach(c=>c.classList.toggle('on',+c.dataset.step<=n));
- document.querySelectorAll('.gx').forEach(x=>{const k=+x.dataset.step;x.classList.toggle('open',k<=n);x.style.order=k===n?0:10-k;});
- const t=document.getElementById('chartNext'); if(t){t.style.order=1;}
-}
-</script><script>chartShow(1)</script>
+        <h3>What is the Guaranteed Access Program?</h3>
+        <p>The <strong>Guaranteed Access Program (GAP)</strong> is designed to <b>provide a one-time, tax-free payment (minimum $10,000)</b> to a person's loved ones at the time of their passing. The program is intended to <b>provide peace of mind</b> for everyone involved. The funds can be used however they wish, including for final expenses or to pay outstanding debts.</p>
+
+        <div class="key-info-box">
+            <h4>Key information</h4>
+            <ul>
+                <li><strong>Eligibility:</strong> The program is available to individuals <b>under the age of 80</b> who are <b>living with a long-term medical condition</b>.</li>
+                <li><strong>Guaranteed Access:</strong> No medical tests or medical records are required to qualify for the program.</li>
+                <li><strong>Benefit Payment:</strong> A <b>tax-free lump sum (minimum $10,000) is paid</b> to a person of your choosing at the time of your passing. The benefit payment is often significantly higher.</li>
+                <li><strong>Maturity Benefit:</strong> If you live to the end of the term, the <b>funds are paid directly to you</b> (minimum $10,000 and often substantially more). The funds are paid out 100% of the time. They go either to a person of your choosing in the event of your passing, or directly to you if you outlive the term.</li>
+                <li><strong>Guaranteed Payout:</strong> The <b>funds are always paid out</b>, either to a loved one upon passing or to you if you outlive the term.</li>
+                <li><strong>Monthly Contribution:</strong> This program is designed to be <b>financially accessible for people at all income levels</b>. The cost is very low, typically between $1 and $1.50 a day.</li>
+            </ul>
+        </div>
+
+<h3 id="howItWorks">How the program works</h3>
+<ol class="gap-timeline">
+  <li><span class="t-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2.5"/><path d="M8 7h8M8.5 11h.01M12 11h.01M15.5 11h.01M8.5 14.5h.01M12 14.5h.01M15.5 14.5h.01M8.5 18h.01M12 18h3.5"/></svg></span><div><span class="t-step">Step 1</span><h4 class="t-title">Determine your benefit amount</h4><p class="t-desc">The minimum benefit amount is $10,000, and it is often significantly more. Your benefit amount is determined with the help of a Benefits Specialist.</p></div></li>
+  <li><span class="t-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4" width="14" height="17" rx="2.5"/><path d="M9 4V3h6v1M8.5 10l1.3 1.3 2.4-2.4M14 10h2M8.5 15.5l1.3 1.3 2.4-2.4M14 15.5h2"/></svg></span><div><span class="t-step">Step 2</span><h4 class="t-title">Complete a quick questionnaire</h4><p class="t-desc">After completing the questionnaire, you will be able to speak with a Benefits Specialist who will help you better understand the program. They will show you your benefit amounts, which are paid to the person or persons of your choosing in the event of your passing, or paid directly to you when the plan matures.</p></div></li>
+  <li><span class="t-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4H6.5A2.5 2.5 0 0 0 4 6.5v11A2.5 2.5 0 0 0 6.5 20h11a2.5 2.5 0 0 0 2.5-2.5V15"/><path d="M18.5 3.5a2.1 2.1 0 0 1 3 3L13 15l-4 1 1-4z"/></svg></span><div><span class="t-step">Step 3</span><h4 class="t-title">Enroll in the program</h4><p class="t-desc">Your Benefits Specialist completes the application for you so that you can participate in the program.</p></div></li>
+  <li><span class="t-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7a4.3 4.3 0 0 1 7.5 2.8C19.5 15.4 12 20 12 20z"/></svg></span><div><span class="t-step">Step 4</span><h4 class="t-title">The death benefit is paid out</h4><p class="t-desc">If you pass away during the term, your tax-free lump sum benefit amount is paid to the person or persons of your choosing.</p></div></li>
+  <li><span class="t-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M14.8 9.2c-.5-.9-1.6-1.4-2.8-1.4-1.6 0-2.8.8-2.8 2.1 0 2.9 5.8 1.5 5.8 4.3 0 1.3-1.3 2.1-3 2.1-1.3 0-2.5-.6-3-1.6M12 6.2v1.6M12 16.3v1.5"/></svg></span><div><span class="t-step">Step 5</span><h4 class="t-title">The maturity benefit is paid out</h4><p class="t-desc">If you live to the end of the term, the funds are paid directly to you as a tax-free lump sum payment.</p></div></li>
+</ol>
+
+        <div class="video-wrap">
+            <iframe src="https://player.vimeo.com/video/1150236750?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" allowfullscreen title="Guaranteed Access Program video"></iframe>
+        </div>
+
+        <h3>Do you qualify?</h3>
+        <p class="quiz-intro">Answer for the person the coverage is for.</p>
+
+        <div class="quiz-box" id="gap-quiz">
+            <div class="quiz-q" data-key="age">
+                <p>Is the person between <strong>6 months and 80 years of age</strong>?</p>
+                <div class="quiz-options">
+                    <button type="button" class="quiz-opt" data-value="yes">Yes</button>
+                    <button type="button" class="quiz-opt" data-value="no">No</button>
+                </div>
+            </div>
+            <div class="quiz-q" data-key="condition">
+                <p>Are they living with a <strong>long-term medical condition</strong>?</p>
+                <div class="quiz-options">
+                    <button type="button" class="quiz-opt" data-value="yes">Yes</button>
+                    <button type="button" class="quiz-opt" data-value="no">No</button>
+                </div>
+            </div>
+
+            <div class="quiz-q" data-key="interest" style="display:none;">
+                <p>Are you <strong>interested</strong> in the Guaranteed Access Program?</p>
+                <div class="quiz-options">
+                    <button type="button" class="quiz-opt" data-value="yes">Yes</button>
+                    <button type="button" class="quiz-opt" data-value="no">No</button>
+                </div>
+            </div>
+            <div class="quiz-result" id="gap-result"></div>
+        </div>
+
+        <div class="choices" id="gap-choices" hidden>
+            <div class="choice open gap-book">
+                <div class="gap-book-head">
+                    <span class="choice-title">Benefits Review session</span>
+                    <span class="choice-desc">During your Benefits Review session, a Benefits Specialist will explain the program, review your estimated benefit amounts, answer your questions and identify <b>any additional benefits you may be entitled to receive</b>.</span>
+                    <span class="choice-desc gap-hq-ask">Before scheduling your Benefits Review session, please answer a few brief yes/no questions. Your responses will help determine your benefit amounts (minimum $10,000 and often substantially more). After you have completed the brief questionnaire, you will be able to select a day and time that is convenient for you.</span>
+                    <span class="choice-desc gap-hq-ask"><b>Time to complete:</b> less than 2 minutes</span>
+                </div>
+                <div class="choice-body">
+                    <iframe class="hq-frame" id="gap-hq" title="GAP health questionnaire" data-src="https://access.rdspcanada.ca/?embed=1"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <a href="cdcp.html" class="skip-btn" id="gap-skip">Skip this program</a>
+
+        <div class="gap-actions">
+            <a href="cdcp.html" class="continue-btn" id="gap-continue" data-next-only style="display:none;">Continue &rarr;</a>
+        </div>
     </section>
 
 
@@ -166,45 +215,28 @@ function chartShow(n){chartStep=n;
         });
         // Skip GAP in any Continue link that points to it.
         document.querySelectorAll('a.continue-btn[href="gap.html"]').forEach(function(a) {
-            a.setAttribute('href', 'rdsp.html');
+            a.setAttribute('href', 'cdcp.html');
         });
         // This IS the GAP page — send non-eligible visitors past it.
         if (/(^|\/)gap\.html$/i.test(location.pathname)) {
-            location.replace('rdsp.html');
+            location.replace('cdcp.html');
         }
     })();
 </script>
 
 <script>
-    // ===== DTC visibility — only for those who indicated they do NOT have the DTC =====
+    // ===== End of the assessment: people without the DTC end on the DTC page (their summary),
+    //       everyone else on the summary page. =====
     window.applyDtcVisibility = function() {
         var data = {};
         try { data = JSON.parse(localStorage.getItem('dbpAssessment')) || {}; } catch (e) {}
-        var hasDtc = data.profile && data.profile.dtc;
-        // Answered on the first page. Hide only when we know they already have it.
-        var showDtc = false; // DTC is covered in the summary at the end
-
-        document.querySelectorAll('.progress-step').forEach(function(step) {
-            var label = step.querySelector('.step-label');
-            if (label && label.textContent.trim() === 'DTC') { step.style.display = showDtc ? '' : 'none'; }
-        });
-
-        if (showDtc) {
-            // A "No" answer brings the DTC page back: restore links previously pointed past it.
-            document.querySelectorAll('a[data-dtc-bypassed]').forEach(function(a) {
-                a.setAttribute('href', 'dtc.html');
-                a.removeAttribute('data-dtc-bypassed');
-            });
-            return;
-        }
-
-        document.querySelectorAll('a.continue-btn[href="dtc.html"], a.skip-btn[href="dtc.html"]').forEach(function(a) {
-            a.setAttribute('href', 'next-steps.html');
-            a.setAttribute('data-dtc-bypassed', '1');
-        });
-        if (/(^|\/)dtc\.html$/i.test(location.pathname)) {
-            location.replace('next-steps.html');
-        }
+        var dtc = data.profile && data.profile.dtc;
+        var noDtc = dtc === 'no';
+        document.querySelectorAll('[data-end-label]').forEach(function(l) { l.textContent = noDtc ? 'DTC' : 'Summary'; });
+        document.querySelectorAll('a[data-end-link]').forEach(function(a) { a.setAttribute('href', noDtc ? 'dtc.html' : 'next-steps.html'); });
+        var page = location.pathname.split('/').pop();
+        if (noDtc && page === 'next-steps.html') location.replace('dtc.html');
+        if (dtc === 'yes' && page === 'dtc.html') location.replace('next-steps.html');
     };
     applyDtcVisibility();
 </script>
@@ -275,6 +307,10 @@ function chartShow(n){chartStep=n;
         var gapSkip = document.getElementById('gap-skip');
         if (gapSkip) gapSkip.addEventListener('click', function() { proceedAfterBooking(false); });
 
+        // Continue appears once their Benefits Review session is scheduled (or a preferred time is sent),
+        // not when the questionnaire is submitted.
+        function gapDone() { var a = loadAssessment(); return !!a.gapBooked; }
+        window.gapShowResult = function() { showResult(); };
         var keys = ['age', 'condition'];          // determine eligibility
         var allKeys = ['age', 'condition'];        // must all be answered first
         var resultBox = document.getElementById('gap-result');
@@ -283,9 +319,18 @@ function chartShow(n){chartStep=n;
             // Wait until every question has been answered.
             var unanswered = allKeys.filter(function(k) { return !answers[k]; });
             if (unanswered.length) return;
+            var unmetNow = keys.filter(function(k) { return answers[k] === 'no'; });
+            if (!unmetNow.length && !answers.interest) { quiz.querySelector('.quiz-q[data-key="interest"]').style.display = ''; document.getElementById('gap-continue').style.display = 'none'; return; }
 
             var unmet = keys.filter(function(k) { return answers[k] === 'no'; });
             var qualifies = unmet.length === 0;
+
+            // Eligible: ask if they are interested. Interested: they choose how to go on (a session or the
+            // questionnaire, both on this page) and Continue appears once they have scheduled or submitted.
+            var interestQ = quiz.querySelector('.quiz-q[data-key="interest"]');
+            interestQ.style.display = qualifies ? '' : 'none';
+            var interested = qualifies && answers.interest === 'yes';
+            document.getElementById('gap-choices').hidden = !interested;
 
             saveResult({
                 program: PROGRAM_NAME,
@@ -294,44 +339,60 @@ function chartShow(n){chartStep=n;
                 qualifies: qualifies,
                 unmet: unmet,
                 reasons: unmet.map(function(k) { return GUIDANCE[k]; }),
+                interested: qualifies ? (answers.interest || null) : null,
                 completed: true
             });
 
-            // Results, and the health questionnaire, are shown together at the end of the assessment.
             resultBox.className = 'quiz-result';
             resultBox.innerHTML = '';
+            var done = gapDone();
             var continueBtn = document.getElementById('gap-continue');
-            if (continueBtn) continueBtn.style.display = 'inline-block';
+            if (continueBtn) continueBtn.style.display = (!qualifies || answers.interest === 'no' || (interested && done)) ? 'inline-block' : 'none';
         }
     })();
 </script>
 
+
 <script>
-    // ===== Booking confirmed — signalled by gap-booked.html, the page Calendly
-    //       redirects the iframe to after a successful booking. =====
+    // ===== GAP: interested people answer the health questionnaire here (access.rdspcanada.ca/?embed=1).
+    //       Its own calendar appears after they submit. The frame grows to fit what the questionnaire
+    //       reports, and Continue appears once a session is scheduled or a preferred time is sent. =====
     (function() {
+        var KEY = 'dbpAssessment';
+        var HQ = 'https://access.rdspcanada.ca';
+        var box = document.getElementById('gap-choices');
+        var frame = document.getElementById('gap-hq');
+        function load() {
+            if (box.hidden || frame.src) return;
+            frame.src = frame.getAttribute('data-src');
+        }
+        new MutationObserver(load).observe(box, { attributes: true, attributeFilter: ['hidden'] });
+        load();
         window.addEventListener('message', function(e) {
             var d = e.data;
-            if (typeof d === 'string') { try { d = JSON.parse(d); } catch (err) { return; } }
-            if (!d) return;
-            // Accept our helper's signal (and Calendly's own event, if it ever fires).
-            if (d.type !== 'gapBooked' && d.event !== 'calendly.event_scheduled') return;
-
-            try {
-                var all = JSON.parse(localStorage.getItem('dbpAssessment')) || {};
-                all.gapBooked = true;
-                localStorage.setItem('dbpAssessment', JSON.stringify(all));
-            } catch (err) { /* storage unavailable */ }
-
-            // Booking detected — shrink the calendar to fit the confirmation message
-            // (removes the extra white space but keeps "You are scheduled!" visible),
-            // hide Skip, and show Continue.
-            var calendar = document.getElementById('gap-calendar');
-            if (calendar) { calendar.style.height = '600px'; }
-            var confirmArea = document.getElementById('gap-confirm');
-            if (confirmArea) { confirmArea.style.display = 'none'; }
-            var cont = document.getElementById('gap-continue');
-            if (cont) { cont.style.display = 'inline-block'; cont.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+            if (e.origin !== HQ || !d) return;
+            if (d.type === 'gapQuestionnaireHeight' && d.height > 200) {
+                // The box is always as tall as the questionnaire: no scroll bar inside the page.
+                frame.style.height = d.height + 'px';
+            }
+            if (d.type === 'gapQuestionnaireScroll') {
+                // The questionnaire asked to scroll (a new step, or a question still to answer): scroll this page.
+                var frameTop = frame.getBoundingClientRect().top + window.pageYOffset;
+                var y = frameTop + (d.top || 0);
+                y = d.block === 'center' ? y - Math.max(16, (window.innerHeight - (d.height || 0)) / 2) : y - 16;
+                window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
+            }
+            if (d.type === 'gapQuestionnaireSubmitted') {
+                try { var all = JSON.parse(localStorage.getItem(KEY)) || {}; all.gapQuestionnaire = true; localStorage.setItem(KEY, JSON.stringify(all)); } catch (err) {}
+                if (window.gapShowResult) window.gapShowResult();
+            }
+            if (d.type === 'gapBooked') {
+                // Scheduled, or a preferred time sent: now Continue appears, just under the box.
+                try { var a2 = JSON.parse(localStorage.getItem(KEY)) || {}; a2.gapBooked = true; localStorage.setItem(KEY, JSON.stringify(a2)); } catch (err) {}
+                if (window.gapShowResult) window.gapShowResult();
+                var c = document.getElementById('gap-continue');
+                if (c && c.style.display !== 'none') setTimeout(function () { c.scrollIntoView({ behavior: 'smooth', block: 'center' }); }, 600);
+            }
         });
     })();
 </script>
@@ -378,6 +439,6 @@ function chartShow(n){chartStep=n;
       });
     })();
   </script>
-  <script src="assets/tool.js?v=6"></script>
+  <script src="assets/tool.js?v=15"></script>
 </body>
 </html>

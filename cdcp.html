@@ -7,7 +7,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="https://www.rdspcanada.ca/assets/favicon-32.png">
     <link rel="apple-touch-icon" href="https://www.rdspcanada.ca/assets/favicon-256.png">
     <link rel="stylesheet" href="https://www.rdspcanada.ca/assets/style.css?v=15">
-    <link rel="stylesheet" href="assets/tool.css?v=6">
+    <link rel="stylesheet" href="assets/tool.css?v=15">
     <script>document.documentElement.classList.add('js')</script>
   <!-- Privacy-friendly analytics by Plausible -->
   <script async src="https://plausible.io/js/pa-eq3lLSt92POxpNUJ3IeP6.js"></script>
@@ -59,8 +59,15 @@
                 <span class="step-label">CDB</span>
             </div>
         </div>
+        <div class="progress-step">
+            <div>
+                <div class="step-tracker">&nbsp;</div>
+                <div class="step-bar"></div>
+                <span class="step-label">GAP</span>
+            </div>
+        </div>
         <div class="progress-step active">
-            <div class="step-tracker">2 of 7</div>
+            <div class="step-tracker">3 of 6</div>
             <div class="step-bar"></div>
             <span class="step-label">CDCP</span>
         </div>
@@ -75,13 +82,6 @@
             <div>
                 <div class="step-tracker">&nbsp;</div>
                 <div class="step-bar"></div>
-                <span class="step-label">GAP</span>
-            </div>
-        </div>
-        <div class="progress-step">
-            <div>
-                <div class="step-tracker">&nbsp;</div>
-                <div class="step-bar"></div>
                 <span class="step-label">RDSP</span>
             </div>
         </div>
@@ -89,14 +89,7 @@
             <div>
                 <div class="step-tracker">&nbsp;</div>
                 <div class="step-bar"></div>
-                <span class="step-label">DTC</span>
-            </div>
-        </div>
-        <div class="progress-step">
-            <div>
-                <div class="step-tracker">&nbsp;</div>
-                <div class="step-bar"></div>
-                <span class="step-label">Summary</span>
+                <span class="step-label" data-end-label>Summary</span>
             </div>
         </div>
     </div>
@@ -191,13 +184,6 @@
                     <button type="button" class="quiz-opt" data-value="no">No</button>
                 </div>
             </div>
-            <div class="quiz-q" data-key="taxes">
-                <p>Have you <strong>filed last year's income tax return</strong>? (And your spouse or common-law partner, if you have one.)</p>
-                <div class="quiz-options">
-                    <button type="button" class="quiz-opt" data-value="yes">Yes</button>
-                    <button type="button" class="quiz-opt" data-value="no">No</button>
-                </div>
-            </div>
 
             <div class="quiz-result" id="cdcp-result"></div>
         </div>
@@ -232,45 +218,28 @@
         });
         // Skip GAP in any Continue link that points to it.
         document.querySelectorAll('a.continue-btn[href="gap.html"], a.skip-btn[href="gap.html"]').forEach(function(a) {
-            a.setAttribute('href', 'rdsp.html');
+            a.setAttribute('href', 'cdcp.html');
         });
         // If somehow on the GAP page, send them past it.
         if (/(^|\/)gap\.html$/i.test(location.pathname)) {
-            location.replace('rdsp.html');
+            location.replace('cdcp.html');
         }
     })();
 </script>
 
 <script>
-    // ===== DTC visibility — only for those who indicated they do NOT have the DTC =====
+    // ===== End of the assessment: people without the DTC end on the DTC page (their summary),
+    //       everyone else on the summary page. =====
     window.applyDtcVisibility = function() {
         var data = {};
         try { data = JSON.parse(localStorage.getItem('dbpAssessment')) || {}; } catch (e) {}
-        var hasDtc = data.profile && data.profile.dtc;
-        // Answered on the first page. Hide only when we know they already have it.
-        var showDtc = false; // DTC is covered in the summary at the end
-
-        document.querySelectorAll('.progress-step').forEach(function(step) {
-            var label = step.querySelector('.step-label');
-            if (label && label.textContent.trim() === 'DTC') { step.style.display = showDtc ? '' : 'none'; }
-        });
-
-        if (showDtc) {
-            // A "No" answer brings the DTC page back: restore links previously pointed past it.
-            document.querySelectorAll('a[data-dtc-bypassed]').forEach(function(a) {
-                a.setAttribute('href', 'dtc.html');
-                a.removeAttribute('data-dtc-bypassed');
-            });
-            return;
-        }
-
-        document.querySelectorAll('a.continue-btn[href="dtc.html"], a.skip-btn[href="dtc.html"]').forEach(function(a) {
-            a.setAttribute('href', 'next-steps.html');
-            a.setAttribute('data-dtc-bypassed', '1');
-        });
-        if (/(^|\/)dtc\.html$/i.test(location.pathname)) {
-            location.replace('next-steps.html');
-        }
+        var dtc = data.profile && data.profile.dtc;
+        var noDtc = dtc === 'no';
+        document.querySelectorAll('[data-end-label]').forEach(function(l) { l.textContent = noDtc ? 'DTC' : 'Summary'; });
+        document.querySelectorAll('a[data-end-link]').forEach(function(a) { a.setAttribute('href', noDtc ? 'dtc.html' : 'next-steps.html'); });
+        var page = location.pathname.split('/').pop();
+        if (noDtc && page === 'next-steps.html') location.replace('dtc.html');
+        if (dtc === 'yes' && page === 'dtc.html') location.replace('next-steps.html');
     };
     applyDtcVisibility();
 </script>
@@ -287,8 +256,7 @@
         var GUIDANCE = {
             income: "Your adjusted family net income must be less than $90,000.",
             insurance: "To qualify, you must not have access to dental insurance through an employer, a pension, or a private plan.",
-            resident: "You must be a Canadian resident for tax purposes.",
-            taxes: "You, and your spouse or common-law partner if applicable, must have filed a tax return for the previous year."
+            resident: "You must be a Canadian resident for tax purposes."
         };
 
         var quiz = document.getElementById('cdcp-quiz');
@@ -324,7 +292,7 @@
             catch (e) { /* storage unavailable — result still shows on screen */ }
         }
 
-        var keys = ['income', 'insurance', 'resident', 'taxes'];
+        var keys = ['income', 'insurance', 'resident'];
         var resultBox = document.getElementById('cdcp-result');
 
         function showResult() {
@@ -407,6 +375,6 @@
       });
     })();
   </script>
-  <script src="assets/tool.js?v=6"></script>
+  <script src="assets/tool.js?v=15"></script>
 </body>
 </html>

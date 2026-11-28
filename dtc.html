@@ -7,7 +7,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="https://www.rdspcanada.ca/assets/favicon-32.png">
     <link rel="apple-touch-icon" href="https://www.rdspcanada.ca/assets/favicon-256.png">
     <link rel="stylesheet" href="https://www.rdspcanada.ca/assets/style.css?v=15">
-    <link rel="stylesheet" href="assets/tool.css?v=6">
+    <link rel="stylesheet" href="assets/tool.css?v=15">
     <script>document.documentElement.classList.add('js')</script>
   <!-- Privacy-friendly analytics by Plausible -->
   <script async src="https://plausible.io/js/pa-eq3lLSt92POxpNUJ3IeP6.js"></script>
@@ -63,6 +63,13 @@
             <div>
                 <div class="step-tracker">&nbsp;</div>
                 <div class="step-bar"></div>
+                <span class="step-label">GAP</span>
+            </div>
+        </div>
+        <div class="progress-step">
+            <div>
+                <div class="step-tracker">&nbsp;</div>
+                <div class="step-bar"></div>
                 <span class="step-label">CDCP</span>
             </div>
         </div>
@@ -77,91 +84,136 @@
             <div>
                 <div class="step-tracker">&nbsp;</div>
                 <div class="step-bar"></div>
-                <span class="step-label">GAP</span>
-            </div>
-        </div>
-        <div class="progress-step">
-            <div>
-                <div class="step-tracker">&nbsp;</div>
-                <div class="step-bar"></div>
                 <span class="step-label">RDSP</span>
             </div>
         </div>
         <div class="progress-step active">
-            <div class="step-tracker">6 of 7</div>
+            <div class="step-tracker">6 of 6</div>
             <div class="step-bar"></div>
-            <span class="step-label">DTC</span>
-        </div>
-        <div class="progress-step">
-            <div>
-                <div class="step-tracker">&nbsp;</div>
-                <div class="step-bar"></div>
-                <span class="step-label">Summary</span>
-            </div>
+            <span class="step-label" data-end-label>Summary</span>
         </div>
     </div>
         <span class="eyebrow">Assessment Tool</span>
         <h1>Disability Tax Credit (DTC)</h1>
-        <p class="lede">DTC approval is required for the Canada Disability Benefit, the RDSP, and many other programs, so it is often the first step.</p>
+        <p class="lede">To receive the benefits below, you first need to qualify for the Disability Tax Credit.</p>
       </div>
     </div>
     <div class="section">
       <div class="wrap dbp-widget">
-        <section>
+        <div class="dtc-what dtc-what-top">
           <h3>What is the Disability Tax Credit?</h3>
-          <p>The Disability Tax Credit (DTC) is a non-refundable tax credit that helps people with disabilities, or their supporting family members, reduce the income tax they may have to pay. Being approved also opens the door to other programs.</p>
-          <h3>Quick facts</h3>
-          <div class="stats-grid">
-            <div class="stat-card"><span class="stat-number">$10,341</span><span class="stat-label">Disability amount you can claim (2026, age 18+)</span></div>
-            <div class="stat-card"><span class="stat-number">$6,032</span><span class="stat-label">Extra amount for those under 18</span></div>
-            <div class="stat-card"><span class="stat-number">Up to 10 years</span><span class="stat-label">Can be applied to past tax returns</span></div>
-            <div class="stat-card"><span class="stat-number">Form T2201</span><span class="stat-label">Assistance is available</span></div>
-            <div class="stat-card"><span class="stat-number">Requisite</span><span class="stat-label">Required for other federal benefits programs</span></div>
-            <div class="stat-card"><span class="stat-number">Any income</span><span class="stat-label">All levels of income should apply</span></div>
-          </div>
-        </section>
+          <p>The Disability Tax Credit (DTC) is a 16-page application to the Canada Revenue Agency. It measures how your long-term medical condition affects your everyday life. You need to be approved for it before you can receive the benefits below.</p>
+          <p><strong>If you live with a long-term medical condition that affects you on a day-to-day basis, whether physical or mental, you should apply for the Disability Tax Credit.</strong></p>
+          <p>The Disability Tax Credit certificate is a requirement for many benefit programs. If you are approved, you may collect several benefits over a number of years.</p>
+        </div>
         <div class="dtc-benefits">
-          <h3>What DTC approval can mean</h3>
-
-  <div class="noinc-intro">
-    <p><strong>You don't need an income to benefit.</strong> Benefits marked <span class="noinc-tag">No income needed</span> are paid even if you have little or no income.</p>
-  </div>
-
+          <div class="dtc-yours-box" id="dtc-yours-box">
+          <span class="dtc-yours-tag">Based on your answers</span>
+          <h3>What the DTC will mean for you</h3>
+          <p id="dtc-yours-intro">After you qualify for the DTC you can receive:</p>
+          <table class="dtc-table yours" id="dtc-yours">
+            <thead><tr><th scope="col">Benefit</th><th scope="col">Amount (2026)</th><th scope="col">How often</th></tr></thead>
+            <tbody>
+              <tr data-show="cdb"><th scope="row">Canada Disability Benefit</th><td>Up to $204.20 a month ($2,450.40 a year).</td><td>Monthly</td></tr>
+              <tr data-show="bond"><th scope="row">Canada Disability Savings Bond</th><td>Up to $1,000 a year, with no deposit needed. Up to $11,000 in your first year, including past years. $20,000 in a lifetime.</td><td>Annually</td></tr>
+              <tr data-show="grant"><th scope="row">Canada Disability Savings Grant</th><td>The government matches up to 300% of your deposits, up to $3,500 a year and $70,000 in a lifetime.</td><td>Annually</td></tr>
+              <tr data-show="tax"><th scope="row">Tax refund for past years</th><td>Up to $40,000. The CRA can adjust up to 10 previous tax returns to apply the disability amount.</td><td><span class="d-only">Once, when approved</span><span class="m-only">Refunded once upon approval</span></td></tr>
+              <tr data-show="tax"><th scope="row">Disability amount (tax credit)</th><td>$10,341, plus up to $6,032 for a person under 18. Unused amounts can be transferred to a supporting family member, who claims them on their tax return and can get a tax refund.</td><td><span class="d-only">Annually</span><span class="m-only">Tax credit, claimed annually</span></td></tr>
+            </tbody>
+          </table>
+          </div>
+          <h3 id="dtc-other-title">Other benefits of the DTC that you may receive</h3>
   <table class="dtc-table">
     <thead><tr><th scope="col">Benefit</th><th scope="col">Amount (2026)</th><th scope="col">How often</th></tr></thead>
     <tbody>
-      <tr><th scope="row">Tax refund for past years</th><td>Up to $40,000. The CRA can adjust up to 10 previous tax returns to apply the disability amount.</td><td><span class="d-only">Once, when approved</span><span class="m-only">Refunded once upon approval</span></td></tr>
-      <tr><th scope="row">Canada Disability Benefit<br><span class="noinc-tag">No income needed</span></th><td>Up to $204.20 a month ($2,450.40 a year), for adults aged 18 to 64.</td><td><span class="d-only">Monthly</span><span class="m-only">Paid monthly</span></td></tr>
+      <tr data-inc><th scope="row">Tax refund for past years</th><td>Up to $40,000. The CRA can adjust up to 10 previous tax returns to apply the disability amount.</td><td><span class="d-only">Once, when approved</span><span class="m-only">Refunded once upon approval</span></td></tr>
       <tr><th scope="row">Child Disability Benefit<br><span class="noinc-tag">No income needed</span></th><td>Up to $290 a month ($3,480 a year) for each eligible child, tax-free.</td><td><span class="d-only">Monthly</span><span class="m-only">Paid monthly</span></td></tr>
-      <tr><th scope="row">Disability amount (tax credit)</th><td>$10,341, plus up to $6,032 for a person under 18. Unused amounts can be transferred to a supporting family member, who claims them on their tax return and can get a tax refund.</td><td><span class="d-only">Annually</span><span class="m-only">Tax credit, claimed annually</span></td></tr>
+      <tr data-inc><th scope="row">Disability amount (tax credit)</th><td>$10,341, plus up to $6,032 for a person under 18. Unused amounts can be transferred to a supporting family member, who claims them on their tax return and can get a tax refund.</td><td><span class="d-only">Annually</span><span class="m-only">Tax credit, claimed annually</span></td></tr>
       <tr><th scope="row">Home Accessibility Tax Credit</th><td>Claim up to $20,000 a year in eligible renovation costs, worth up to $2,800.</td><td><span class="d-only">Annually</span><span class="m-only">Tax credit, claimed annually</span></td></tr>
       <tr><th scope="row">Home Buyers' Amount</th><td>A credit on up to $10,000 (worth up to $1,400) when buying a more accessible home, even if it is not a first home.</td><td><span class="d-only">When buying a home</span><span class="m-only">Tax credit, claimed when buying a home</span></td></tr>
       <tr><th scope="row">Child care expense deduction</th><td>Deduct up to $11,000 a year in child care costs for a child eligible for the DTC, instead of $8,000 or $5,000.</td><td><span class="d-only">Annually</span><span class="m-only">Deduction, claimed annually</span></td></tr>
-      <tr><th scope="row">Canada Disability Savings Grant<br><span class="noinc-tag">No income needed</span></th><td>Matches up to 300% of deposits: up to $3,500 a year, $70,000 in a lifetime.</td><td><span class="d-only">Annually</span><span class="m-only">Paid into the RDSP annually</span></td></tr>
-      <tr><th scope="row">Canada Disability Savings Bond<br><span class="noinc-tag">No income needed</span></th><td>Up to $1,000 a year and $20,000 in a lifetime. No deposits needed.</td><td><span class="d-only">Annually</span><span class="m-only">Paid into the RDSP annually</span></td></tr>
-      <tr><th scope="row">Registered Disability Savings Plan (RDSP)<br><span class="noinc-tag">No income needed</span></th><td>The account that holds the Grant and Bond. Savings grow tax-sheltered, with up to $200,000 in personal contributions.</td><td>Ongoing</td></tr>
       <tr><th scope="row">Canada Workers Benefit disability supplement</th><td>Up to $860 a year for lower-income workers.</td><td><span class="d-only">Annually</span><span class="m-only">Paid annually</span></td></tr>
       <tr><th scope="row">Attendant care expenses</th><td>Claim up to $10,000 a year ($20,000 in the year of death) in attendant care as a medical expense, in addition to the disability amount.</td><td><span class="d-only">Annually</span><span class="m-only">Claimed annually as a medical expense</span></td></tr>
       <tr><th scope="row">Qualified disability trust</th><td>Income in a trust for a person with the DTC can be taxed at lower, graduated rates.</td><td><span class="d-only">Annually</span><span class="m-only">Lower tax, annually</span></td></tr>
     </tbody>
   </table>
-  <p class="dtc-fine">Federal amounts for 2026. Some depend on income and other rules. DTC approval also lowers your provincial or territorial income tax.</p>
+          <p class="dtc-fine">Federal amounts for 2026. Some depend on income and other rules. DTC approval also lowers your provincial or territorial income tax.</p>
         </div>
-        <section>
+        <section class="dtc-next">
           <div class="dtc-apply">
-            <h4>Apply for the Disability Tax Credit</h4>
-            <p>The DTC Application Assistance Program helps you prepare a complete application from plain-language questions, including guidance for your medical practitioner, to give you the best opportunity for approval.</p>
-            <a class="btn" href="https://www.rdspcanada.ca/apply-for-the-dtc/" target="_blank" rel="noopener">Apply for the DTC</a>
+            <h4>Receiving disability benefits</h4>
+            <p>To collect your benefits, you first need to qualify for the Disability Tax Credit. It is a requirement for each of these programs.</p>
+            <p>After you have qualified for the Disability Tax Credit, you will be able to receive the benefits mentioned above.</p>
+            <div class="choice dtc-how" id="dtc-how">
+              <button type="button" class="choice-head" aria-expanded="false" aria-controls="dtc-how-body">
+                <span class="choice-title">Learn how to apply for the Disability Tax Credit</span>
+              </button>
+              <div class="choice-body" id="dtc-how-body" hidden>
+                <p>There are three different ways to apply for the Disability Tax Credit. To learn about them, you will need a short DTC Application Review session with a Benefits Specialist.</p>
+                <p>The session takes approximately 15 minutes and is conducted over Zoom, so your Benefits Specialist can share their screen and show you the three options and how to apply.</p>
+                <p>Once you have selected the option that is best for you, your Benefits Specialist will continue to assist you with your application.</p>
+                <p>From the calendar below, please choose a <b>day</b> and <b>time</b> that works best for you.</p>
+                <div class="no-time" id="no-time">
+                  <p class="no-time-open-wrap"><button type="button" class="no-time-open" id="no-time-open">Click here if none of the available times work for you.</button></p>
+                  <form class="no-time-form" id="no-time-form" hidden novalidate>
+                    <p>No problem. Choose a <strong>day</strong> and <strong>time</strong> that works best for you, and your Benefits Specialist will contact you to arrange your DTC Application Review session.</p>
+                    <label for="nt-name">Full name</label>
+                    <input type="text" id="nt-name" autocomplete="name">
+                    <label for="nt-phone">Phone number</label>
+                    <input type="tel" id="nt-phone" autocomplete="tel">
+                    <label for="nt-email">Email address</label>
+                    <input type="email" id="nt-email" autocomplete="email">
+                    <input type="text" id="nt-website" class="nt-hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+                    <label for="nt-day">Day</label>
+                    <select id="nt-day"></select>
+                    <label for="nt-time">Time</label>
+                    <select id="nt-time"></select>
+                    <p class="no-time-tz" id="nt-tz"></p>
+                    <p class="no-time-note">We will do our best to accommodate the day and time you choose. You will receive an email confirming your time, or offering another time if it is not available.</p>
+                    <p class="no-time-error" id="nt-error" hidden></p>
+                    <button type="submit" class="btn btn-wide">Send my preferred time</button>
+                  </form>
+                </div>
+                <div class="dtc-cal" id="dtc-cal"></div>
+                <div class="dtc-sent" id="dtc-booked" hidden>
+                  <div class="booked-check" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 20 20"><path d="M4 10.5l4 4 8-9" fill="none" stroke="#fff" stroke-width="3"/></svg></div>
+                  <h4>Your DTC Application Review session is scheduled</h4>
+                  <p>You will receive a confirmation email with your Zoom link. Your Benefits Specialist looks forward to meeting with you.</p>
+                </div>
+                <div class="dtc-sent" id="dtc-sent" hidden>
+                  <div class="booked-check" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 20 20"><path d="M4 10.5l4 4 8-9" fill="none" stroke="#fff" stroke-width="3"/></svg></div>
+                  <h4>Your preferred time has been sent</h4>
+                  <p id="dtc-sent-text"></p>
+                </div>
+              </div>
+            </div>
           </div>
-          <a href="next-steps.html" class="continue-btn">Continue to Next Steps &rarr;</a>
         </section>
       </div>
     </div>
   </main>
 
 
-
-
+<script>
+    // ===== What the DTC will mean for this person: the CDB, Bond and Grant, from their answers =====
+    (function() {
+        var d = {};
+        try { d = JSON.parse(localStorage.getItem('dbpAssessment')) || {}; } catch (e) {}
+        // Met every other requirement on that page (the DTC is the one still to come).
+        function okBut(r) { return !!(r && r.completed && (r.unmet || []).filter(function(k) { return k !== 'dtc'; }).length === 0); }
+        var inc = d.profile && d.profile.income; // asked on the first page
+        // Family net income over $20,000: the past-years refund and the disability amount are theirs too, so they move up.
+        var show = { cdb: okBut(d.cdb), grant: okBut(d.rdsp), bond: okBut(d.rdsp) && d.rdsp.bondIncome === 'yes', tax: inc === 'over20' };
+        document.querySelectorAll('tr[data-inc]').forEach(function(tr) { tr.hidden = show.tax; });
+        var any = false;
+        document.querySelectorAll('#dtc-yours tr[data-show]').forEach(function(tr) { var on = show[tr.getAttribute('data-show')]; tr.hidden = !on; any = any || on; });
+        if (!any) {
+            document.getElementById('dtc-yours-box').hidden = true;
+            document.getElementById('dtc-yours-intro').textContent = 'Qualifying for the DTC opens the door to the benefits below.';
+            document.getElementById('dtc-other-title').textContent = 'Benefits of the DTC';
+        }
+    })();
+</script>
 
 <script>
     // ===== GAP visibility — only for British Columbia and Ontario residents =====
@@ -190,35 +242,18 @@
 </script>
 
 <script>
-    // ===== DTC visibility — only for those who indicated they do NOT have the DTC =====
+    // ===== End of the assessment: people without the DTC end on the DTC page (their summary),
+    //       everyone else on the summary page. =====
     window.applyDtcVisibility = function() {
         var data = {};
         try { data = JSON.parse(localStorage.getItem('dbpAssessment')) || {}; } catch (e) {}
-        var hasDtc = data.profile && data.profile.dtc;
-        // Answered on the first page. Hide only when we know they already have it.
-        var showDtc = false; // DTC is covered in the summary at the end
-
-        document.querySelectorAll('.progress-step').forEach(function(step) {
-            var label = step.querySelector('.step-label');
-            if (label && label.textContent.trim() === 'DTC') { step.style.display = showDtc ? '' : 'none'; }
-        });
-
-        if (showDtc) {
-            // A "No" answer brings the DTC page back: restore links previously pointed past it.
-            document.querySelectorAll('a[data-dtc-bypassed]').forEach(function(a) {
-                a.setAttribute('href', 'dtc.html');
-                a.removeAttribute('data-dtc-bypassed');
-            });
-            return;
-        }
-
-        document.querySelectorAll('a.continue-btn[href="dtc.html"], a.skip-btn[href="dtc.html"]').forEach(function(a) {
-            a.setAttribute('href', 'next-steps.html');
-            a.setAttribute('data-dtc-bypassed', '1');
-        });
-        if (/(^|\/)dtc\.html$/i.test(location.pathname)) {
-            location.replace('next-steps.html');
-        }
+        var dtc = data.profile && data.profile.dtc;
+        var noDtc = dtc === 'no';
+        document.querySelectorAll('[data-end-label]').forEach(function(l) { l.textContent = noDtc ? 'DTC' : 'Summary'; });
+        document.querySelectorAll('a[data-end-link]').forEach(function(a) { a.setAttribute('href', noDtc ? 'dtc.html' : 'next-steps.html'); });
+        var page = location.pathname.split('/').pop();
+        if (noDtc && page === 'next-steps.html') location.replace('dtc.html');
+        if (dtc === 'yes' && page === 'dtc.html') location.replace('next-steps.html');
     };
     applyDtcVisibility();
 </script>
@@ -263,6 +298,162 @@
       });
     })();
   </script>
-  <script src="assets/tool.js?v=6"></script>
+  <script src="assets/tool.js?v=15"></script>
+<style>
+  .tool .dtc-what-top { margin: 0 0 2.25rem; }
+  .dtc-yours-box { background: #f2f7fd; border: 1px solid #b9cfe8; border-radius: 12px; padding: 1.25rem 1.25rem .25rem; margin-bottom: 2.25rem; }
+  .dtc-yours-box h3 { margin-top: .35rem; }
+  .dtc-yours-tag { display: inline-block; background: #1a4d8f; color: #fff; font-size: .8rem; font-weight: 600; letter-spacing: .02em; padding: .2rem .6rem; border-radius: 999px; }
+  .dtc-yours-box .dtc-table { background: #fff; border: 1px solid #d3e0ef; border-radius: 10px; border-collapse: separate; border-spacing: 0; overflow: hidden; }
+  .dtc-yours-box .dtc-table th:first-child { padding-left: 1.1rem; }
+  .dtc-yours-box .dtc-table td:last-child { padding-right: 1.1rem; }
+  .dtc-yours-box .dtc-table thead th { padding-top: .9rem; }
+  .dtc-yours-box .dtc-table tbody tr:last-child th, .dtc-yours-box .dtc-table tbody tr:last-child td { border-bottom: 0; }
+  .dtc-yours-box .dtc-table.yours { margin-bottom: 1rem; }
+  @media (max-width: 600px) {
+    .dtc-yours-box { padding: 1rem .85rem .1rem; }
+    .dtc-yours-box .dtc-table tr { padding: .85rem 1rem; }
+    .dtc-yours-box .dtc-table th:first-child, .dtc-yours-box .dtc-table td:last-child { padding-left: 0; padding-right: 0; }
+    .dtc-yours-box .dtc-table tbody tr:last-child { border-bottom: 0; }
+  }
+  .no-time { margin: 0 0 .25rem; }
+  .no-time-open-wrap { margin: 0 !important; }
+  .no-time-open { background: none; border: 0; padding: 4px 0; color: var(--link); font: inherit; font-size: 1.05rem; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; text-align: left; }
+  .no-time-form { margin-top: .6rem; padding: 1.1rem 1.2rem; border: 1px solid var(--line); border-radius: 12px; background: #fff; }
+  .no-time-form[hidden], .no-time-open[hidden], .no-time-error[hidden], .dtc-cal[hidden], .dtc-sent[hidden] { display: none; }
+  .no-time-form label[for] { display: block; font-weight: 600; font-size: 1rem; margin: 0 0 .35rem; color: var(--ink); }
+  .no-time-form input { display: block; width: 100%; box-sizing: border-box; padding: .65rem .75rem; font: inherit; font-size: 1rem; border: 1.5px solid #c3ccd5; border-radius: 8px; background: #fff; margin: 0 0 .9rem; }
+  .no-time-form select { display: block; width: 100%; max-width: 20rem; padding: .65rem .75rem; font: inherit; font-size: 1rem; border: 1px solid #b8c3ce; border-radius: 8px; margin: 0 0 1rem; background: #fff; color: var(--ink); }
+  .no-time-form .no-time-tz { font-size: .92rem; color: var(--muted); margin: -.5rem 0 1rem; }
+  .no-time-form .no-time-note { background: #f3f5f7; border-radius: 8px; padding: .65rem .8rem; font-size: .95rem; margin: 0 0 1rem; }
+  .no-time-error { color: #b42318; font-size: .98rem; margin: -.2rem 0 .8rem; }
+  .no-time-form .btn { width: 100%; font: inherit; font-weight: 600; font-size: 1.05rem; border: 0; cursor: pointer; }
+  .nt-hp { position: absolute !important; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+  .booked-check { width: 52px; height: 52px; border-radius: 50%; background: #2e7d4f; display: grid; place-items: center; margin: .5rem 0 1rem; }
+  .dtc-sent h4 { font-size: 1.3rem; margin: 0 0 .6rem; }
+  @media (max-width: 600px) { .no-time-form { padding: 1rem .9rem; } }
+  .dbp-widget > section.dtc-next, .tool .dtc-apply { max-width: 900px; }
+  .dtc-apply > p { margin: 0 0 .75rem; } /* same width as the benefit tables and the "Based on your answers" box */
+  .dtc-how { margin-top: 1.25rem; }
+  .dtc-how .choice-body p { margin: 0 0 .75rem; line-height: 1.55; }
+  .dtc-how .choice-body b { font-weight: 600; }
+  .dtc-cal { min-width: 300px; height: 700px; margin-top: .5rem; }
+  @media (max-width: 600px) {
+    .dtc-how .choice-body { padding: 0 .9rem 1rem; }
+    .dtc-cal { margin: .5rem -.9rem 0; min-width: 0; }
+  }
+</style>
+<script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+<script>
+  // ===== "Learn how to apply for the Disability Tax Credit": opens on this page with the DTC Application
+  //       Review session calendar and the "none of these times" form, as on rdspcanada.ca/apply-for-the-dtc/schedule/.
+  //       Bookings and preferred times go to the questionnaire server, which adds them to Todd's dashboard. =====
+  (function () {
+    var SERVER = 'https://access.rdspcanada.ca';
+    // utm_campaign=dtc: the booking and reminder messages are the DTC Application Review session ones.
+    var CAL_URL = 'https://calendly.com/benefits-rdspcanada/benefits-review-session-clone?hide_gdpr_banner=1&hide_event_type_details=1&utm_campaign=dtc';
+    var box = document.getElementById('dtc-how'), head = box.querySelector('.choice-head'),
+        body = document.getElementById('dtc-how-body'), cal = document.getElementById('dtc-cal'), loaded = false;
+    function track(n) { if (window.plausible) plausible(n); }
+    function loadCal() {
+      if (loaded) return;
+      if (!window.Calendly) { setTimeout(loadCal, 200); return; }
+      loaded = true;
+      Calendly.initInlineWidget({ url: CAL_URL, parentElement: cal });
+    }
+    head.addEventListener('click', function () {
+      var open = body.hidden;
+      body.hidden = !open; box.classList.toggle('open', open); head.setAttribute('aria-expanded', open);
+      if (open) { loadCal(); track('DTC Apply Opened'); setTimeout(function () { head.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 50); }
+    });
+    // Show only a confirmation once they have scheduled or sent a preferred time.
+    function finish(id) {
+      document.querySelectorAll('#dtc-how-body > p, #no-time, #dtc-cal').forEach(function (el) { el.hidden = true; });
+      document.getElementById(id).hidden = false;
+      box.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    window.addEventListener('message', function (e) {
+      if (e.origin !== 'https://calendly.com' || !e.data) return;
+      if (e.data.event === 'calendly.page_height' && e.data.payload) {
+        var h = parseInt(e.data.payload.height, 10); if (h > 300) cal.style.height = (h + 20) + 'px';
+        return;
+      }
+      if (e.data.event !== 'calendly.event_scheduled') return;
+      track('DTC Review Booked');
+      // Add the booking to Todd's dashboard (the server looks up who booked and when).
+      var invitee = e.data.payload && e.data.payload.invitee && e.data.payload.invitee.uri;
+      fetch(SERVER + '/dtc-booked', { method: 'POST', keepalive: true, headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ invitee: invitee || '' }) }).catch(function () {});
+      finish('dtc-booked');
+    });
+
+    // "None of these times work for me": their details and a day and time from the free times.
+    var form = document.getElementById('no-time-form'), err = document.getElementById('nt-error');
+    var day = document.getElementById('nt-day'), time = document.getElementById('nt-time');
+    var byDay = {};
+    var tz = ''; try { tz = new Intl.DateTimeFormat('en-CA', { timeZoneName: 'long' }).formatToParts(new Date()).filter(function (p) { return p.type === 'timeZoneName'; })[0].value; } catch (e) {}
+    document.getElementById('nt-tz').textContent = 'Times are shown in your time zone' + (tz ? ' (' + tz + ')' : '') + '.';
+    function fillTimes() {
+      var list = byDay[day.value] || [];
+      time.innerHTML = '<option value="">' + (list.length ? 'Choose a time' : 'Choose a day first') + '</option>' + list.map(function (s) {
+        return '<option value="' + s + '">' + new Date(s).toLocaleTimeString('en-CA', { hour: 'numeric', minute: '2-digit' }) + '</option>'; }).join('');
+      time.disabled = !list.length;
+    }
+    function loadTimes() {
+      day.disabled = true; time.disabled = true;
+      day.innerHTML = '<option value="">Loading times...</option>'; time.innerHTML = '<option value="">Choose a day first</option>';
+      return fetch(SERVER + '/available-times').then(function (r) { return r.json(); }).then(function (r) {
+        if (!r.success) throw new Error('no times');
+        byDay = {}; var order = [];
+        r.slots.forEach(function (s) { var d = new Date(s), key = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
+          if (!byDay[key]) { byDay[key] = []; order.push([key, d]); } byDay[key].push(s); });
+        day.innerHTML = '<option value="">' + (order.length ? 'Choose a day' : 'No times available') + '</option>' + order.map(function (o) {
+          return '<option value="' + o[0] + '">' + o[1].toLocaleDateString('en-CA', { weekday: 'long', month: 'long', day: 'numeric' }) + '</option>'; }).join('');
+        day.disabled = !order.length;
+      }).catch(function () { day.innerHTML = '<option value="">Times could not be loaded</option>'; throw new Error('load failed'); });
+    }
+    day.addEventListener('change', fillTimes);
+    function show(m) { err.textContent = m; err.hidden = false; }
+    document.getElementById('no-time-open').addEventListener('click', function () {
+      this.hidden = true; form.hidden = false; cal.hidden = true;
+      document.getElementById('nt-name').focus({ preventScroll: true });
+      loadTimes().catch(function () { show('The available times could not be loaded. Please check your connection and try again.'); });
+    });
+    form.addEventListener('input', function () { err.hidden = true; });
+    form.addEventListener('change', function () { err.hidden = true; });
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var name = document.getElementById('nt-name').value.trim();
+      var phone = document.getElementById('nt-phone').value.trim();
+      var email = document.getElementById('nt-email').value.trim();
+      if (!name) return show('Please enter your full name.');
+      if (phone.replace(/\D/g, '').length < 10) return show('Please enter your phone number, including the area code.');
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return show('Please enter a valid email address.');
+      if (!day.value) return show('Please choose a day.');
+      if (!time.value) return show('Please choose a time.');
+      var btn = form.querySelector('button[type="submit"]');
+      btn.disabled = true; btn.textContent = 'Sending...';
+      var zone = ''; try { zone = Intl.DateTimeFormat().resolvedOptions().timeZone; } catch (x) {}
+      fetch(SERVER + '/dtc-request', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: name, phone: phone, email: email, slot: time.value, tz: zone, website: document.getElementById('nt-website').value })
+      }).then(function (r) { return r.json(); }).then(function (r) {
+        if (r.taken) {
+          show('Sorry, that time was just taken. Please choose another time.');
+          btn.disabled = false; btn.textContent = 'Send my preferred time';
+          loadTimes().catch(function () {});
+          return;
+        }
+        if (!r.success) throw new Error('not saved');
+        track('DTC Time Requested');
+        var label = new Date(time.value).toLocaleString('en-CA', { weekday: 'long', month: 'long', day: 'numeric', hour: 'numeric', minute: '2-digit' });
+        document.getElementById('dtc-sent-text').textContent = 'We will do our best to accommodate your selected day and time: ' + label.replace(/\.$/, '') + '. You will receive an email confirming your time, or offering another time if it is not available.';
+        finish('dtc-sent');
+      }).catch(function () {
+        show('Your preferred time could not be sent. Please try again.');
+        btn.disabled = false; btn.textContent = 'Send my preferred time';
+      });
+    });
+  })();
+</script>
 </body>
 </html>
